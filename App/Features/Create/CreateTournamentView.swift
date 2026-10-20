@@ -151,9 +151,24 @@ struct CreateTournamentView: View {
         let draft = model.draft
         let planner = draft.planner
         return Section {
+            Toggle(isOn: $model.isOpenEnded) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Tours libres")
+                    Text("On joue jusqu'à la fin du créneau, sans nombre de tours fixé.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .tint(Theme.green)
+
             if planner.activeCourts == 0 {
                 Text("Le nombre de tours sera proposé dès 4 joueurs.")
                     .foregroundStyle(.secondary)
+            } else if model.isOpenEnded {
+                LabeledContent("Rythme estimé") {
+                    Text(paceDetail(draft))
+                        .multilineTextAlignment(.trailing)
+                }
             } else {
                 Stepper(
                     value: Binding(get: { model.draft.rounds }, set: { model.roundsOverride = $0 }),
@@ -177,8 +192,14 @@ struct CreateTournamentView: View {
             Text("Tours")
         } footer: {
             if planner.activeCourts > 0 {
-                if planner.isEquitable(rounds: draft.rounds) {
-                    Label("Chacun joue le même nombre de matchs.", systemImage: "checkmark.seal.fill")
+                if model.isOpenEnded {
+                    if planner.restingPerRound > 0 {
+                        Text("Chaque tour est généré quand le précédent est terminé ; arrêtez quand vous voulez. Pour que chacun ait joué autant, arrêtez après un multiple de \(planner.equitableRoundUnit) tours.")
+                    } else {
+                        Text("Chaque tour est généré quand le précédent est terminé ; arrêtez quand vous voulez. Tout le monde joue à chaque tour : le classement reste équitable à la fin de chaque tour.")
+                    }
+                } else if planner.isEquitable(rounds: draft.rounds) {
+                    Label("Chacun joue le même nombre de matchs. Vous pourrez aussi arrêter plus tôt.", systemImage: "checkmark.seal.fill")
                         .foregroundStyle(Theme.green)
                 } else {
                     Label("Tout le monde ne jouera pas le même nombre de matchs.", systemImage: "exclamationmark.triangle.fill")
@@ -186,6 +207,13 @@ struct CreateTournamentView: View {
                 }
             }
         }
+    }
+
+    /// Ex. « ≈ 5 tours par heure (12 min par tour) ».
+    private func paceDetail(_ draft: TournamentDraft) -> String {
+        let minutes = RoundPlanner.estimatedMatchMinutes(for: draft.scoring)
+        let perHour = max(1, Int((60 / minutes).rounded(.down)))
+        return String(localized: "≈ \(perHour) tours par heure (\(Int(minutes.rounded())) min par tour)")
     }
 
     @ViewBuilder

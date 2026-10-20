@@ -14,7 +14,7 @@ struct ScheduleView: View {
                 RoundSection(
                     tournament: tournament,
                     round: round,
-                    isCurrent: round.index == tournament.currentRound?.index,
+                    isCurrent: tournament.status == .inProgress && round.index == tournament.currentRound?.index,
                     onSelect: onSelect
                 )
             }
@@ -22,7 +22,9 @@ struct ScheduleView: View {
     }
 
     private var orderedRounds: [Round] {
-        guard let current = tournament.currentRound?.index else { return tournament.rounds }
+        guard tournament.status == .inProgress, let current = tournament.currentRound?.index else {
+            return tournament.rounds
+        }
         let upcoming = tournament.rounds.filter { $0.index >= current }
         let played = tournament.rounds.filter { $0.index < current }.reversed()
         return upcoming + played
@@ -41,7 +43,9 @@ struct RoundSection: View {
                 Text("Tour \(round.index)")
                     .font(.title3.weight(.bold))
                     .accessibilityAddTraits(.isHeader)
-                if isCurrent {
+                if round.isExcluded {
+                    BadgeView(text: String(localized: "Non compté"), color: Theme.warning)
+                } else if isCurrent {
                     BadgeView(text: String(localized: "En cours"))
                 } else if round.isComplete {
                     BadgeView(text: String(localized: "Terminé"), color: .secondary)
@@ -163,7 +167,7 @@ extension ScheduleCompromise {
     var message: String {
         switch self {
         case .unequalMatches(let range):
-            String(localized: "Selon les joueurs, \(range.lowerBound) ou \(range.upperBound) matchs : le nombre de tours ne permet pas une répartition parfaite.")
+            String(localized: "Selon les joueurs, \(range.lowerBound) ou \(range.upperBound) matchs joués : le classement au total des points avantage ceux qui ont joué un match de plus.")
         case .repeatedPartners(let pairs, let maxTimes):
             String(localized: "\(pairs) duo(s) joueront ensemble jusqu'à \(maxTimes) fois. Le programme limite ces répétitions au strict nécessaire.")
         }

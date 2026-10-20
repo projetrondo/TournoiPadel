@@ -200,39 +200,68 @@ struct TournamentDetailView: View {
         if tournament.isReadOnly {
             ScheduleView(tournament: tournament)
         } else {
-            finishAction(tournament)
             mexicanoActions(tournament)
+            finishAction(tournament)
             ScheduleView(tournament: tournament) { match in
                 scoreTarget = ScoreTarget(id: match.id)
             }
         }
     }
 
+    /// Arrêt du tournoi, possible à tout moment dès qu'un match a été validé.
     @ViewBuilder
     private func finishAction(_ tournament: Tournament) -> some View {
         if tournament.canFinish {
-            Button {
-                isConfirmingFinish = true
-            } label: {
-                Label("Terminer le tournoi", systemImage: "flag.checkered")
-            }
-            .buttonStyle(PrimaryButtonStyle())
-            .confirmationDialog("Terminer le tournoi ?", isPresented: $isConfirmingFinish, titleVisibility: .visible) {
-                Button("Terminer et voir les résultats") {
-                    library.perform {
-                        try library.modify(id: tournament.id) { t, date in try t.finish(now: date) }
-                    }
-                    tab = .results
-                }
-                Button("Annuler", role: .cancel) {}
-            } message: {
-                if tournament.format == .mexicano, tournament.rounds.count < tournament.settings.plannedRounds {
-                    Text("\(tournament.rounds.count) tour(s) joué(s) sur \(tournament.settings.plannedRounds) prévus. Le classement actuel deviendra le classement final.")
+            // Bouton principal seulement quand il n'y a plus rien à jouer.
+            let isMainAction = !tournament.canGenerateNextRound && tournament.currentRound == nil
+            Group {
+                if isMainAction {
+                    finishButton.buttonStyle(PrimaryButtonStyle())
                 } else {
-                    Text("Le classement actuel deviendra le classement final. Les scores pourront encore être corrigés.")
+                    finishButton.buttonStyle(SecondaryButtonStyle())
                 }
+            }
+            .confirmationDialog("Terminer le tournoi ?", isPresented: $isConfirmingFinish, titleVisibility: .visible) {
+                if tournament.hasPartiallyPlayedRound {
+                    if tournament.rounds.contains(where: \.isComplete) {
+                        Button("Compter seulement les tours complets") { finish(tournament, mode: .completedRoundsOnly) }
+                    }
+                    Button("Compter tous les matchs joués") { finish(tournament, mode: .countAllPlayedMatches) }
+                } else {
+                    Button("Terminer et voir les résultats") { finish(tournament, mode: .countAllPlayedMatches) }
+                }
+                Button("Continuer à jouer", role: .cancel) {}
+            } message: {
+                Text(finishMessage(tournament))
             }
         }
+    }
+
+    private var finishButton: some View {
+        Button {
+            isConfirmingFinish = true
+        } label: {
+            Label("Terminer le tournoi", systemImage: "flag.checkered")
+        }
+    }
+
+    private func finish(_ tournament: Tournament, mode: FinishMode) {
+        library.perform {
+            try library.modify(id: tournament.id) { t, date in try t.finish(now: date, mode: mode) }
+        }
+        tab = .results
+    }
+
+    private func finishMessage(_ tournament: Tournament) -> String {
+        let played = tournament.rounds.filter(\.isComplete).count
+        if let partial = tournament.rounds.first(where: { $0.hasPlayedMatch && !$0.isComplete }) {
+            let done = partial.matches.filter { $0.state == .completed }.count
+            return String(localized: "Le tour \(partial.index) est en cours (\(done) match(s) sur \(partial.matches.count) joués). Compter seulement les tours complets garantit que tout le monde a joué autant de tours ; ses scores restent conservés. Le classement final ne changera plus, mais les scores pourront encore être corrigés.")
+        }
+        if !tournament.settings.isOpenEnded, played < tournament.settings.plannedRounds {
+            return String(localized: "\(played) tour(s) joué(s) sur \(tournament.settings.plannedRounds) prévus. Les tours non joués seront retirés et le classement actuel deviendra le classement final.")
+        }
+        return String(localized: "Le classement actuel deviendra le classement final. Les scores pourront encore être corrigés.")
     }
 
     /// Mexicano : tour suivant, ou nouveau calcul du dernier tour après une correction.
@@ -247,9 +276,11 @@ struct TournamentDetailView: View {
                 Label("Générer le tour \(tournament.rounds.count + 1)", systemImage: "wand.and.stars")
             }
             .buttonStyle(PrimaryButtonStyle())
-        } else if tournament.format == .mexicano, tournament.status == .inProgress,
-                  tournament.rounds.count < tournament.settings.plannedRounds {
-            Label("Le tour suivant sera composé d'après le classement dès que tous les matchs de ce tour seront terminés.",
+        } else if tournament.generatesRoundsOnDemand, tournament.status == .inProgress,
+                  tournament.rounds.count < tournament.settings.maximumRounds {
+            Label(tournament.format == .mexicano
+                  ? String(localized: "Le tour suivant sera composé d'après le classement dès que tous les matchs de ce tour seront terminés.")
+                  : String(localized: "Le tour suivant sera généré dès que tous les matchs de ce tour seront terminés. Vous pouvez arrêter quand vous voulez."),
                   systemImage: "info.circle.fill")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
@@ -282,7 +313,11 @@ struct TournamentDetailView: View {
         let planner = RoundPlanner(playerCount: tournament.players.count, declaredCourts: tournament.settings.courts)
         VStack(alignment: .leading, spacing: 10) {
             infoRow("Terrains", value: "\(planner.activeCourts)", systemImage: "square.split.2x1")
-            infoRow("Tours", value: "\(tournament.settings.plannedRounds)", systemImage: "arrow.triangle.2.circlepath")
+            infoRow(
+                "Tours",
+                value: tournament.settings.isOpenEnded ? String(localized: "Libre") : "\(tournament.settings.plannedRounds)",
+                systemImage: "arrow.triangle.2.circlepath"
+            )
             if tournament.status == .draft, !tournament.isReadOnly {
                 Button {
                     isEditingScoring = true

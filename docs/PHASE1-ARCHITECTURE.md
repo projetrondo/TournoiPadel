@@ -410,6 +410,25 @@ un tour déjà généré**. Si aucun score n'a encore été saisi dans le tour e
 
 ---
 
+## 7.4 Tours libres et arrêt à tout moment (ajout après la phase 6)
+
+Cas d'usage réel : 16 joueurs, 4 terrains, matchs en 21 points, créneau d'environ 2 heures,
+nombre de tours inconnu à l'avance.
+
+- **Tours libres** (option à la création) : aucun nombre de tours fixé (limite technique : 40).
+  Chaque tour est généré quand le précédent est terminé :
+  - en **Americano**, rotation des partenaires (méthode du cercle sur le premier cycle,
+    recherche locale ensuite) ; à 16 joueurs, aucun partenaire ne se répète sur 15 tours ;
+  - en **Mexicano**, d'après le classement, comme d'habitude.
+- **Arrêt à tout moment**, dès qu'un match a été validé, quel que soit le mode :
+  - les tours où aucun match n'a été joué sont retirés (ils ne contiennent aucun score) ;
+  - si un tour est commencé mais pas terminé, l'organisateur choisit :
+    **compter tous les matchs joués** ou **seulement les tours complets**. Dans le second cas,
+    le tour est marqué « non compté » : ses scores sont conservés mais exclus du classement ;
+  - si les joueurs n'ont pas tous joué autant de matchs, les résultats le signalent.
+- Avec des pauses (nombre de joueurs non multiple de 4), l'app indique après combien de tours
+  arrêter pour que chacun ait joué autant.
+
 ## 8. Classement et départage
 
 Statistiques par joueur : matchs joués, points marqués, points encaissés, différence,

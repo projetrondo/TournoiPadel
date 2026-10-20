@@ -104,11 +104,20 @@ public struct Round: Codable, Hashable, Sendable {
     public var matches: [Match]
     /// Joueurs au repos pendant ce tour.
     public var resting: [Player.ID]
+    /// Tour interrompu à la clôture et non compté au classement (ses scores sont conservés).
+    public var excluded: Bool?
 
-    public init(index: Int, matches: [Match], resting: [Player.ID]) {
+    public init(index: Int, matches: [Match], resting: [Player.ID], isExcluded: Bool = false) {
         self.index = index
         self.matches = matches
         self.resting = resting
+        self.excluded = isExcluded ? true : nil
+    }
+
+    public var isExcluded: Bool { excluded ?? false }
+
+    public var hasPlayedMatch: Bool {
+        matches.contains { $0.state == .completed }
     }
 
     public var isComplete: Bool {

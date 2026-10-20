@@ -86,6 +86,42 @@ public struct AmericanoScheduler: Sendable {
         return result
     }
 
+    /// Mode libre : génère uniquement le tour suivant les tours déjà joués, sans connaître
+    /// le nombre total de tours. Sur le premier cycle, les partenaires suivent la méthode du
+    /// cercle (déterminée par la graine du tournoi, donc identique d'un appel à l'autre) ;
+    /// ensuite, recherche locale à partir de l'historique réel.
+    public func nextRound(history: [Round]) throws -> Round {
+        let n = playerIDs.count
+        guard n >= RoundPlanner.minPlayers else { throw ScheduleError.notEnoughPlayers(minimum: RoundPlanner.minPlayers) }
+        guard Set(playerIDs).count == n else { throw ScheduleError.duplicatePlayers }
+        guard courts >= 1, planner.activeCourts >= 1 else { throw ScheduleError.noCourt }
+        guard history.count < RoundPlanner.roundsRange.upperBound else { throw ScheduleError.invalidRoundCount }
+
+        let number = history.count + 1
+        let index = Dictionary(uniqueKeysWithValues: playerIDs.enumerated().map { ($1, $0) })
+        let ledger = PairingLedger(rounds: history, index: index)
+        var rng = SeededGenerator.derived(seed: seed, salt: UInt64(number) &+ 0x1000)
+
+        var cycleRNG = SeededGenerator(seed: seed)
+        let cycle = usesCircleMethod ? circleSchedule(rng: &cycleRNG) : []
+        let matches: [[Int]]
+        let resting: [Int]
+        if history.count < cycle.count {
+            let pairs = cycle[history.count]
+            resting = pairs.filter { $0.0 >= n || $0.1 >= n }.map { min($0.0, $0.1) }
+            let active = pairs.filter { $0.0 < n && $0.1 < n }
+            matches = MatchArranger.groupPairs(active, ledger: ledger, restarts: Self.restartsPerRound * 2, rng: &rng)
+        } else {
+            resting = RestSelector.choose(count: planner.restingPerRound, among: Array(0..<n), ledger: ledger, rng: &rng)
+            let restingSet = Set(resting)
+            let active = (0..<n).filter { !restingSet.contains($0) }
+            matches = MatchArranger.arrange(players: active, ledger: ledger, restarts: Self.restartsPerRound * 4, rng: &rng)
+        }
+        let round = makeRound(index: number, matches: matches, resting: resting, playerIDs: playerIDs, rng: &rng)
+        try ScheduleValidator.validate(round: round, playerIDs: playerIDs, activeCourts: planner.activeCourts)
+        return round
+    }
+
     private func buildSchedule(useCircle: Bool, rng: inout SeededGenerator) -> (PairingLedger, [(matches: [[Int]], resting: [Int])]) {
         let n = playerIDs.count
         let restCount = planner.restingPerRound

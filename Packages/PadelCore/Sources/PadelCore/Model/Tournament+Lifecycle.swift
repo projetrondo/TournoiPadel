@@ -28,6 +28,8 @@ extension Tournament {
         guard status == .draft, rounds.isEmpty else { throw LifecycleError.alreadyStarted }
         let generated: [Round]
         switch format {
+        case .americano where settings.isOpenEnded:
+            generated = [try Self.scheduling { try AmericanoScheduler(tournament: self).nextRound(history: []) }]
         case .americano:
             generated = try Self.scheduling { try AmericanoScheduler(tournament: self).generate() }
         case .mexicano:
@@ -50,20 +52,31 @@ extension Tournament {
         touch(at: now)
     }
 
-    /// Mexicano : le tour suivant peut être généré quand tous les matchs du tour actuel sont terminés.
-    public var canGenerateNextRound: Bool {
-        format == .mexicano && status == .inProgress
-            && rounds.allSatisfy(\.isComplete) && rounds.count < settings.plannedRounds
+    /// Tours générés à la demande : Mexicano, ou Americano en mode libre.
+    public var generatesRoundsOnDemand: Bool {
+        format == .mexicano || settings.isOpenEnded
     }
 
-    /// Mexicano : génère le tour suivant à partir des scores saisis. Les tours précédents ne
-    /// sont pas modifiés.
+    /// Le tour suivant peut être généré quand tous les matchs du tour actuel sont terminés.
+    public var canGenerateNextRound: Bool {
+        generatesRoundsOnDemand && status == .inProgress
+            && rounds.allSatisfy(\.isComplete) && rounds.count < settings.maximumRounds
+    }
+
+    /// Génère le tour suivant (Mexicano : d'après les scores ; Americano libre : rotation des
+    /// partenaires). Les tours précédents ne sont pas modifiés.
     public mutating func generateNextRound(now: Date) throws {
-        guard format == .mexicano else { throw LifecycleError.wrongFormat }
+        guard generatesRoundsOnDemand else { throw LifecycleError.wrongFormat }
         guard status == .inProgress else { throw LifecycleError.notStarted }
         guard rounds.allSatisfy(\.isComplete) else { throw LifecycleError.roundNotComplete }
-        guard rounds.count < settings.plannedRounds else { throw LifecycleError.allRoundsGenerated }
-        let round = try Self.scheduling { try MexicanoScheduler(tournament: self).nextRound() }
+        guard rounds.count < settings.maximumRounds else { throw LifecycleError.allRoundsGenerated }
+        let round: Round
+        switch format {
+        case .mexicano:
+            round = try Self.scheduling { try MexicanoScheduler(tournament: self).nextRound() }
+        case .americano:
+            round = try Self.scheduling { try AmericanoScheduler(tournament: self).nextRound(history: rounds) }
+        }
         rounds.append(round)
         touch(at: now)
     }

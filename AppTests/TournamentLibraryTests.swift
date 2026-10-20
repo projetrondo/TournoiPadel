@@ -114,11 +114,12 @@ struct TournamentLibraryTests {
 
     @Test("Sélecteur de points : aller-retour avec la règle de score")
     func scoringSelection() {
-        for rule in [ScoringRule.fixedTotal(points: 24), .fixedTotal(points: 21), .raceTo(points: 32), .raceTo(points: 11), .free] {
+        for rule in [ScoringRule.fixedTotal(points: 24), .fixedTotal(points: 21), .fixedTotal(points: 20), .raceTo(points: 32), .raceTo(points: 11), .free] {
             #expect(ScoringSelection(rule: rule).rule == rule)
         }
-        var selection = ScoringSelection(rule: .fixedTotal(points: 21))
-        #expect(selection.preset == nil && selection.customPoints == 21)
+        #expect(ScoringSelection(rule: .fixedTotal(points: 21)).preset == 21)
+        var selection = ScoringSelection(rule: .fixedTotal(points: 20))
+        #expect(selection.preset == nil && selection.customPoints == 20)
         selection.preset = 16
         #expect(selection.rule == .fixedTotal(points: 16))
     }
@@ -162,6 +163,39 @@ struct TournamentLibraryTests {
                 activeCourts: RoundPlanner(playerCount: tournament.players.count, declaredCourts: tournament.settings.courts).activeCourts
             )
         }
+    }
+
+    @Test("Tours libres : 16 joueurs, 4 terrains, 21 points, arrêt en plein tour")
+    func openEndedEvening() async throws {
+        let library = TournamentLibrary(store: InMemoryTournamentStore())
+        let model = CreateTournamentModel()
+        model.name = "Jeudi soir"
+        for index in 1...16 {
+            model.newPlayerName = "Joueur \(index)"
+            model.addPlayer()
+        }
+        model.scoringSelection.preset = 21
+        model.isOpenEnded = true
+        #expect(model.courts == 4)
+        #expect(model.draft.canCreate)
+
+        let created = try library.create(from: model.draft)
+        try await library.start(id: created.id)
+        var tournament = try #require(library.tournament(id: created.id))
+        #expect(tournament.rounds.count == 1)
+        for match in tournament.rounds[0].matches {
+            try library.modify(id: created.id) { t, date in try t.validateScore(match.id, score: Score(11, 10), now: date) }
+        }
+        try library.modify(id: created.id) { t, date in try t.generateNextRound(now: date) }
+        tournament = try #require(library.tournament(id: created.id))
+        let firstOfRoundTwo = try #require(tournament.rounds[1].matches.first)
+        try library.modify(id: created.id) { t, date in try t.validateScore(firstOfRoundTwo.id, score: Score(13, 8), now: date) }
+
+        try library.modify(id: created.id) { t, date in try t.finish(now: date, mode: .completedRoundsOnly) }
+        let finished = try #require(library.tournament(id: created.id))
+        #expect(finished.status == .finished)
+        #expect(finished.rounds[1].isExcluded)
+        #expect(finished.standings.allSatisfy { $0.stats.played == 1 })
     }
 
     @Test("Suppression")

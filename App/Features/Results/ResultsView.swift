@@ -23,6 +23,11 @@ struct ResultsView: View {
                 keyFigure("\(results.totalPoints)", label: String(localized: "points joués"))
             }
 
+            CompromiseNotice(compromises: results.statistics.compromises.filter {
+                if case .unequalMatches = $0 { return true }
+                return false
+            })
+
             shareButtons(results)
 
             StandingsView(tournament: tournament)

@@ -52,7 +52,7 @@ public struct MexicanoScheduler: Sendable {
         let index = Dictionary(uniqueKeysWithValues: playerIDs.enumerated().map { ($1, $0) })
         let ledger = PairingLedger(rounds: history, index: index)
         // Graine propre à chaque tour : régénérer un tour donne le même résultat.
-        var rng = SeededGenerator(seed: tournament.seed ^ (UInt64(number) &* 0x9E37_79B9_7F4A_7C15))
+        var rng = SeededGenerator.derived(seed: tournament.seed, salt: UInt64(number))
 
         let resting = RestSelector.choose(count: planner.restingPerRound, among: Array(0..<n), ledger: ledger, rng: &rng)
         let restingSet = Set(resting)

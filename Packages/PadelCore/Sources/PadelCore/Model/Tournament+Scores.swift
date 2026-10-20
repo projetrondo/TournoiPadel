@@ -14,6 +14,13 @@ public enum ScoreEntryError: Error, Hashable, Sendable {
     case roundLocked
 }
 
+public enum FinishMode: Hashable, Sendable {
+    /// Tous les matchs validés comptent, y compris ceux du tour interrompu.
+    case countAllPlayedMatches
+    /// Seuls les tours entièrement joués comptent (tout le monde a joué autant de tours).
+    case completedRoundsOnly
+}
+
 public struct MatchLocation: Hashable, Sendable {
     public let round: Int
     public let match: Int
@@ -105,16 +112,32 @@ extension Tournament {
         touch(at: now)
     }
 
-    /// Le tournoi peut être clôturé : tous les matchs générés sont terminés, et pour l'Americano
-    /// tous les tours prévus ont été joués. Un Mexicano peut s'arrêter après n'importe quel tour.
+    /// Le tournoi peut être arrêté à tout moment, dès qu'au moins un match a été validé.
     public var canFinish: Bool {
-        guard status == .inProgress, !rounds.isEmpty, rounds.allSatisfy(\.isComplete) else { return false }
-        return format == .mexicano || rounds.count == settings.plannedRounds
+        status == .inProgress && rounds.contains(where: \.hasPlayedMatch)
     }
 
-    public mutating func finish(now: Date) throws {
+    /// Un tour est commencé mais pas terminé : l'organisateur choisit s'il compte.
+    public var hasPartiallyPlayedRound: Bool {
+        rounds.contains { $0.hasPlayedMatch && !$0.isComplete }
+    }
+
+    /// Arrête le tournoi et fige le classement final.
+    /// - Les tours où aucun match n'a été joué sont retirés (ils ne contiennent aucun score).
+    /// - Un tour commencé mais pas terminé est compté (`countAllPlayedMatches`) ou exclu du
+    ///   classement (`completedRoundsOnly`) ; ses scores sont conservés dans tous les cas.
+    public mutating func finish(now: Date, mode: FinishMode = .countAllPlayedMatches) throws {
         guard status == .inProgress else { throw LifecycleError.notStarted }
         guard canFinish else { throw LifecycleError.roundNotComplete }
+        if mode == .completedRoundsOnly {
+            guard rounds.contains(where: \.isComplete) else { throw LifecycleError.roundNotComplete }
+        }
+        rounds.removeAll { !$0.hasPlayedMatch }
+        if mode == .completedRoundsOnly {
+            for index in rounds.indices where !rounds[index].isComplete {
+                rounds[index].excluded = true
+            }
+        }
         status = .finished
         touch(at: now)
     }

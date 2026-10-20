@@ -8,6 +8,14 @@ individuel en direct. Sans compte, sans publicité, sans abonnement.
 > classement, résultats, partage entre iPhone (CloudKit, **désactivé tant que le compte Apple
 > Developer n'existe pas** — voir [`docs/PARTAGE.md`](docs/PARTAGE.md)). Voir [`docs/PHASE1-ARCHITECTURE.md`](docs/PHASE1-ARCHITECTURE.md).
 
+## Fonctionnalités clés
+
+- Americano et Mexicano, 4 à 32 joueurs, 1 à 8 terrains, pauses tournantes équitables.
+- Points par match : 16, 21, 24, 32 ou personnalisé ; total fixe, premier à N, ou libre.
+- **Tours libres** : on joue jusqu'à la fin du créneau et on **arrête quand on veut**, même en
+  plein tour ; le classement final est calculé sur les matchs joués.
+- Saisie rapide des scores, corrections tracées, classement en direct, résultats partageables.
+
 ## Organisation du dépôt
 
 | Dossier | Contenu |

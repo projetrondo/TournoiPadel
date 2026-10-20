@@ -24,6 +24,8 @@ public struct TournamentDraft: Hashable, Sendable {
     public var scoring: ScoringRule
     public var rounds: Int
     public var mexicanoFirstRound: FirstRoundMode
+    /// Mode libre : pas de nombre de tours fixé, on s'arrête quand on veut.
+    public var isOpenEnded: Bool
 
     public init(
         name: String = "",
@@ -32,7 +34,8 @@ public struct TournamentDraft: Hashable, Sendable {
         courts: Int = 1,
         scoring: ScoringRule = .fixedTotal(points: 24),
         rounds: Int = 3,
-        mexicanoFirstRound: FirstRoundMode = .random
+        mexicanoFirstRound: FirstRoundMode = .random,
+        isOpenEnded: Bool = false
     ) {
         self.name = name
         self.format = format
@@ -41,6 +44,7 @@ public struct TournamentDraft: Hashable, Sendable {
         self.scoring = scoring
         self.rounds = rounds
         self.mexicanoFirstRound = mexicanoFirstRound
+        self.isOpenEnded = isOpenEnded
     }
 
     public var planner: RoundPlanner {
@@ -77,7 +81,7 @@ public struct TournamentDraft: Hashable, Sendable {
         if let points = scoring.points, !ScoringRule.pointsRange.contains(points) {
             issues.append(.invalidPoints(ScoringRule.pointsRange))
         }
-        if !RoundPlanner.roundsRange.contains(rounds) {
+        if !isOpenEnded, !RoundPlanner.roundsRange.contains(rounds) {
             issues.append(.invalidRoundCount(RoundPlanner.roundsRange))
         }
         if format == .mexicano, mexicanoFirstRound == .byLevel, players.contains(where: { $0.level == nil }) {
@@ -92,7 +96,7 @@ public struct TournamentDraft: Hashable, Sendable {
             if planner.restingPerRound > 0 {
                 issues.append(.restingPlayers(perRound: planner.restingPerRound))
             }
-            if RoundPlanner.roundsRange.contains(rounds), !planner.isEquitable(rounds: rounds) {
+            if !isOpenEnded, RoundPlanner.roundsRange.contains(rounds), !planner.isEquitable(rounds: rounds) {
                 issues.append(.unequalMatchCount(suggestions: nearestEquitableRounds()))
             }
         }
@@ -142,8 +146,9 @@ public struct TournamentDraft: Hashable, Sendable {
         let settings = TournamentSettings(
             courts: courts,
             scoring: scoring,
-            plannedRounds: rounds,
-            mexicanoFirstRound: mexicanoFirstRound
+            plannedRounds: isOpenEnded ? RoundPlanner.roundsRange.upperBound : rounds,
+            mexicanoFirstRound: mexicanoFirstRound,
+            isOpenEnded: isOpenEnded
         )
         return Tournament(
             name: trimmedName,

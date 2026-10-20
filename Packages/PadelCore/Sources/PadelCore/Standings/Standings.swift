@@ -44,12 +44,12 @@ public struct StandingRow: Hashable, Sendable, Identifiable {
 /// 3. différence de points ;
 /// 4. sinon ex aequo : même position. Pour l'affichage, les ex aequo restent dans l'ordre
 ///    d'inscription.
-/// Seuls les matchs terminés avec un score comptent. Le classement n'est jamais stocké :
+/// Seuls les matchs terminés avec un score comptent, hors tours exclus à la clôture. Le classement n'est jamais stocké :
 /// il est recalculé à chaque fois, donc toujours à jour après une validation ou une correction.
 public enum Standings {
     public static func stats(for tournament: Tournament) -> [Player.ID: PlayerStats] {
         var stats = Dictionary(uniqueKeysWithValues: tournament.players.map { ($0.id, PlayerStats(playerID: $0.id)) })
-        for round in tournament.rounds {
+        for round in tournament.rounds where !round.isExcluded {
             for match in round.matches {
                 guard match.state == .completed, let score = match.score else { continue }
                 record(team: match.teamA, scored: score.teamA, conceded: score.teamB, into: &stats)

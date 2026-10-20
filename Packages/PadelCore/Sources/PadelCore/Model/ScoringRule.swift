@@ -9,7 +9,7 @@ public enum ScoringRule: Codable, Hashable, Sendable {
     /// Scores libres (match au temps) : valeurs positives, au moins un point joué.
     case free
 
-    public static let presetPoints = [16, 24, 32]
+    public static let presetPoints = [16, 21, 24, 32]
     public static let pointsRange = 4...99
     /// Plafond de cohérence pour les scores libres.
     public static let maxFreeScore = 99

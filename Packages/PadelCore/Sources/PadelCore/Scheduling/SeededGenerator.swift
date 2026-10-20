@@ -39,6 +39,14 @@ public struct SeededGenerator: RandomNumberGenerator, Sendable {
         return copy
     }
 
+    /// Générateur dérivé d'une graine et d'un « sel » (ex. numéro de tour), sans corrélation
+    /// entre sels voisins : la graine combinée passe deux fois par la fonction de mélange.
+    public static func derived(seed: UInt64, salt: UInt64) -> SeededGenerator {
+        var mixer = SeededGenerator(seed: seed ^ (salt &* 0xBF58_476D_1CE4_E5B9))
+        _ = mixer.next()
+        return SeededGenerator(seed: mixer.next())
+    }
+
     /// Nouvelle graine dérivée, pour des sous-générations indépendantes.
     public mutating func fork() -> SeededGenerator {
         SeededGenerator(seed: next())

@@ -14,6 +14,7 @@ final class CreateTournamentModel {
     var newPlayerName = ""
     var scoringSelection = ScoringSelection()
     var mexicanoFirstRound: FirstRoundMode = .random
+    var isOpenEnded = false
     var courtsOverride: Int?
     var roundsOverride: Int?
 
@@ -25,7 +26,8 @@ final class CreateTournamentModel {
             courts: courts,
             scoring: scoring,
             rounds: 1,
-            mexicanoFirstRound: mexicanoFirstRound
+            mexicanoFirstRound: mexicanoFirstRound,
+            isOpenEnded: isOpenEnded
         )
         draft.rounds = roundsOverride ?? draft.planner.recommendedRounds(scoring: scoring) ?? 1
         return draft

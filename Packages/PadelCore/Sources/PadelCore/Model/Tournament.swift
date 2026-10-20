@@ -79,21 +79,33 @@ public struct TournamentSettings: Codable, Hashable, Sendable {
     /// Terrains déclarés par l'organisateur (seuls ⌊joueurs / 4⌋ au maximum sont utilisés).
     public var courts: Int
     public var scoring: ScoringRule
-    /// Nombre de tours prévus.
+    /// Nombre de tours prévus (ignoré en mode libre).
     public var plannedRounds: Int
     /// Mexicano uniquement : mode de constitution du premier tour.
     public var mexicanoFirstRound: FirstRoundMode
+    /// Mode libre : pas de nombre de tours fixé, chaque tour est généré à la demande et on
+    /// s'arrête quand on veut. Absent des fichiers antérieurs : `nil` = nombre fixe.
+    public var openEnded: Bool?
 
     public init(
         courts: Int,
         scoring: ScoringRule,
         plannedRounds: Int,
-        mexicanoFirstRound: FirstRoundMode = .random
+        mexicanoFirstRound: FirstRoundMode = .random,
+        isOpenEnded: Bool = false
     ) {
         self.courts = courts
         self.scoring = scoring
         self.plannedRounds = plannedRounds
         self.mexicanoFirstRound = mexicanoFirstRound
+        self.openEnded = isOpenEnded ? true : nil
+    }
+
+    public var isOpenEnded: Bool { openEnded ?? false }
+
+    /// Nombre maximal de tours : celui prévu, ou la limite technique en mode libre.
+    public var maximumRounds: Int {
+        isOpenEnded ? RoundPlanner.roundsRange.upperBound : plannedRounds
     }
 }
 

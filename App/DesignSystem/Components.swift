@@ -117,7 +117,9 @@ extension Tournament {
         case .draft:
             String(localized: "Prêt à lancer")
         case .inProgress:
-            String(localized: "Tour \(currentRound?.index ?? rounds.count) sur \(settings.plannedRounds)")
+            settings.isOpenEnded
+                ? String(localized: "Tour \(currentRound?.index ?? rounds.count)")
+                : String(localized: "Tour \(currentRound?.index ?? rounds.count) sur \(settings.plannedRounds)")
         case .finished:
             String(localized: "Terminé")
         }
