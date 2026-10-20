@@ -68,6 +68,19 @@ struct TournamentLibraryTests {
         #expect(library.tournament(id: tournament.id)?.name == "Vendredi")
     }
 
+    @Test("Lancer un Americano enregistre le programme")
+    func start() async throws {
+        let store = InMemoryTournamentStore()
+        let library = TournamentLibrary(store: store)
+        let tournament = try library.create(from: Self.validDraft())
+        try await library.start(id: tournament.id)
+
+        let saved = try #require(store.loadAll().tournaments.first)
+        #expect(saved.status == .inProgress)
+        #expect(saved.rounds.count == 3)
+        #expect(library.tournament(id: tournament.id)?.rounds.count == 3)
+    }
+
     @Test("Suppression")
     func delete() throws {
         let store = InMemoryTournamentStore()

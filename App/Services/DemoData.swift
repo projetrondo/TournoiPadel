@@ -5,7 +5,17 @@ import PadelCore
 enum DemoData {
     static func tournaments() -> [Tournament] {
         let reference = Date(timeIntervalSince1970: 1_790_000_000)
+        var started = makeTournament(
+            name: "Americano du dimanche",
+            format: .americano,
+            names: ["Alex", "Manon", "Julien", "Camille", "Rayan", "Zoé", "Antoine", "Lina"],
+            courts: 2,
+            status: .draft,
+            date: reference.addingTimeInterval(3_600)
+        )
+        try? started.start(now: reference.addingTimeInterval(3_600))
         return [
+            started,
             makeTournament(
                 name: "Padel du jeudi",
                 format: .americano,

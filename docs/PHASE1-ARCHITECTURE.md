@@ -338,15 +338,25 @@ coût = 100 × Σ (nombre de fois où ces deux joueurs ont déjà été partenai
      +   1 × déséquilibre de terrains (optionnel)
 ```
 
-Méthode : construction gloutonne randomisée + recherche locale (échanges de joueurs entre équipes
-et entre matchs) avec plusieurs redémarrages, en gardant la meilleure solution. Taille du problème
-très petite (≤ 32 joueurs) : quelques millisecondes.
+Implémentation retenue (phase 3, `Packages/PadelCore/Sources/PadelCore/Scheduling/`) :
 
-Pour les cas « parfaits » (4, 5, 8, 9, 12, 13, 16 joueurs avec suffisamment de terrains), il existe
-des plannings où chacun est partenaire de chacun exactement une fois (tables de *whist*). Objectif
-de test : **zéro répétition de partenaire** sur ces cas. Si l'heuristique ne l'atteint pas de façon
-fiable en phase 3, on embarque ces tables connues, vérifiées par les mêmes tests. Je ne promets
-pas l'optimalité avant d'avoir mesuré.
+- **Cas parfaits** — 4k joueurs sans pause, ou 4k+1 joueurs avec une pause par tour
+  (4, 5, 8, 9, 12, 13, 16, 17, 20…) : **méthode du cercle** (tournoi toutes rondes, avec un
+  joueur fictif si le nombre est impair ; le partenaire du joueur fictif est au repos). Sur un
+  cycle, chacun est partenaire de chacun **exactement une fois**. Une recherche locale répartit
+  ensuite les paires en matchs pour équilibrer les adversaires.
+- **Autres cas** et tours au-delà d'un cycle : pauses choisies par `RestSelector`, puis recherche
+  locale (échanges de joueurs entre équipes, plusieurs départs aléatoires) qui minimise le coût
+  ci-dessus.
+- Plusieurs tentatives complètes (3 à 40 selon la taille) avec des sous-graines différentes, la
+  moins coûteuse est gardée. Générateur maison (SplitMix64, mélange de Fisher–Yates) pour que la
+  même graine donne toujours le même planning, quelle que soit la version de Swift.
+- Chaque planning est contrôlé par `ScheduleValidator` avant d'être enregistré.
+
+Résultats vérifiés par les tests : zéro répétition de partenaire sur un cycle complet pour 4, 5,
+8, 9, 12, 13, 16, 17 et 20 joueurs ; aucune répétition non plus pour 6, 7, 10 et 11 joueurs tant
+que le nombre de matchs par joueur reste inférieur au nombre de partenaires possibles ; écart
+d'au plus un match entre joueurs dans tous les cas (grille 4 à 24 joueurs × 1 à 6 terrains).
 
 Quand des répétitions sont inévitables (ex. 6 joueurs sur 9 tours : 6 matchs pour 5 partenaires
 possibles), l'app l'indique : « Certains partenaires se retrouveront 2 fois ».

@@ -71,6 +71,21 @@ final class TournamentLibrary {
         tournaments.insert(updated, at: 0)
     }
 
+    /// Lance un tournoi : la génération du planning tourne hors du fil principal, puis le
+    /// tournoi lancé est enregistré. En cas d'échec, le brouillon reste intact.
+    func start(id: Tournament.ID) async throws {
+        guard let draft = tournament(id: id) else { return }
+        let date = now()
+        let started = try await Task.detached(priority: .userInitiated) {
+            var tournament = draft
+            try tournament.start(now: date)
+            return tournament
+        }.value
+        try store.save(started)
+        tournaments.removeAll { $0.id == id }
+        tournaments.insert(started, at: 0)
+    }
+
     func delete(id: Tournament.ID) throws {
         try store.delete(id: id)
         tournaments.removeAll { $0.id == id }

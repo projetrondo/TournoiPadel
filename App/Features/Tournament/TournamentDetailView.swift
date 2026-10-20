@@ -7,6 +7,8 @@ struct TournamentDetailView: View {
     @Environment(TournamentLibrary.self) private var library
     @Environment(\.dismiss) private var dismiss
     @State private var isConfirmingDelete = false
+    @State private var isConfirmingLaunch = false
+    @State private var isLaunching = false
 
     var body: some View {
         Group {
@@ -63,16 +65,10 @@ struct TournamentDetailView: View {
                 .cardStyle()
 
                 if tournament.status == .draft {
-                    VStack(spacing: 8) {
-                        Button {} label: {
-                            Label("Lancer le tournoi", systemImage: "play.fill")
-                        }
-                        .buttonStyle(PrimaryButtonStyle())
-                        .disabled(true)
-                        Text("La génération des matchs arrive dans la prochaine version.")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                    }
+                    launchSection(tournament)
+                } else {
+                    CompromiseNotice(compromises: tournament.scheduleStatistics.compromises)
+                    ScheduleView(tournament: tournament)
                 }
             }
             .padding(16)
@@ -97,6 +93,49 @@ struct TournamentDetailView: View {
             Button("Annuler", role: .cancel) {}
         } message: {
             Text("Les matchs et scores de ce tournoi seront définitivement effacés de cet iPhone.")
+        }
+    }
+
+    @ViewBuilder
+    private func launchSection(_ tournament: Tournament) -> some View {
+        VStack(spacing: 8) {
+            Button {
+                isConfirmingLaunch = true
+            } label: {
+                if isLaunching {
+                    ProgressView().tint(.white)
+                } else {
+                    Label("Lancer le tournoi", systemImage: "play.fill")
+                }
+            }
+            .buttonStyle(PrimaryButtonStyle())
+            .disabled(tournament.format == .mexicano || isLaunching)
+
+            if tournament.format == .mexicano {
+                Text("Le moteur Mexicano arrive dans la prochaine version.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .confirmationDialog("Lancer le tournoi ?", isPresented: $isConfirmingLaunch, titleVisibility: .visible) {
+            Button("Lancer") { launch(tournament) }
+            Button("Annuler", role: .cancel) {}
+        } message: {
+            Text("Les matchs vont être générés. Les joueurs et les réglages ne pourront plus être modifiés.")
+        }
+    }
+
+    private func launch(_ tournament: Tournament) {
+        isLaunching = true
+        Task {
+            do {
+                try await library.start(id: tournament.id)
+            } catch {
+                library.failure = TournamentLibrary.Failure(
+                    message: String(localized: "Le tournoi n'a pas pu être lancé. Il reste inchangé.")
+                )
+            }
+            isLaunching = false
         }
     }
 
