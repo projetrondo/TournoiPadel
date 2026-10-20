@@ -4,13 +4,28 @@ import SwiftUI
 /// Programme complet : un bloc par tour, une carte par match.
 struct ScheduleView: View {
     let tournament: Tournament
+    /// Action au toucher d'un match (ouvre la saisie du score).
+    var onSelect: ((Match) -> Void)?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            ForEach(tournament.rounds, id: \.index) { round in
-                RoundSection(tournament: tournament, round: round, isCurrent: round.index == tournament.currentRound?.index)
+            // Tour en cours en premier pour un accès immédiat au bord du terrain.
+            ForEach(orderedRounds, id: \.index) { round in
+                RoundSection(
+                    tournament: tournament,
+                    round: round,
+                    isCurrent: round.index == tournament.currentRound?.index,
+                    onSelect: onSelect
+                )
             }
         }
+    }
+
+    private var orderedRounds: [Round] {
+        guard let current = tournament.currentRound?.index else { return tournament.rounds }
+        let upcoming = tournament.rounds.filter { $0.index >= current }
+        let played = tournament.rounds.filter { $0.index < current }.reversed()
+        return upcoming + played
     }
 }
 
@@ -18,6 +33,7 @@ struct RoundSection: View {
     let tournament: Tournament
     let round: Round
     let isCurrent: Bool
+    var onSelect: ((Match) -> Void)?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -31,8 +47,18 @@ struct RoundSection: View {
                     BadgeView(text: String(localized: "Terminé"), color: .secondary)
                 }
             }
-            ForEach(round.matches) { match in
-                MatchCard(tournament: tournament, match: match)
+            ForEach(round.matches.sorted { $0.court < $1.court }) { match in
+                if let onSelect {
+                    Button {
+                        onSelect(match)
+                    } label: {
+                        MatchCard(tournament: tournament, match: match)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityHint(match.state == .completed ? "Voir ou corriger le score" : "Saisir le score")
+                } else {
+                    MatchCard(tournament: tournament, match: match)
+                }
             }
             if !round.resting.isEmpty {
                 Label {

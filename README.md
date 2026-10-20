@@ -4,8 +4,8 @@ Application iPhone gratuite pour organiser des tournois de padel **Americano** e
 entre amis : création en quelques secondes, génération des matchs, saisie des scores, classement
 individuel en direct. Sans compte, sans publicité, sans abonnement.
 
-> État : **phase 4** — accueil, création, sauvegarde locale, moteurs Americano et Mexicano,
-> calcul du classement. La saisie des scores et l'écran de classement arrivent en phase 5. Voir [`docs/PHASE1-ARCHITECTURE.md`](docs/PHASE1-ARCHITECTURE.md).
+> État : **phase 5** — création, moteurs Americano et Mexicano, saisie et correction des scores,
+> classement en direct, résultats et partage. Le partage entre iPhone arrive en phase 6. Voir [`docs/PHASE1-ARCHITECTURE.md`](docs/PHASE1-ARCHITECTURE.md).
 
 ## Organisation du dépôt
 
@@ -49,7 +49,10 @@ swift test --package-path Packages/PadelCore
 | Argument | Effet |
 |---|---|
 | `-ui-testing` | Stockage en mémoire : aucune donnée réelle lue ni écrite. |
-| `-demo-data` | Avec `-ui-testing`, charge deux tournois fictifs. |
+| `-demo-data` | Avec `-ui-testing`, charge trois tournois fictifs (brouillon, en cours, terminé). |
+| `-demo-open <état>` | Ouvre le premier tournoi `draft`, `inProgress` ou `finished`. |
+| `-demo-tab <onglet>` | Onglet affiché : `matches`, `standings`, `results`, `info`. |
+| `-demo-score` | Ouvre la saisie du premier match non joué. |
 
 ## Sauvegarde locale
 

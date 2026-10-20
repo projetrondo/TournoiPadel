@@ -37,6 +37,13 @@ struct HomeView: View {
                     TournamentListView(title: String(localized: "Tournois terminés"), tournaments: library.finishedTournaments)
                 }
             }
+            .task {
+                library.loadIfNeeded()
+                if let status = LaunchOptions.openStatus, path.isEmpty,
+                   let tournament = library.tournaments.first(where: { $0.status == status }) {
+                    path = [.tournament(tournament.id)]
+                }
+            }
             .sheet(isPresented: $isCreating) {
                 CreateTournamentView { tournament in
                     path.append(.tournament(tournament.id))

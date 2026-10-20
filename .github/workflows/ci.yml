@@ -69,18 +69,25 @@ jobs:
         run: |
           mkdir -p screenshots
           UDID=${{ steps.sim.outputs.udid }}
-          APP=build/Build/Products/Debug-iphonesimulator/PadelBuddy.app
+          BUNDLE=com.projetrondo.padelbuddy
           xcrun simctl boot "$UDID" || true
           xcrun simctl bootstatus "$UDID" -b
-          xcrun simctl install "$UDID" "$APP"
-          xcrun simctl launch "$UDID" com.projetrondo.padelbuddy -ui-testing -demo-data
-          sleep 6
-          xcrun simctl io "$UDID" screenshot screenshots/home-light.png
-          xcrun simctl terminate "$UDID" com.projetrondo.padelbuddy || true
+          xcrun simctl install "$UDID" build/Build/Products/Debug-iphonesimulator/PadelBuddy.app
+          shot() {
+            local name=$1; shift
+            xcrun simctl terminate "$UDID" "$BUNDLE" 2>/dev/null || true
+            xcrun simctl launch "$UDID" "$BUNDLE" -ui-testing -demo-data "$@"
+            sleep 6
+            xcrun simctl io "$UDID" screenshot "screenshots/$name.png"
+          }
+          shot 1-accueil
+          shot 2-matchs -demo-open inProgress -demo-tab matches
+          shot 3-saisie-score -demo-open inProgress -demo-score
+          shot 4-classement -demo-open inProgress -demo-tab standings
+          shot 5-resultats -demo-open finished -demo-tab results
           xcrun simctl ui "$UDID" appearance dark
-          xcrun simctl launch "$UDID" com.projetrondo.padelbuddy -ui-testing -demo-data
-          sleep 6
-          xcrun simctl io "$UDID" screenshot screenshots/home-dark.png
+          shot 6-accueil-sombre
+          shot 7-saisie-score-sombre -demo-open inProgress -demo-score
 
       - name: Rapport
         if: always()

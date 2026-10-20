@@ -123,6 +123,47 @@ struct TournamentLibraryTests {
         #expect(selection.rule == .fixedTotal(points: 16))
     }
 
+    @Test("Saisie, correction et clôture enregistrées immédiatement")
+    func scoresAreSaved() async throws {
+        let store = InMemoryTournamentStore()
+        let library = TournamentLibrary(store: store)
+        let created = try library.create(from: Self.validDraft())
+        try await library.start(id: created.id)
+        let matches = try #require(library.tournament(id: created.id)).orderedMatches
+
+        try library.modify(id: created.id) { t, date in try t.validateScore(matches[0].id, score: Score(15, 9), now: date) }
+        #expect(try store.loadAll().tournaments.first?.match(matches[0].id)?.score == Score(15, 9))
+
+        // Double validation refusée, rien ne change.
+        #expect(throws: ScoreEntryError.alreadyValidated) {
+            try library.modify(id: created.id) { t, date in try t.validateScore(matches[0].id, score: Score(9, 15), now: date) }
+        }
+        #expect(try store.loadAll().tournaments.first?.match(matches[0].id)?.score == Score(15, 9))
+
+        try library.modify(id: created.id) { t, date in try t.correctScore(matches[0].id, score: Score(13, 11), now: date) }
+        for match in matches.dropFirst() {
+            try library.modify(id: created.id) { t, date in try t.validateScore(match.id, score: Score(12, 12), now: date) }
+        }
+        try library.modify(id: created.id) { t, date in try t.finish(now: date) }
+        let saved = try #require(store.loadAll().tournaments.first)
+        #expect(saved.status == .finished)
+        #expect(saved.match(matches[0].id)?.score == Score(13, 11))
+        #expect(library.finishedTournaments.count == 1)
+    }
+
+    @Test("Les données de démonstration sont cohérentes")
+    func demoData() throws {
+        let demo = DemoData.tournaments()
+        #expect(demo.map(\.status).sorted { $0.rawValue < $1.rawValue } == [.draft, .finished, .inProgress])
+        for tournament in demo where tournament.status != .draft {
+            try ScheduleValidator.validate(
+                rounds: tournament.rounds,
+                playerIDs: tournament.players.map(\.id),
+                activeCourts: RoundPlanner(playerCount: tournament.players.count, declaredCourts: tournament.settings.courts).activeCourts
+            )
+        }
+    }
+
     @Test("Suppression")
     func delete() throws {
         let store = InMemoryTournamentStore()
