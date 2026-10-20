@@ -18,8 +18,8 @@ struct ResultsView: View {
             }
 
             HStack(spacing: 10) {
-                keyFigure("\(results.matchesPlayed)", label: String(localized: "matchs"))
-                keyFigure("\(results.roundsPlayed)", label: String(localized: "tours"))
+                keyFigure("\(results.matchesPlayed)", label: results.matchesPlayed <= 1 ? String(localized: "match") : String(localized: "matchs"))
+                keyFigure("\(results.roundsPlayed)", label: results.roundsPlayed <= 1 ? String(localized: "tour") : String(localized: "tours"))
                 keyFigure("\(results.totalPoints)", label: String(localized: "points joués"))
             }
 

@@ -103,7 +103,7 @@ struct StandingRowView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(verbatim: "\(row.isTied ? "\(row.rank)=" : "\(row.rank)") \(name)")
                 .font(.headline)
-            Text("\(row.stats.pointsFor) points · \(row.stats.wins) victoires · \(row.stats.pointDifference.signedText)")
+            Text(verbatim: "\(FrenchPlural.count(row.stats.pointsFor, "point", "points")) · \(FrenchPlural.count(row.stats.wins, "victoire", "victoires")) · \(row.stats.pointDifference.signedText)")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
@@ -116,7 +116,8 @@ struct StandingRowView: View {
     }
 
     private var accessibilityText: String {
-        String(localized: "\(row.rank)e, \(name), \(row.stats.pointsFor) points, \(row.stats.wins) victoires, différence \(row.stats.pointDifference.signedText), \(row.stats.played) matchs")
+        let rank = row.rank == 1 ? "1er" : "\(row.rank)e"
+        return "\(rank), \(name), \(FrenchPlural.count(row.stats.pointsFor, "point", "points")), \(FrenchPlural.count(row.stats.wins, "victoire", "victoires")), différence \(row.stats.pointDifference.signedText), \(FrenchPlural.count(row.stats.played, "match", "matchs"))"
     }
 
     private var tableLayout: some View {
@@ -250,6 +251,15 @@ struct RankingRulesView: View {
             .navigationTitle("Règles du classement")
             .navigationBarTitleDisplayMode(.inline)
         }
+    }
+}
+
+/// Accord en nombre pour les textes français construits à l'exécution
+/// (en français, 0 et 1 sont au singulier). À remplacer par les variantes de pluriel du
+/// String Catalog lors de l'ajout de l'anglais.
+enum FrenchPlural {
+    static func count(_ value: Int, _ singular: String, _ plural: String) -> String {
+        "\(value) \(abs(value) <= 1 ? singular : plural)"
     }
 }
 

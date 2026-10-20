@@ -13,6 +13,7 @@ struct HomeView: View {
     @State private var isJoining = false
     @State private var pendingJoinCode = ""
     @State private var isShowingHelp = false
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     /// Nombre de tournois terminés affichés directement sur l'accueil.
     private let finishedPreviewCount = 3
@@ -33,6 +34,9 @@ struct HomeView: View {
                         .accessibilityLabel("Comment ça marche ?")
                     }
                     .padding(.top, 8)
+                    if dynamicTypeSize.isAccessibilitySize {
+                        actionButtons
+                    }
                     content
                 }
                 .padding(.horizontal, 16)
@@ -40,7 +44,10 @@ struct HomeView: View {
             }
             .background(Theme.background)
             .toolbar(.hidden, for: .navigationBar)
-            .safeAreaInset(edge: .bottom) { actions }
+            .safeAreaInset(edge: .bottom) {
+                // Très grand texte : les boutons défilent avec la liste au lieu d'occuper le bas de l'écran.
+                if !dynamicTypeSize.isAccessibilitySize { actions }
+            }
             .navigationDestination(for: HomeRoute.self) { route in
                 switch route {
                 case .tournament(let id):
@@ -146,6 +153,14 @@ struct HomeView: View {
 
     /// Actions principales en bas d'écran, accessibles au pouce.
     private var actions: some View {
+        actionButtons
+            .padding(.horizontal, 16)
+            .padding(.top, 12)
+            .padding(.bottom, 8)
+            .background(.bar)
+    }
+
+    private var actionButtons: some View {
         VStack(spacing: 10) {
             Button {
                 isCreating = true
@@ -161,17 +176,28 @@ struct HomeView: View {
             }
             .buttonStyle(SecondaryButtonStyle())
         }
-        .padding(.horizontal, 16)
-        .padding(.top, 12)
-        .padding(.bottom, 8)
-        .background(.bar)
     }
 }
 
 struct TournamentRow: View {
     let tournament: Tournament
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                stackedLayout
+            } else {
+                regularLayout
+            }
+        }
+        .cardStyle()
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
+    }
+
+    private var regularLayout: some View {
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 6) {
                 Text(tournament.name)
@@ -179,36 +205,65 @@ struct TournamentRow: View {
                     .foregroundStyle(.primary)
                     .lineLimit(1)
                 HStack(spacing: 6) {
-                    BadgeView(text: tournament.format.title)
-                    if tournament.isReadOnly {
-                        BadgeView(text: String(localized: "Suivi"), color: .blue)
-                    } else if tournament.sharing != nil {
-                        Image(systemName: "person.2.wave.2.fill")
-                            .font(.caption)
-                            .foregroundStyle(Theme.green)
-                            .accessibilityLabel("Partagé")
-                    }
+                    badges
                     Text("\(tournament.players.count) joueurs")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
-                Text(tournament.statusText)
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(tournament.statusColor)
+                status
             }
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 6) {
-                Text(tournament.updatedAt, format: .dateTime.day().month(.abbreviated))
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                date
                 Image(systemName: "chevron.right")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.tertiary)
             }
         }
-        .cardStyle()
-        .contentShape(Rectangle())
-        .accessibilityElement(children: .combine)
+    }
+
+    /// Très grandes tailles de texte : tout en colonne, rien n'est coupé ni écrasé.
+    private var stackedLayout: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(tournament.name)
+                .font(.headline)
+                .foregroundStyle(.primary)
+                .fixedSize(horizontal: false, vertical: true)
+            badges
+            Text("\(tournament.players.count) joueurs")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            status
+            date
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    @ViewBuilder
+    private var badges: some View {
+        HStack(spacing: 6) {
+            BadgeView(text: tournament.format.title)
+            if tournament.isReadOnly {
+                BadgeView(text: String(localized: "Suivi"), color: .blue)
+            } else if tournament.sharing != nil {
+                Image(systemName: "person.2.wave.2.fill")
+                    .font(.caption)
+                    .foregroundStyle(Theme.green)
+                    .accessibilityLabel("Partagé")
+            }
+        }
+    }
+
+    private var status: some View {
+        Text(tournament.statusText)
+            .font(.subheadline.weight(.medium))
+            .foregroundStyle(tournament.statusColor)
+    }
+
+    private var date: some View {
+        Text(tournament.updatedAt, format: .dateTime.day().month(.abbreviated))
+            .font(.caption)
+            .foregroundStyle(.secondary)
     }
 }
 
