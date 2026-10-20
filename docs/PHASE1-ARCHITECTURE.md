@@ -1,7 +1,8 @@
 # Padel Buddy — Phase 1 : architecture et règles métier
 
-> Statut : **proposition à valider**. Aucune ligne de code applicatif n'est écrite tant que les
-> décisions de la section 10 ne sont pas tranchées.
+> Statut : **validé** (décisions de la section 10 acceptées : CloudKit public + code, pas de
+> propositions de score au MVP, option (a) pour les tours non équitables, stockage JSON).
+> Pas de Mac : compilation et tests de l'app via GitHub Actions (macOS).
 
 ---
 
@@ -227,9 +228,8 @@ struct Tournament: Codable, Identifiable, Sendable {
 
 struct Settings: Codable, Sendable {
     var courts: Int                   // 1…8
-    var courtNames: [String]?         // optionnel : « Terrain central »…
     var scoring: ScoringRule
-    var plannedRounds: Int?           // nil = libre (Mexicano)
+    var plannedRounds: Int            // nombre de tours prévus (Americano et Mexicano)
     var mexicanoFirstRound: FirstRoundMode   // .random | .byLevel
 }
 
