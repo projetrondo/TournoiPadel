@@ -67,7 +67,10 @@ struct TournamentDetailView: View {
                 if tournament.status == .draft {
                     launchSection(tournament)
                 } else {
-                    CompromiseNotice(compromises: tournament.scheduleStatistics.compromises)
+                    if tournament.format == .americano {
+                        CompromiseNotice(compromises: tournament.scheduleStatistics.compromises)
+                    }
+                    mexicanoActions(tournament)
                     ScheduleView(tournament: tournament)
                 }
             }
@@ -109,19 +112,45 @@ struct TournamentDetailView: View {
                 }
             }
             .buttonStyle(PrimaryButtonStyle())
-            .disabled(tournament.format == .mexicano || isLaunching)
+            .disabled(isLaunching)
 
-            if tournament.format == .mexicano {
-                Text("Le moteur Mexicano arrive dans la prochaine version.")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+            Group {
+                if tournament.format == .americano {
+                    Text("Tout le programme sera généré d'un coup.")
+                } else {
+                    Text("Le premier tour sera généré. Les suivants dépendront des scores.")
+                }
             }
+            .font(.footnote)
+            .foregroundStyle(.secondary)
         }
         .confirmationDialog("Lancer le tournoi ?", isPresented: $isConfirmingLaunch, titleVisibility: .visible) {
             Button("Lancer") { launch(tournament) }
             Button("Annuler", role: .cancel) {}
         } message: {
-            Text("Les matchs vont être générés. Les joueurs et les réglages ne pourront plus être modifiés.")
+            Text("Les joueurs et les réglages ne pourront plus être modifiés.")
+        }
+    }
+
+    /// Mexicano : tour suivant, ou nouveau calcul du dernier tour après une correction.
+    @ViewBuilder
+    private func mexicanoActions(_ tournament: Tournament) -> some View {
+        if tournament.canGenerateNextRound {
+            Button {
+                library.perform {
+                    try library.modify(id: tournament.id) { t, date in try t.generateNextRound(now: date) }
+                }
+            } label: {
+                Label("Générer le tour \(tournament.rounds.count + 1)", systemImage: "wand.and.stars")
+            }
+            .buttonStyle(PrimaryButtonStyle())
+        } else if tournament.format == .mexicano, tournament.status == .inProgress,
+                  tournament.rounds.count < tournament.settings.plannedRounds {
+            Label("Le tour suivant sera composé d'après le classement dès que tous les matchs de ce tour seront terminés.",
+                  systemImage: "info.circle.fill")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .cardStyle()
         }
     }
 

@@ -86,6 +86,16 @@ final class TournamentLibrary {
         tournaments.insert(started, at: 0)
     }
 
+    /// Applique une modification du moteur à un tournoi enregistré, puis sauvegarde.
+    /// La modification travaille sur une copie : en cas d'erreur, rien ne change.
+    func modify(id: Tournament.ID, _ change: (inout Tournament, Date) throws -> Void) throws {
+        guard var tournament = tournament(id: id) else { return }
+        try change(&tournament, now())
+        try store.save(tournament)
+        tournaments.removeAll { $0.id == id }
+        tournaments.insert(tournament, at: 0)
+    }
+
     func delete(id: Tournament.ID) throws {
         try store.delete(id: id)
         tournaments.removeAll { $0.id == id }

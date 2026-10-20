@@ -215,12 +215,12 @@ struct TournamentStartTests {
         #expect(tournament == snapshot)
     }
 
-    @Test("Mexicano : pas encore disponible, tournoi inchangé")
-    func mexicanoNotYet() throws {
+    @Test("Lancer un Mexicano génère seulement le premier tour")
+    func startMexicano() throws {
         var tournament = try Self.draftTournament(format: .mexicano)
-        let snapshot = tournament
-        #expect(throws: LifecycleError.unsupportedFormat(.mexicano)) { try tournament.start(now: Date()) }
-        #expect(tournament == snapshot)
+        try tournament.start(now: Date())
+        #expect(tournament.rounds.count == 1)
+        #expect(tournament.status == .inProgress)
     }
 
     @Test("Le planning survit à la sauvegarde")

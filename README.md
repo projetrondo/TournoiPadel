@@ -4,8 +4,8 @@ Application iPhone gratuite pour organiser des tournois de padel **Americano** e
 entre amis : création en quelques secondes, génération des matchs, saisie des scores, classement
 individuel en direct. Sans compte, sans publicité, sans abonnement.
 
-> État : **phase 2** — accueil, création de tournoi, joueurs et sauvegarde locale.
-> La génération des matchs arrive en phase 3. Voir [`docs/PHASE1-ARCHITECTURE.md`](docs/PHASE1-ARCHITECTURE.md).
+> État : **phase 4** — accueil, création, sauvegarde locale, moteurs Americano et Mexicano,
+> calcul du classement. La saisie des scores et l'écran de classement arrivent en phase 5. Voir [`docs/PHASE1-ARCHITECTURE.md`](docs/PHASE1-ARCHITECTURE.md).
 
 ## Organisation du dépôt
 

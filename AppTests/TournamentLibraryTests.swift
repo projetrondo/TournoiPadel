@@ -81,6 +81,37 @@ struct TournamentLibraryTests {
         #expect(library.tournament(id: tournament.id)?.rounds.count == 3)
     }
 
+    @Test("Mexicano : premier tour au lancement, tour suivant après les scores")
+    func mexicano() async throws {
+        let store = InMemoryTournamentStore()
+        let library = TournamentLibrary(store: store)
+        var draft = Self.validDraft()
+        draft.format = .mexicano
+        let tournament = try library.create(from: draft)
+        try await library.start(id: tournament.id)
+        #expect(library.tournament(id: tournament.id)?.rounds.count == 1)
+
+        try library.modify(id: tournament.id) { t, _ in
+            for i in t.rounds[0].matches.indices {
+                t.rounds[0].matches[i].score = Score(15, 9)
+                t.rounds[0].matches[i].state = .completed
+            }
+        }
+        #expect(library.tournament(id: tournament.id)?.canGenerateNextRound == true)
+        try library.modify(id: tournament.id) { t, date in try t.generateNextRound(now: date) }
+        #expect(try store.loadAll().tournaments.first?.rounds.count == 2)
+    }
+
+    @Test("Une modification qui échoue ne change rien")
+    func failedModification() throws {
+        let library = TournamentLibrary(store: InMemoryTournamentStore())
+        let tournament = try library.create(from: Self.validDraft())
+        #expect(throws: LifecycleError.self) {
+            try library.modify(id: tournament.id) { t, date in try t.generateNextRound(now: date) }
+        }
+        #expect(library.tournament(id: tournament.id) == tournament)
+    }
+
     @Test("Suppression")
     func delete() throws {
         let store = InMemoryTournamentStore()

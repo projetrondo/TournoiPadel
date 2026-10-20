@@ -370,9 +370,9 @@ Le tour `n + 1` n'est généré qu'**une fois tous les matchs du tour `n` valid�
 l'organisateur.
 
 Stratégie explicite :
-1. Calculer le classement de **classement d'appariement** : moyenne de points par match joué
-   (pour ne pas pénaliser ceux qui viennent de pauser), puis différence moyenne, puis classement
-   précédent, puis ordre d'inscription.
+1. Calculer le **classement d'appariement** : moyenne de points par match joué (pour ne pas
+   pénaliser ceux qui viennent de pauser), puis différence moyenne, puis victoires, puis ordre
+   d'inscription. Un joueur qui n'a encore joué aucun match reçoit la moyenne générale.
 2. Choisir les pauses (§7.1).
 3. Trier les actifs selon ce classement et former des **groupes de 4 consécutifs**
    (1–4, 5–8, …). Le groupe 1 va sur le terrain 1.
@@ -380,17 +380,23 @@ Stratégie explicite :
    - **a+d contre b+c** (préféré : équipes équilibrées, règle Mexicano standard),
    - a+c contre b+d,
    - a+b contre c+d (dernier recours).
-5. Pour limiter les répétitions, on autorise aussi l'**échange d'un joueur à la frontière** de
-   deux groupes voisins (4ᵉ et 5ᵉ, etc.). On évalue **toutes** les combinaisons
-   (3ᵏ appariements × 2ᵏ⁻¹ échanges : 648 combinaisons pour 4 terrains, ~840 000 pour 8 — on
-   bascule vers une recherche locale au-delà de 6 terrains) avec le coût :
+5. Pour limiter les répétitions, on autorise des **échanges à la frontière** de deux groupes
+   voisins : 4ᵉ ↔ 5ᵉ (distance 1), 3ᵉ ↔ 5ᵉ ou 4ᵉ ↔ 6ᵉ (distance 2). Le meilleur choix est
+   calculé **exactement** par programmation dynamique sur les frontières (le coût d'un groupe ne
+   dépend que des échanges à ses deux frontières), quel que soit le nombre de terrains :
 
 ```
 coût = 1000 × répétitions de partenaire
-     +   50 × échange de frontière utilisé
+     +   50 × distance des échanges
      +   10 × répétitions d'adversaire
      +    2 × appariement non préféré (a+c/b+d = 1, a+b/c+d = 3)
 ```
+
+Mesure (phase 4, 20 tournois simulés par taille, niveaux de jeu très stables — le cas le plus
+défavorable) : un même duo se retrouve au plus 2 fois avec 5 ou 10 joueurs, au plus 3 fois avec
+8, 9, 12 ou 16 joueurs sur un tournoi complet. Le tour 2 ne répète jamais un partenaire. Ces
+répétitions sont propres au Mexicano : quand les niveaux sont stables, les mêmes joueurs se
+retrouvent dans le même groupe.
 
 Résultat : les joueurs proches au classement jouent ensemble, les équipes sont équilibrées, et un
 partenaire ne se répète que si aucune combinaison ne l'évite.
