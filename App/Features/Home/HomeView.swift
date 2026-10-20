@@ -12,6 +12,7 @@ struct HomeView: View {
     @State private var isCreating = false
     @State private var isJoining = false
     @State private var pendingJoinCode = ""
+    @State private var isShowingHelp = false
 
     /// Nombre de tournois terminés affichés directement sur l'accueil.
     private let finishedPreviewCount = 3
@@ -20,8 +21,18 @@ struct HomeView: View {
         NavigationStack(path: $path) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    LogoView()
-                        .padding(.top, 8)
+                    HStack(alignment: .top) {
+                        LogoView()
+                        Button {
+                            isShowingHelp = true
+                        } label: {
+                            Image(systemName: "questionmark.circle")
+                                .font(.title2)
+                                .frame(minWidth: 44, minHeight: 44)
+                        }
+                        .accessibilityLabel("Comment ça marche ?")
+                    }
+                    .padding(.top, 8)
                     content
                 }
                 .padding(.horizontal, 16)
@@ -49,6 +60,9 @@ struct HomeView: View {
                 CreateTournamentView { tournament in
                     path.append(.tournament(tournament.id))
                 }
+            }
+            .sheet(isPresented: $isShowingHelp) {
+                HelpView()
             }
             .sheet(isPresented: $isJoining, onDismiss: { pendingJoinCode = "" }) {
                 JoinTournamentView(initialCode: pendingJoinCode) { id in

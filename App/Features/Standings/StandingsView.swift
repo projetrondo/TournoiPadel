@@ -5,6 +5,7 @@ import SwiftUI
 struct StandingsView: View {
     let tournament: Tournament
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var selectedPlayer: PlayerSelection?
     @State private var isShowingRules = false
 
@@ -37,7 +38,9 @@ struct StandingsView: View {
             }
 
             VStack(spacing: 0) {
-                headerRow
+                if !dynamicTypeSize.isAccessibilitySize {
+                    headerRow
+                }
                 ForEach(rows) { row in
                     Divider()
                     Button {
@@ -85,7 +88,38 @@ struct StandingRowView: View {
     let row: StandingRow
     let name: String
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
+        if dynamicTypeSize.isAccessibilitySize {
+            stackedLayout
+        } else {
+            tableLayout
+        }
+    }
+
+    /// Très grandes tailles de texte : une ligne par information plutôt que des colonnes.
+    private var stackedLayout: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(verbatim: "\(row.isTied ? "\(row.rank)=" : "\(row.rank)") \(name)")
+                .font(.headline)
+            Text("\(row.stats.pointsFor) points · \(row.stats.wins) victoires · \(row.stats.pointDifference.signedText)")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityText)
+    }
+
+    private var accessibilityText: String {
+        String(localized: "\(row.rank)e, \(name), \(row.stats.pointsFor) points, \(row.stats.wins) victoires, différence \(row.stats.pointDifference.signedText), \(row.stats.played) matchs")
+    }
+
+    private var tableLayout: some View {
         HStack(spacing: 8) {
             Text(row.isTied ? "\(row.rank)=" : "\(row.rank)")
                 .font(.headline.monospacedDigit())
@@ -107,7 +141,7 @@ struct StandingRowView: View {
         .padding(.vertical, 10)
         .contentShape(Rectangle())
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(String(localized: "\(row.rank)e, \(name), \(row.stats.pointsFor) points, \(row.stats.wins) victoires, différence \(row.stats.pointDifference.signedText), \(row.stats.played) matchs"))
+        .accessibilityLabel(accessibilityText)
     }
 }
 

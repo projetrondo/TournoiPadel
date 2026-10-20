@@ -277,6 +277,8 @@ final class SyncCoordinator {
 /// public ou App Store). Tant qu'il est vide, le message d'invitation l'indique simplement.
 enum AppLinks {
     static let download: URL? = nil
+    /// Politique de confidentialité publiée (obligatoire pour l'App Store), voir docs/PUBLICATION.md.
+    static let privacyPolicy: URL? = nil
 }
 
 /// Identifiant aléatoire de cet appareil (aucune donnée personnelle), conservé localement.

@@ -12,7 +12,7 @@ struct PrimaryButtonStyle: ButtonStyle {
             .foregroundStyle(.white)
             .background(
                 RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
-                    .fill(isEnabled ? Theme.green : Color.gray.opacity(0.4))
+                    .fill(isEnabled ? Theme.buttonFill : Color.gray.opacity(0.4))
             )
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
             .animation(.easeOut(duration: 0.12), value: configuration.isPressed)

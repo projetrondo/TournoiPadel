@@ -69,6 +69,13 @@ Un fichier JSON par tournoi dans `Application Support/Tournaments/`, écrit de f
 chaque modification et protégé par le chiffrement iOS. Un fichier illisible n'est jamais effacé :
 il est déplacé dans `Tournaments/Unreadable/`. Le champ `schemaVersion` permet les migrations.
 
+## Publication
+
+- [`docs/PUBLICATION.md`](docs/PUBLICATION.md) : de l'inscription Apple Developer à l'App Store, sans Mac
+  (workflow `TestFlight` lancé depuis l'onglet Actions).
+- [`docs/APPSTORE.md`](docs/APPSTORE.md) : textes de la fiche, mots-clés, questionnaire de confidentialité.
+- [`docs/site/confidentialite.html`](docs/site/confidentialite.html) : politique de confidentialité à héberger.
+
 ## Coûts
 
 - Développement et CI : gratuits (dépôt public ; dépôt privé limité à ~200 min macOS/mois).
