@@ -223,6 +223,25 @@ struct TournamentStartTests {
         #expect(tournament.status == .inProgress)
     }
 
+    @Test("Points par match modifiables avant le lancement, plus après")
+    func updateScoring() throws {
+        var tournament = try Self.draftTournament()
+        try tournament.updateScoring(.fixedTotal(points: 32), now: Date())
+        #expect(tournament.settings.scoring == .fixedTotal(points: 32))
+        #expect(tournament.revision == 2)
+
+        #expect(throws: LifecycleError.invalidScoring) {
+            try tournament.updateScoring(.raceTo(points: 200), now: Date())
+        }
+        #expect(tournament.settings.scoring == .fixedTotal(points: 32))
+
+        try tournament.start(now: Date())
+        #expect(throws: LifecycleError.alreadyStarted) {
+            try tournament.updateScoring(.fixedTotal(points: 16), now: Date())
+        }
+        #expect(tournament.settings.scoring == .fixedTotal(points: 32))
+    }
+
     @Test("Le planning survit à la sauvegarde")
     func persistsSchedule() throws {
         var tournament = try Self.draftTournament()

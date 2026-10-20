@@ -112,6 +112,17 @@ struct TournamentLibraryTests {
         #expect(library.tournament(id: tournament.id) == tournament)
     }
 
+    @Test("Sélecteur de points : aller-retour avec la règle de score")
+    func scoringSelection() {
+        for rule in [ScoringRule.fixedTotal(points: 24), .fixedTotal(points: 21), .raceTo(points: 32), .raceTo(points: 11), .free] {
+            #expect(ScoringSelection(rule: rule).rule == rule)
+        }
+        var selection = ScoringSelection(rule: .fixedTotal(points: 21))
+        #expect(selection.preset == nil && selection.customPoints == 21)
+        selection.preset = 16
+        #expect(selection.rule == .fixedTotal(points: 16))
+    }
+
     @Test("Suppression")
     func delete() throws {
         let store = InMemoryTournamentStore()

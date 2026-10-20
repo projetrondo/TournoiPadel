@@ -16,9 +16,9 @@ struct CreateTournamentView: View {
             Form {
                 nameSection
                 formatSection
+                ScoringSection(selection: $model.scoringSelection)
                 playersSection
                 courtsSection
-                scoringSection
                 roundsSection
                 issuesSection
             }
@@ -147,35 +147,6 @@ struct CreateTournamentView: View {
         }
     }
 
-    private var scoringSection: some View {
-        Section {
-            Picker("Règle", selection: $model.scoringKind) {
-                Text("Total fixe").tag(CreateTournamentModel.ScoringKind.fixedTotal)
-                Text("Premier à").tag(CreateTournamentModel.ScoringKind.raceTo)
-                Text("Libre (au temps)").tag(CreateTournamentModel.ScoringKind.free)
-            }
-
-            if model.scoringKind != .free {
-                Picker("Points", selection: $model.pointsPreset) {
-                    ForEach(CreateTournamentModel.pointsPresets, id: \.self) { preset in
-                        Text(preset.map { "\($0)" } ?? String(localized: "Perso")).tag(preset)
-                    }
-                }
-                .pickerStyle(.segmented)
-
-                if model.pointsPreset == nil {
-                    Stepper(value: $model.customPoints, in: ScoringRule.pointsRange) {
-                        LabeledContent("Points par match", value: "\(model.customPoints)")
-                    }
-                }
-            }
-        } header: {
-            Text("Score")
-        } footer: {
-            Text(scoringExplanation)
-        }
-    }
-
     private var roundsSection: some View {
         let draft = model.draft
         let planner = draft.planner
@@ -260,17 +231,6 @@ struct CreateTournamentView: View {
     }
 
     // MARK: - Textes
-
-    private var scoringExplanation: String {
-        switch model.scoring {
-        case .fixedTotal(let points):
-            String(localized: "Les deux scores totalisent \(points) points (ex. \(points / 2 + 3)–\(points / 2 - 3)). Chaque joueur reçoit les points de son équipe.")
-        case .raceTo(let points):
-            String(localized: "La première équipe à \(points) points gagne. Chaque joueur reçoit les points de son équipe.")
-        case .free:
-            String(localized: "Pour les matchs au temps : saisissez les points marqués par chaque équipe à la fin.")
-        }
-    }
 
     private func roundsDetail(_ draft: TournamentDraft) -> String {
         let matches = draft.planner.matchesPerPlayer(rounds: draft.rounds)

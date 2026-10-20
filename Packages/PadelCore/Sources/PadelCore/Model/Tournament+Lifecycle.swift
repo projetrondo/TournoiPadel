@@ -12,6 +12,8 @@ public enum LifecycleError: Error, Hashable, Sendable {
     /// Le tour ne peut plus être régénéré : un score y a déjà été saisi.
     case roundAlreadyStarted
     case scheduling(ScheduleError)
+    /// Nombre de points hors des limites autorisées.
+    case invalidScoring
 }
 
 extension Tournament {
@@ -33,6 +35,18 @@ extension Tournament {
         }
         rounds = generated
         status = .inProgress
+        touch(at: now)
+    }
+
+    /// Change la règle de score (nombre de points par match). Possible uniquement avant le
+    /// lancement : après, des scores déjà saisis pourraient ne plus respecter la règle.
+    public mutating func updateScoring(_ scoring: ScoringRule, now: Date) throws {
+        guard status == .draft, rounds.isEmpty else { throw LifecycleError.alreadyStarted }
+        if let points = scoring.points, !ScoringRule.pointsRange.contains(points) {
+            throw LifecycleError.invalidScoring
+        }
+        guard scoring != settings.scoring else { return }
+        settings.scoring = scoring
         touch(at: now)
     }
 

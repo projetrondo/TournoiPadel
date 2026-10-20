@@ -9,6 +9,7 @@ struct TournamentDetailView: View {
     @State private var isConfirmingDelete = false
     @State private var isConfirmingLaunch = false
     @State private var isLaunching = false
+    @State private var isEditingScoring = false
 
     var body: some View {
         Group {
@@ -38,7 +39,25 @@ struct TournamentDetailView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     infoRow("Terrains", value: "\(planner.activeCourts)", systemImage: "square.split.2x1")
                     infoRow("Tours", value: "\(tournament.settings.plannedRounds)", systemImage: "arrow.triangle.2.circlepath")
-                    infoRow("Score", value: tournament.settings.scoring.summary, systemImage: "number")
+                    if tournament.status == .draft {
+                        Button {
+                            isEditingScoring = true
+                        } label: {
+                            HStack {
+                                Label("Points par match", systemImage: "number")
+                                    .foregroundStyle(.secondary)
+                                Spacer()
+                                Text(tournament.settings.scoring.summary)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(.primary)
+                                Image(systemName: "pencil.circle.fill")
+                                    .foregroundStyle(Theme.green)
+                            }
+                        }
+                        .accessibilityHint("Modifier le nombre de points par match")
+                    } else {
+                        infoRow("Points par match", value: tournament.settings.scoring.summary, systemImage: "number")
+                    }
                     if planner.restingPerRound > 0 {
                         infoRow("En pause par tour", value: "\(planner.restingPerRound)", systemImage: "cup.and.saucer")
                     }
@@ -87,6 +106,9 @@ struct TournamentDetailView: View {
                         .accessibilityLabel("Options")
                 }
             }
+        }
+        .sheet(isPresented: $isEditingScoring) {
+            EditScoringView(tournament: tournament)
         }
         .confirmationDialog("Supprimer « \(tournament.name) » ?", isPresented: $isConfirmingDelete, titleVisibility: .visible) {
             Button("Supprimer", role: .destructive) {

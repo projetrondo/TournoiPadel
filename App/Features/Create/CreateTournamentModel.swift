@@ -8,24 +8,11 @@ import SwiftUI // remove(atOffsets:)
 @MainActor
 @Observable
 final class CreateTournamentModel {
-    enum ScoringKind: String, CaseIterable, Identifiable {
-        case fixedTotal
-        case raceTo
-        case free
-
-        var id: Self { self }
-    }
-
-    /// `nil` = points personnalisés.
-    static let pointsPresets: [Int?] = ScoringRule.presetPoints.map { Optional($0) } + [nil]
-
     var name = ""
     var format: TournamentFormat = .americano
     var players: [TournamentDraft.PlayerEntry] = []
     var newPlayerName = ""
-    var scoringKind: ScoringKind = .fixedTotal
-    var pointsPreset: Int? = 24
-    var customPoints = 20
+    var scoringSelection = ScoringSelection()
     var mexicanoFirstRound: FirstRoundMode = .random
     var courtsOverride: Int?
     var roundsOverride: Int?
@@ -44,14 +31,7 @@ final class CreateTournamentModel {
         return draft
     }
 
-    var scoring: ScoringRule {
-        let points = pointsPreset ?? customPoints
-        switch scoringKind {
-        case .fixedTotal: return .fixedTotal(points: points)
-        case .raceTo: return .raceTo(points: points)
-        case .free: return .free
-        }
-    }
+    var scoring: ScoringRule { scoringSelection.rule }
 
     var suggestedCourts: Int {
         min(RoundPlanner.courtsRange.upperBound, max(1, players.count / 4))
