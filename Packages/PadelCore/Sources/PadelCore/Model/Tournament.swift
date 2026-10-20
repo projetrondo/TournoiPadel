@@ -102,15 +102,37 @@ public enum FirstRoundMode: String, Codable, CaseIterable, Hashable, Sendable {
     case byLevel
 }
 
-/// Informations de partage (utilisées à partir de la phase 6).
+/// Informations de partage entre iPhone.
 public struct SharingInfo: Codable, Hashable, Sendable {
-    public var code: String
-    public var organizerDeviceID: String?
-    public var lastPublishedRevision: Int?
+    public enum Role: String, Codable, Hashable, Sendable {
+        /// Appareil qui a créé le tournoi : seul à pouvoir le modifier et le publier.
+        case organizer
+        /// Copie reçue d'un organisateur : lecture seule, mise à jour depuis le serveur.
+        case viewer
+    }
 
-    public init(code: String, organizerDeviceID: String? = nil, lastPublishedRevision: Int? = nil) {
+    public var code: String
+    /// Absent dans les fichiers antérieurs à la phase 6 : considéré comme organisateur.
+    public var role: Role?
+    public var organizerDeviceID: String?
+    /// Dernière révision envoyée au serveur (organisateur) ou reçue (spectateur).
+    public var lastPublishedRevision: Int?
+    /// Dernier échange réussi avec le serveur.
+    public var lastSyncedAt: Date?
+
+    public init(
+        code: String,
+        role: Role = .organizer,
+        organizerDeviceID: String? = nil,
+        lastPublishedRevision: Int? = nil,
+        lastSyncedAt: Date? = nil
+    ) {
         self.code = code
+        self.role = role
         self.organizerDeviceID = organizerDeviceID
         self.lastPublishedRevision = lastPublishedRevision
+        self.lastSyncedAt = lastSyncedAt
     }
+
+    public var effectiveRole: Role { role ?? .organizer }
 }

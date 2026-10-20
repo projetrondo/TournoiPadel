@@ -1,6 +1,7 @@
 # Généré par XcodeGen (`xcodegen generate`)
 *.xcodeproj
 Config/Info.plist
+Config/PadelBuddy.entitlements
 
 # Xcode / SwiftPM
 build/

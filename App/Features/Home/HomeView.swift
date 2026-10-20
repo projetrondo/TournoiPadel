@@ -11,6 +11,7 @@ struct HomeView: View {
     @State private var path: [HomeRoute] = []
     @State private var isCreating = false
     @State private var isJoining = false
+    @State private var pendingJoinCode = ""
 
     /// Nombre de tournois terminés affichés directement sur l'accueil.
     private let finishedPreviewCount = 3
@@ -49,8 +50,17 @@ struct HomeView: View {
                     path.append(.tournament(tournament.id))
                 }
             }
-            .sheet(isPresented: $isJoining) {
-                JoinTournamentView()
+            .sheet(isPresented: $isJoining, onDismiss: { pendingJoinCode = "" }) {
+                JoinTournamentView(initialCode: pendingJoinCode) { id in
+                    path = [.tournament(id)]
+                }
+            }
+            .onOpenURL { url in
+                // Lien d'invitation padelbuddy://join/CODE reçu par message.
+                guard let code = InviteCode(url: url) else { return }
+                pendingJoinCode = code.value
+                isCreating = false
+                isJoining = true
             }
             .alert(
                 "Erreur",
@@ -156,6 +166,14 @@ struct TournamentRow: View {
                     .lineLimit(1)
                 HStack(spacing: 6) {
                     BadgeView(text: tournament.format.title)
+                    if tournament.isReadOnly {
+                        BadgeView(text: String(localized: "Suivi"), color: .blue)
+                    } else if tournament.sharing != nil {
+                        Image(systemName: "person.2.wave.2.fill")
+                            .font(.caption)
+                            .foregroundStyle(Theme.green)
+                            .accessibilityLabel("Partagé")
+                    }
                     Text("\(tournament.players.count) joueurs")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
@@ -202,9 +220,11 @@ struct TournamentListView: View {
 }
 
 #Preview {
+    let library = TournamentLibrary(store: InMemoryTournamentStore(DemoData.tournaments()))
     HomeView()
         .previewLoaded()
-        .environment(TournamentLibrary(store: InMemoryTournamentStore(DemoData.tournaments())))
+        .environment(library)
+        .environment(SyncCoordinator(library: library, service: InMemorySyncService(), deviceID: "aperçu"))
 }
 
 extension View {

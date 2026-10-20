@@ -20,6 +20,8 @@ final class TournamentLibrary {
 
     @ObservationIgnored private let store: any TournamentStore
     @ObservationIgnored private let now: () -> Date
+    /// Appelé après chaque modification locale enregistrée (pour la publication en ligne).
+    @ObservationIgnored var onLocalChange: (@MainActor (Tournament) -> Void)?
 
     init(store: any TournamentStore, now: @escaping () -> Date = { Date() }) {
         self.store = store
@@ -64,17 +66,20 @@ final class TournamentLibrary {
 
     /// Enregistre une nouvelle version d'un tournoi existant (révision et date mises à jour).
     func update(_ tournament: Tournament) throws {
+        guard !tournament.isReadOnly else { throw SyncError.readOnly }
         var updated = tournament
         updated.touch(at: now())
         try store.save(updated)
         tournaments.removeAll { $0.id == updated.id }
         tournaments.insert(updated, at: 0)
+        onLocalChange?(updated)
     }
 
     /// Lance un tournoi : la génération du planning tourne hors du fil principal, puis le
     /// tournoi lancé est enregistré. En cas d'échec, le brouillon reste intact.
     func start(id: Tournament.ID) async throws {
         guard let draft = tournament(id: id) else { return }
+        guard !draft.isReadOnly else { throw SyncError.readOnly }
         let date = now()
         let started = try await Task.detached(priority: .userInitiated) {
             var tournament = draft
@@ -84,16 +89,31 @@ final class TournamentLibrary {
         try store.save(started)
         tournaments.removeAll { $0.id == id }
         tournaments.insert(started, at: 0)
+        onLocalChange?(started)
     }
 
     /// Applique une modification du moteur à un tournoi enregistré, puis sauvegarde.
     /// La modification travaille sur une copie : en cas d'erreur, rien ne change.
     func modify(id: Tournament.ID, _ change: (inout Tournament, Date) throws -> Void) throws {
         guard var tournament = tournament(id: id) else { return }
+        guard !tournament.isReadOnly else { throw SyncError.readOnly }
+        let revision = tournament.revision
         try change(&tournament, now())
         try store.save(tournament)
         tournaments.removeAll { $0.id == id }
         tournaments.insert(tournament, at: 0)
+        if tournament.revision != revision { onLocalChange?(tournament) }
+    }
+
+    /// Enregistre une version reçue du serveur, ou des métadonnées de partage, sans la
+    /// considérer comme une modification locale (pas de nouvelle publication).
+    func saveSynced(_ tournament: Tournament) throws {
+        try store.save(tournament)
+        if let index = tournaments.firstIndex(where: { $0.id == tournament.id }) {
+            tournaments[index] = tournament
+        } else {
+            tournaments.insert(tournament, at: 0)
+        }
     }
 
     func delete(id: Tournament.ID) throws {

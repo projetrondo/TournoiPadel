@@ -17,6 +17,10 @@ settings:
     ENABLE_USER_SCRIPT_SANDBOXING: YES
     LOCALIZATION_PREFERS_STRING_CATALOGS: YES
     SWIFT_EMIT_LOC_STRINGS: YES
+    # Partage entre iPhone (CloudKit). Passer à YES une fois le compte Apple Developer actif
+    # et le conteneur créé (voir docs/PARTAGE.md).
+    CLOUDKIT_ENABLED: "NO"
+    CLOUDKIT_CONTAINER: iCloud.com.projetrondo.padelbuddy
 
 packages:
   PadelCore:
@@ -45,6 +49,19 @@ targets:
           UIApplicationSupportsMultipleScenes: false
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
+        PBCloudKitEnabled: $(CLOUDKIT_ENABLED)
+        PBCloudKitContainer: $(CLOUDKIT_CONTAINER)
+        CFBundleURLTypes:
+          - CFBundleURLName: com.projetrondo.padelbuddy.invite
+            CFBundleURLSchemes:
+              - padelbuddy
+    entitlements:
+      path: Config/PadelBuddy.entitlements
+      properties:
+        com.apple.developer.icloud-container-identifiers:
+          - $(CLOUDKIT_CONTAINER)
+        com.apple.developer.icloud-services:
+          - CloudKit
     settings:
       base:
         PRODUCT_NAME: PadelBuddy
