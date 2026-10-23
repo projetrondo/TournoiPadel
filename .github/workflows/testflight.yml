@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       cloudkit:
-        description: "Activer le partage CloudKit dans cette version"
+        description: "Activer le partage CloudKit (seulement après avoir créé le conteneur iCloud, voir docs/PARTAGE.md)"
         type: boolean
         default: false
 
@@ -61,6 +61,7 @@ jobs:
             CODE_SIGN_STYLE=Automatic \
             CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
             CLOUDKIT_ENABLED="${{ inputs.cloudkit && 'YES' || 'NO' }}" \
+            CODE_SIGN_ENTITLEMENTS="${{ inputs.cloudkit && 'Config/PadelBuddy.entitlements' || '' }}" \
             | tee archive.log
 
       - name: Envoyer sur App Store Connect
