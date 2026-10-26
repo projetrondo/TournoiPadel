@@ -63,7 +63,7 @@ jobs:
             CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
             CLOUDKIT_ENABLED="${{ inputs.cloudkit && 'YES' || 'NO' }}" \
             CODE_SIGN_ENTITLEMENTS="${{ inputs.cloudkit && 'Config/PadelBuddy.entitlements' || '' }}" \
-            | tee archive.log
+            2>&1 | tee archive.log
 
       - name: Signer pour la distribution et envoyer sur App Store Connect
         run: |
@@ -89,7 +89,7 @@ jobs:
             -authenticationKeyPath "$RUNNER_TEMP/keys/AuthKey.p8" \
             -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
-            | tee export.log
+            2>&1 | tee export.log
 
       # Les erreurs sont republiées en annotations, lisibles sans télécharger les journaux.
       - name: Résumer les erreurs
@@ -101,6 +101,11 @@ jobs:
               | grep -v "^note:" | sed 's/[[:space:]]\+/ /g' | sort -u | head -15 \
               | while IFS= read -r line; do echo "::error title=$f::${line:0:900}"; done
           done
+          # Toujours utile : les dernières lignes de l'envoi.
+          if [ -f export.log ]; then
+            tail -n 12 export.log | sed 's/[[:space:]]\+/ /g' | grep -v '^ *$' \
+              | while IFS= read -r line; do echo "::warning title=fin de export.log::${line:0:900}"; done
+          fi
 
       - name: Nettoyer la clé
         if: always()
