@@ -44,7 +44,10 @@ jobs:
           brew install xcodegen
           xcodegen generate
 
-      - name: Archiver (signature automatique)
+      # Archive sans signature : la signature automatique de l'archivage exigerait un profil de
+      # développement, donc un iPhone enregistré sur le compte. La signature de distribution
+      # (la seule utile pour TestFlight et l'App Store) est faite à l'étape suivante.
+      - name: Archiver
         run: |
           set -o pipefail
           xcodebuild archive \
@@ -53,18 +56,16 @@ jobs:
             -configuration Release \
             -destination "generic/platform=iOS" \
             -archivePath "$RUNNER_TEMP/PadelBuddy.xcarchive" \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$RUNNER_TEMP/keys/AuthKey.p8" \
-            -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
-            -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
             DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}" \
-            CODE_SIGN_STYLE=Automatic \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
             CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
             CLOUDKIT_ENABLED="${{ inputs.cloudkit && 'YES' || 'NO' }}" \
             CODE_SIGN_ENTITLEMENTS="${{ inputs.cloudkit && 'Config/PadelBuddy.entitlements' || '' }}" \
             | tee archive.log
 
-      - name: Envoyer sur App Store Connect
+      - name: Signer pour la distribution et envoyer sur App Store Connect
         run: |
           cat > "$RUNNER_TEMP/ExportOptions.plist" <<EOF
           <?xml version="1.0" encoding="UTF-8"?>
