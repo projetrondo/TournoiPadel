@@ -66,6 +66,8 @@ targets:
       base:
         PRODUCT_NAME: PadelBuddy
         PRODUCT_BUNDLE_IDENTIFIER: com.projetrondo.padelbuddy
+        # iPhone uniquement (XcodeGen ajoute l'iPad par défaut au niveau de la cible).
+        TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         CODE_SIGN_STYLE: Automatic

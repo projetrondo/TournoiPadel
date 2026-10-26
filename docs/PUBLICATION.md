@@ -98,9 +98,9 @@ dont un sans compte iCloud.
 
 ## 9. Règles Apple à garder en tête
 
-- **SDK minimal** : Apple relève chaque printemps la version minimale de Xcode et du SDK
-  exigée. Le workflow utilise l'image `macos-15` de GitHub ; il faudra la mettre à jour quand
-  Apple l'exigera.
+- **SDK minimal** : Apple exige actuellement le SDK iOS 26 (Xcode 26) ou plus récent. Les workflows
+  utilisent l'image `macos-26` de GitHub et sélectionnent le Xcode 26+ le plus récent ; à
+  mettre à jour quand Apple relèvera de nouveau ce seuil.
 - **Chiffrement** : `ITSAppUsesNonExemptEncryption = NO` est déjà déclaré, car l'app n'utilise
   que le chiffrement standard d'iOS.
 - **Comptes** : aucun compte n'est créé, donc pas d'obligation de suppression de compte.
