@@ -90,6 +90,17 @@ jobs:
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
             | tee export.log
 
+      # Les erreurs sont republiées en annotations, lisibles sans télécharger les journaux.
+      - name: Résumer les erreurs
+        if: failure()
+        run: |
+          for f in archive.log export.log; do
+            [ -f "$f" ] || continue
+            grep -E "error:|error -|Error Domain|requires a provisioning profile|No profiles|No signing certificate|No Accounts|doesn't include|not found|Provisioning profile" "$f" \
+              | grep -v "^note:" | sed 's/[[:space:]]\+/ /g' | sort -u | head -15 \
+              | while IFS= read -r line; do echo "::error title=$f::${line:0:900}"; done
+          done
+
       - name: Nettoyer la clé
         if: always()
         run: rm -rf "$RUNNER_TEMP/keys"
