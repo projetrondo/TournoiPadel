@@ -80,11 +80,11 @@ final class InMemoryBackend: EagleBackend, @unchecked Sendable {
     }
 
     func resume(refreshToken: String) async {
-        lock.lock(); signedIn = true; lock.unlock()
+        lock.withLock { signedIn = true }
     }
 
     func observeRefreshToken(_ observer: @escaping @Sendable (String?) -> Void) async {
-        refreshObserver = observer
+        lock.withLock { refreshObserver = observer }
     }
 
     func me() async throws -> AccountInfo {
@@ -92,7 +92,7 @@ final class InMemoryBackend: EagleBackend, @unchecked Sendable {
     }
 
     func signOut() async {
-        lock.lock(); signedIn = false; lock.unlock()
+        lock.withLock { signedIn = false }
         refreshObserver?(nil)
     }
 
