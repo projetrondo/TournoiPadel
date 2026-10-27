@@ -21,6 +21,9 @@ settings:
     # et le conteneur créé (voir docs/PARTAGE.md).
     CLOUDKIT_ENABLED: "NO"
     CLOUDKIT_CONTAINER: iCloud.com.projetrondo.padelbuddy
+    # Comptes et sauvegarde en ligne : adresse de l'API (dossier server/). Vide = désactivé.
+    # Renseignée au moment de la compilation TestFlight (voir docs/COMPTES.md).
+    EAGLE_API_URL: ""
 
 packages:
   PadelCore:
@@ -53,6 +56,7 @@ targets:
           - UIInterfaceOrientationPortrait
         PBCloudKitEnabled: $(CLOUDKIT_ENABLED)
         PBCloudKitContainer: $(CLOUDKIT_CONTAINER)
+        EagleAPIURL: $(EAGLE_API_URL)
         CFBundleURLTypes:
           - CFBundleURLName: com.projetrondo.padelbuddy.invite
             CFBundleURLSchemes:

@@ -1,0 +1,39 @@
+parameters:
+    # Adresse publique de l'API : sert à construire l'adresse de retour de Google.
+    app.public_url: '%env(PUBLIC_URL)%'
+    # Adresse de retour vers l'application iPhone, en fin de connexion Google.
+    app.app_callback_url: '%env(APP_CALLBACK_URL)%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+            string $publicUrl: '%app.public_url%'
+            string $appCallbackUrl: '%app.app_callback_url%'
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Security\TokenIssuer:
+        arguments:
+            $secret: '%env(TOKEN_SECRET)%'
+            $environment: '%kernel.environment%'
+
+    App\Auth\GoogleProvider:
+        arguments:
+            $clientId: '%env(GOOGLE_CLIENT_ID)%'
+            $clientSecret: '%env(GOOGLE_CLIENT_SECRET)%'
+
+    App\Auth\AppleIdentityVerifier:
+        arguments:
+            # Identifiant de l'app (bundle) : seul public accepté dans les jetons Apple.
+            $audience: '%env(APPLE_AUDIENCE)%'
+
+when@test:
+    services:
+        App\Tests\Support\ProviderStub:
+            public: true

@@ -26,6 +26,41 @@ jobs:
           name: core-tests
           path: core-tests.log
 
+  api:
+    name: API EAGLE (PHP 8.4, PostgreSQL)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: eagle
+          POSTGRES_PASSWORD: eagle
+          POSTGRES_DB: eagle
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U eagle" --health-interval 5s --health-timeout 3s --health-retries 20
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: intl, pdo_pgsql
+          coverage: none
+      - run: composer install --no-interaction --no-progress
+      - name: Base de test et migrations
+        run: |
+          APP_ENV=test php bin/console doctrine:database:create --if-not-exists
+          APP_ENV=test php bin/console doctrine:migrations:migrate --no-interaction
+          APP_ENV=test php bin/console doctrine:schema:validate
+      - name: Tests de l'API
+        run: vendor/bin/phpunit 2>&1 | tee ../api-tests.log
+        shell: bash
+      - name: Image Docker de production
+        run: docker build -f infra/Dockerfile --target prod -t eagle-api .
+
   ios:
     name: Application iOS (simulateur)
     runs-on: macos-26
@@ -99,6 +134,10 @@ jobs:
           shot 5-resultats -demo-open finished -demo-tab results
           shot 6-profil -demo-open inProgress -demo-tab standings -demo-player
           shot 7-profil-termine -demo-open finished -demo-tab standings -demo-player
+          shot 10-session-classement -demo-session
+          shot 11-session-joueurs -demo-session -demo-session-tab players
+          shot 12-compte-connexion -demo-open-account
+          shot 13-compte-connecte -demo-account -demo-open-account
           xcrun simctl ui "$UDID" content_size accessibility-extra-large
           shot 8-classement-grand-texte -demo-open inProgress -demo-tab standings
           shot 9-accueil-grand-texte

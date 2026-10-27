@@ -43,13 +43,61 @@ enum DemoData {
             courts: 2,
             date: reference.addingTimeInterval(-3_600)
         )
-        return [americano, draft, mexicano]
+        return [americano, draft, mexicano] + sessionTournaments()
+    }
+
+    // MARK: - Session de démonstration
+
+    static let sessionID = UUID(uuidString: "5E55E55E-0000-4000-8000-000000000001")!
+    static let sessionNames = ["Léa", "Max", "Inès", "Tom", "Chloé", "Hugo", "Sarah", "Nico", "Yanis"]
+
+    /// Joueurs enregistrés de la session, avec des identifiants fixes.
+    static var sessionMembers: [SessionMember] {
+        sessionNames.enumerated().map { index, name in
+            SessionMember(id: UUID(uuidString: String(format: "5E55E55E-0000-4000-8000-%012d", index + 2))!, name: name)
+        }
+    }
+
+    static func sessions(now: Date = Date()) -> [PlaySession] {
+        [PlaySession(
+            id: sessionID,
+            name: "Les Aigles du jeudi",
+            members: sessionMembers,
+            minimumMatches: 3,
+            createdAt: now.addingTimeInterval(-86_400 * 40)
+        )]
+    }
+
+    /// Trois soirées terminées, une par semaine, relatives à `now` pour que le classement
+    /// du mois en cours ait du contenu sur les captures.
+    static func sessionTournaments(now: Date = Date()) -> [Tournament] {
+        let members = sessionMembers
+        let evenings: [(days: Double, present: [Int], offset: Int)] = [
+            (2, [0, 1, 2, 3, 4, 5, 6, 7], 0),
+            (9, [0, 1, 2, 3, 4, 5, 7, 8], 2),
+            (16, [0, 1, 3, 4, 5, 6, 7, 8], 4),
+        ]
+        return evenings.map { evening in
+            let date = now.addingTimeInterval(-86_400 * evening.days)
+            var tournament = makeTournament(
+                name: "Jeudi " + date.formatted(.dateTime.day().month(.abbreviated).locale(Locale(identifier: "fr_FR"))),
+                format: .americano,
+                players: evening.present.map { Player(id: members[$0].id, name: members[$0].name) },
+                courts: 2,
+                date: date,
+                sessionID: sessionID
+            )
+            try? tournament.start(now: date)
+            play(&tournament, rounds: Int.max, date: date, offset: evening.offset)
+            try? tournament.finish(now: date)
+            return tournament
+        }
     }
 
     /// Scores fictifs mais plausibles, déterministes.
-    private static func play(_ tournament: inout Tournament, rounds: Int, date: Date) {
+    private static func play(_ tournament: inout Tournament, rounds: Int, date: Date, offset: Int = 0) {
         let scores = [Score(15, 9), Score(11, 13), Score(17, 7), Score(12, 12), Score(10, 14), Score(16, 8)]
-        var i = 0
+        var i = offset
         for match in tournament.orderedMatches where match.state != .completed {
             guard let location = tournament.location(of: match.id), location.round < rounds else { break }
             try? tournament.validateScore(match.id, score: scores[i % scores.count], now: date)
@@ -60,11 +108,14 @@ enum DemoData {
     private static func makeTournament(
         name: String,
         format: TournamentFormat,
-        names: [String],
+        names: [String] = [],
+        players: [Player]? = nil,
         courts: Int,
-        date: Date
+        date: Date,
+        sessionID: UUID? = nil
     ) -> Tournament {
-        let planner = RoundPlanner(playerCount: names.count, declaredCourts: courts)
+        let players = players ?? names.map { Player(name: $0) }
+        let planner = RoundPlanner(playerCount: players.count, declaredCourts: courts)
         let scoring = ScoringRule.fixedTotal(points: 24)
         return Tournament(
             name: name,
@@ -74,9 +125,10 @@ enum DemoData {
                 scoring: scoring,
                 plannedRounds: planner.recommendedRounds(scoring: scoring) ?? 1
             ),
-            players: names.map { Player(name: $0) },
+            players: players,
             seed: 1,
-            createdAt: date
+            createdAt: date,
+            sessionID: sessionID
         )
     }
 }
@@ -95,6 +147,13 @@ enum LaunchOptions {
 
     /// `-demo-score` : ouvre la saisie du premier match non joué.
     static var opensScoreEntry: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-score") }
+
+    /// `-demo-session` : ouvre la première session ; `-demo-session-tab ranking|tournaments|players`.
+    static var opensSession: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-session") }
+    static var sessionTab: String? { value(after: "-demo-session-tab") }
+
+    /// `-demo-account` : compte simulé connecté ; `-demo-open-account` ouvre l'écran du compte.
+    static var opensAccount: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-open-account") }
 
     /// `-demo-player` : ouvre le profil de l'Aigle depuis le classement.
     static var opensPlayerProfile: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-player") }

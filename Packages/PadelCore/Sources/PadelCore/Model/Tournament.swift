@@ -22,6 +22,8 @@ public struct Tournament: Codable, Identifiable, Hashable, Sendable {
     /// Incrémenté à chaque modification ; sert à la synchronisation.
     public var revision: Int
     public var sharing: SharingInfo?
+    /// Session à laquelle appartient le tournoi (absent = tournoi isolé, fichiers antérieurs).
+    public var sessionID: UUID?
 
     public init(
         id: UUID = UUID(),
@@ -35,7 +37,8 @@ public struct Tournament: Codable, Identifiable, Hashable, Sendable {
         createdAt: Date,
         updatedAt: Date? = nil,
         revision: Int = 1,
-        sharing: SharingInfo? = nil
+        sharing: SharingInfo? = nil,
+        sessionID: UUID? = nil
     ) {
         self.schemaVersion = Tournament.currentSchemaVersion
         self.id = id
@@ -50,10 +53,20 @@ public struct Tournament: Codable, Identifiable, Hashable, Sendable {
         self.updatedAt = updatedAt ?? createdAt
         self.revision = revision
         self.sharing = sharing
+        self.sessionID = sessionID
     }
 
     public func player(_ id: Player.ID) -> Player? {
         players.first { $0.id == id }
+    }
+
+    /// Date à laquelle le tournoi s'est joué : premier score validé, sinon sa création.
+    /// C'est elle qui range le tournoi dans une semaine, un mois ou une année.
+    public var playedOn: Date {
+        rounds.lazy
+            .flatMap(\.matches)
+            .compactMap { $0.state == .completed ? $0.edits.first?.date : nil }
+            .min() ?? createdAt
     }
 
     /// Enregistre une modification : date et révision.

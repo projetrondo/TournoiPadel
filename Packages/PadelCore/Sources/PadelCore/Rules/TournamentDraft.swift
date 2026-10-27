@@ -26,6 +26,8 @@ public struct TournamentDraft: Hashable, Sendable {
     public var mexicanoFirstRound: FirstRoundMode
     /// Mode libre : pas de nombre de tours fixé, on s'arrête quand on veut.
     public var isOpenEnded: Bool
+    /// Session d'origine : le tournoi y sera rattaché.
+    public var sessionID: UUID?
 
     public init(
         name: String = "",
@@ -35,7 +37,8 @@ public struct TournamentDraft: Hashable, Sendable {
         scoring: ScoringRule = .fixedTotal(points: 24),
         rounds: Int = 3,
         mexicanoFirstRound: FirstRoundMode = .random,
-        isOpenEnded: Bool = false
+        isOpenEnded: Bool = false,
+        sessionID: UUID? = nil
     ) {
         self.name = name
         self.format = format
@@ -45,6 +48,7 @@ public struct TournamentDraft: Hashable, Sendable {
         self.rounds = rounds
         self.mexicanoFirstRound = mexicanoFirstRound
         self.isOpenEnded = isOpenEnded
+        self.sessionID = sessionID
     }
 
     public var planner: RoundPlanner {
@@ -156,7 +160,8 @@ public struct TournamentDraft: Hashable, Sendable {
             settings: settings,
             players: players,
             seed: seed,
-            createdAt: now
+            createdAt: now,
+            sessionID: sessionID
         )
     }
 }

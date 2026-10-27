@@ -11,6 +11,10 @@ on:
         description: "Activer le partage CloudKit (seulement après avoir créé le conteneur iCloud, voir docs/PARTAGE.md)"
         type: boolean
         default: false
+      api_url:
+        description: "Adresse de l'API EAGLE pour les comptes (ex. https://api.eagle-padel.fr). Vide = pas de compte. Voir docs/COMPTES.md"
+        type: string
+        default: ""
 
 jobs:
   testflight:
@@ -51,6 +55,30 @@ jobs:
           mkdir -p "$RUNNER_TEMP/keys"
           echo "$ASC_KEY_P8_BASE64" | base64 --decode > "$RUNNER_TEMP/keys/AuthKey.p8"
 
+      # Droits de l'app selon les options : partage CloudKit, « Se connecter avec Apple ».
+      - name: Préparer les droits
+        env:
+          API_URL: ${{ inputs.api_url }}
+          CLOUDKIT: ${{ inputs.cloudkit }}
+        run: |
+          ENT="$RUNNER_TEMP/EAGLE.entitlements"
+          {
+            echo '<?xml version="1.0" encoding="UTF-8"?>'
+            echo '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">'
+            echo '<plist version="1.0"><dict>'
+            if [ "$CLOUDKIT" = "true" ]; then
+              echo '<key>com.apple.developer.icloud-container-identifiers</key><array><string>iCloud.com.projetrondo.padelbuddy</string></array>'
+              echo '<key>com.apple.developer.icloud-services</key><array><string>CloudKit</string></array>'
+            fi
+            if [ -n "$API_URL" ]; then
+              case "$API_URL" in https://*) ;; *) echo "::error::api_url doit commencer par https://"; exit 1 ;; esac
+              echo '<key>com.apple.developer.applesignin</key><array><string>Default</string></array>'
+            fi
+            echo '</dict></plist>'
+          } > "$ENT"
+          plutil -lint "$ENT"
+          if [ "$CLOUDKIT" = "true" ] || [ -n "$API_URL" ]; then echo "ENTITLEMENTS=$ENT" >> "$GITHUB_ENV"; fi
+
       - name: Générer le projet
         run: |
           brew install xcodegen
@@ -60,6 +88,8 @@ jobs:
       # développement, donc un iPhone enregistré sur le compte. La signature de distribution
       # (la seule utile pour TestFlight et l'App Store) est faite à l'étape suivante.
       - name: Archiver
+        env:
+          API_URL: ${{ inputs.api_url }}
         run: |
           set -o pipefail
           xcodebuild archive \
@@ -74,8 +104,15 @@ jobs:
             CODE_SIGN_IDENTITY="" \
             CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
             CLOUDKIT_ENABLED="${{ inputs.cloudkit && 'YES' || 'NO' }}" \
-            CODE_SIGN_ENTITLEMENTS="${{ inputs.cloudkit && 'Config/PadelBuddy.entitlements' || '' }}" \
+            EAGLE_API_URL="$API_URL" \
             2>&1 | tee archive.log
+          # L'archive n'est pas signée : les droits sont posés par une signature provisoire,
+          # que l'export remplace par la signature de distribution en les conservant.
+          if [ -n "${ENTITLEMENTS:-}" ]; then
+            codesign --force --sign - --timestamp=none --entitlements "$ENTITLEMENTS" \
+              "$RUNNER_TEMP/PadelBuddy.xcarchive/Products/Applications/PadelBuddy.app"
+            codesign -d --entitlements - "$RUNNER_TEMP/PadelBuddy.xcarchive/Products/Applications/PadelBuddy.app"
+          fi
 
       - name: Signer pour la distribution et envoyer sur App Store Connect
         run: |
