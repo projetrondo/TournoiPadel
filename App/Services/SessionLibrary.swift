@@ -16,6 +16,8 @@ final class SessionLibrary {
     @ObservationIgnored private let now: () -> Date
     /// Appelé après chaque modification enregistrée (pour la sauvegarde en ligne).
     @ObservationIgnored var onLocalChange: (@MainActor (PlaySession) -> Void)?
+    /// Appelé après la suppression d'une session par l'utilisateur.
+    @ObservationIgnored var onLocalDelete: (@MainActor (PlaySession) -> Void)?
 
     init(store: any SessionStore, now: @escaping () -> Date = { Date() }) {
         self.store = store
@@ -78,6 +80,14 @@ final class SessionLibrary {
 
     /// Supprime la session. Ses tournois restent enregistrés, comme tournois isolés.
     func delete(id: PlaySession.ID) throws {
+        let deleted = session(id: id)
+        try store.delete(id: id)
+        sessions.removeAll { $0.id == id }
+        if let deleted { onLocalDelete?(deleted) }
+    }
+
+    /// Suppression reçue du serveur (faite sur un autre appareil) : rien à renvoyer.
+    func deleteSynced(id: PlaySession.ID) throws {
         try store.delete(id: id)
         sessions.removeAll { $0.id == id }
     }

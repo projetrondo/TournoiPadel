@@ -152,6 +152,9 @@ enum LaunchOptions {
     static var opensSession: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-session") }
     static var sessionTab: String? { value(after: "-demo-session-tab") }
 
+    /// `-demo-account` : compte simulé connecté ; `-demo-open-account` ouvre l'écran du compte.
+    static var opensAccount: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-open-account") }
+
     /// `-demo-player` : ouvre le profil de l'Aigle depuis le classement.
     static var opensPlayerProfile: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-player") }
 

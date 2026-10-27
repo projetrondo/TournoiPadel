@@ -22,6 +22,10 @@ final class TournamentLibrary {
     @ObservationIgnored private let now: () -> Date
     /// Appelé après chaque modification locale enregistrée (pour la publication en ligne).
     @ObservationIgnored var onLocalChange: (@MainActor (Tournament) -> Void)?
+    /// Appelé après toute modification ou création locale (pour la sauvegarde du compte).
+    @ObservationIgnored var onBackupNeeded: (@MainActor () -> Void)?
+    /// Appelé après la suppression d'un tournoi par l'utilisateur.
+    @ObservationIgnored var onLocalDelete: (@MainActor (Tournament) -> Void)?
 
     init(store: any TournamentStore, now: @escaping () -> Date = { Date() }) {
         self.store = store
@@ -61,6 +65,7 @@ final class TournamentLibrary {
         let tournament = try draft.makeTournament(now: now(), seed: UInt64.random(in: .min ... .max))
         try store.save(tournament)
         tournaments.insert(tournament, at: 0)
+        onBackupNeeded?()
         return tournament
     }
 
@@ -73,6 +78,7 @@ final class TournamentLibrary {
         tournaments.removeAll { $0.id == updated.id }
         tournaments.insert(updated, at: 0)
         onLocalChange?(updated)
+        onBackupNeeded?()
     }
 
     /// Lance un tournoi : la génération du planning tourne hors du fil principal, puis le
@@ -90,6 +96,7 @@ final class TournamentLibrary {
         tournaments.removeAll { $0.id == id }
         tournaments.insert(started, at: 0)
         onLocalChange?(started)
+        onBackupNeeded?()
     }
 
     /// Applique une modification du moteur à un tournoi enregistré, puis sauvegarde.
@@ -102,7 +109,10 @@ final class TournamentLibrary {
         try store.save(tournament)
         tournaments.removeAll { $0.id == id }
         tournaments.insert(tournament, at: 0)
-        if tournament.revision != revision { onLocalChange?(tournament) }
+        if tournament.revision != revision {
+            onLocalChange?(tournament)
+            onBackupNeeded?()
+        }
     }
 
     /// Enregistre une version reçue du serveur, ou des métadonnées de partage, sans la
@@ -117,6 +127,14 @@ final class TournamentLibrary {
     }
 
     func delete(id: Tournament.ID) throws {
+        let deleted = tournament(id: id)
+        try store.delete(id: id)
+        tournaments.removeAll { $0.id == id }
+        if let deleted { onLocalDelete?(deleted) }
+    }
+
+    /// Suppression reçue du serveur (faite sur un autre appareil) : rien à renvoyer.
+    func deleteSynced(id: Tournament.ID) throws {
         try store.delete(id: id)
         tournaments.removeAll { $0.id == id }
     }

@@ -17,6 +17,8 @@ struct HomeView: View {
     @State private var isJoining = false
     @State private var pendingJoinCode = ""
     @State private var isShowingHelp = false
+    @State private var isShowingAccount = LaunchOptions.opensAccount
+    @Environment(AccountCenter.self) private var accounts
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     /// Nombre de tournois terminés affichés directement sur l'accueil.
@@ -28,6 +30,17 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     EagleWordmark()
                         .padding(.horizontal, 48)
+                        .overlay(alignment: .topLeading) {
+                            if accounts.isAvailable {
+                                Button {
+                                    isShowingAccount = true
+                                } label: {
+                                    accountIcon
+                                        .frame(minWidth: 44, minHeight: 44)
+                                }
+                                .accessibilityLabel(accounts.account == nil ? "Se connecter" : "Mon compte")
+                            }
+                        }
                         .overlay(alignment: .topTrailing) {
                             Button {
                                 isShowingHelp = true
@@ -84,6 +97,9 @@ struct HomeView: View {
             }
             .sheet(isPresented: $isShowingHelp) {
                 HelpView()
+            }
+            .sheet(isPresented: $isShowingAccount) {
+                AccountView()
             }
             .sheet(isPresented: $isJoining, onDismiss: { pendingJoinCode = "" }) {
                 JoinTournamentView(initialCode: pendingJoinCode) { id in
@@ -185,6 +201,17 @@ struct HomeView: View {
                     }
                 }
             }
+        }
+    }
+
+    /// Avatar du compte connecté, ou silhouette pour se connecter.
+    @ViewBuilder
+    private var accountIcon: some View {
+        if let account = accounts.account {
+            PlayerAvatar(name: account.displayName ?? account.email ?? "EAGLE", tier: .eagle, size: 34)
+        } else {
+            Image(systemName: "person.crop.circle")
+                .font(.title2)
         }
     }
 
@@ -495,6 +522,7 @@ struct TournamentListView: View {
         .previewLoaded()
         .environment(library)
         .environment(SessionLibrary(store: InMemorySessionStore(DemoData.sessions())))
+        .environment(AccountCenter(backend: nil, library: library, sessions: SessionLibrary(store: InMemorySessionStore())))
         .environment(SyncCoordinator(library: library, service: InMemorySyncService(), deviceID: "aperçu"))
 }
 

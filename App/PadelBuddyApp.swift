@@ -7,6 +7,7 @@ struct PadelBuddyApp: App {
     @State private var library: TournamentLibrary
     @State private var sync: SyncCoordinator
     @State private var sessions: SessionLibrary
+    @State private var accounts: AccountCenter
 
     init() {
         let arguments = ProcessInfo.processInfo.arguments
@@ -29,7 +30,27 @@ struct PadelBuddyApp: App {
         }
         let library = TournamentLibrary(store: store)
         _library = State(initialValue: library)
-        _sessions = State(initialValue: SessionLibrary(store: sessionStore))
+        let sessions = SessionLibrary(store: sessionStore)
+        _sessions = State(initialValue: sessions)
+        if arguments.contains("-ui-testing") {
+            // Compte simulé : `-demo-account` affiche un compte connecté, sans réseau.
+            let signedIn = arguments.contains("-demo-account")
+            _accounts = State(initialValue: AccountCenter(
+                backend: InMemoryBackend(signedIn: signedIn),
+                library: library,
+                sessions: sessions,
+                defaults: UserDefaults(suiteName: "ui-testing") ?? .standard,
+                storedRefreshToken: signedIn ? "jeton-demo" : nil
+            ))
+        } else {
+            _accounts = State(initialValue: AccountCenter(
+                backend: AccountConfiguration.apiURL.map { EagleAPI(baseURL: $0) },
+                library: library,
+                sessions: sessions,
+                storedRefreshToken: Keychain.refreshToken(),
+                saveRefreshToken: { Keychain.setRefreshToken($0) }
+            ))
+        }
         _sync = State(initialValue: SyncCoordinator(library: library, service: service, deviceID: DeviceIdentity.current))
     }
 
@@ -38,6 +59,7 @@ struct PadelBuddyApp: App {
             HomeView()
                 .environment(library)
                 .environment(sessions)
+                .environment(accounts)
                 .environment(sync)
                 .tint(Theme.accent)
                 .preferredColorScheme(.dark)
@@ -49,8 +71,21 @@ struct PadelBuddyApp: App {
                 }
         }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active { sync.publishAllPending() }
+            if phase == .active {
+                sync.publishAllPending()
+                accounts.scheduleBackup(after: .zero)
+            }
         }
+    }
+}
+
+/// Adresse de l'API EAGLE (comptes et sauvegarde), réglage `EAGLE_API_URL` de project.yml
+/// recopié dans Info.plist. Vide : pas de compte, l'app reste entièrement locale.
+enum AccountConfiguration {
+    static var apiURL: URL? {
+        guard let value = Bundle.main.object(forInfoDictionaryKey: "EagleAPIURL") as? String,
+              value.hasPrefix("https://"), let url = URL(string: value.hasSuffix("/") ? value : value + "/") else { return nil }
+        return url
     }
 }
 

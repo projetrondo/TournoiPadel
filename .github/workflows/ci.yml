@@ -136,6 +136,8 @@ jobs:
           shot 7-profil-termine -demo-open finished -demo-tab standings -demo-player
           shot 10-session-classement -demo-session
           shot 11-session-joueurs -demo-session -demo-session-tab players
+          shot 12-compte-connexion -demo-open-account
+          shot 13-compte-connecte -demo-account -demo-open-account
           xcrun simctl ui "$UDID" content_size accessibility-extra-large
           shot 8-classement-grand-texte -demo-open inProgress -demo-tab standings
           shot 9-accueil-grand-texte
