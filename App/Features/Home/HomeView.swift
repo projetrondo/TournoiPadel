@@ -3,12 +3,16 @@ import SwiftUI
 
 enum HomeRoute: Hashable {
     case tournament(Tournament.ID)
+    case session(PlaySession.ID)
     case finishedList
 }
 
 struct HomeView: View {
     @Environment(TournamentLibrary.self) private var library
+    @Environment(SessionLibrary.self) private var sessions
     @State private var path: [HomeRoute] = []
+    @State private var isCreatingSession = false
+    @State private var newSessionName = ""
     @State private var isCreating = false
     @State private var isJoining = false
     @State private var pendingJoinCode = ""
@@ -54,12 +58,20 @@ struct HomeView: View {
                 switch route {
                 case .tournament(let id):
                     TournamentDetailView(tournamentID: id)
+                case .session(let id):
+                    SessionDetailView(sessionID: id) { tournament in
+                        path.append(.tournament(tournament.id))
+                    }
                 case .finishedList:
                     TournamentListView(title: String(localized: "Hall of Eagles"), tournaments: library.finishedTournaments)
                 }
             }
             .task {
                 library.loadIfNeeded()
+                sessions.loadIfNeeded()
+                if LaunchOptions.opensSession, path.isEmpty, let session = sessions.sessions.first {
+                    path = [.session(session.id)]
+                }
                 if let status = LaunchOptions.openStatus, path.isEmpty,
                    let tournament = library.tournaments.first(where: { $0.status == status }) {
                     path = [.tournament(tournament.id)]
@@ -77,6 +89,32 @@ struct HomeView: View {
                 JoinTournamentView(initialCode: pendingJoinCode) { id in
                     path = [.tournament(id)]
                 }
+            }
+            .alert("Nouvelle session", isPresented: $isCreatingSession) {
+                TextField("Ex. : Padel du jeudi", text: $newSessionName)
+                Button("Créer") {
+                    let name = newSessionName
+                    newSessionName = ""
+                    sessions.perform {
+                        let session = try sessions.create(name: name)
+                        path.append(.session(session.id))
+                    }
+                }
+                Button("Annuler", role: .cancel) { newSessionName = "" }
+            } message: {
+                Text("Un groupe qui joue régulièrement : ses joueurs sont gardés et ses tournois forment un classement par semaine, mois et année.")
+            }
+            .alert(
+                "Erreur",
+                isPresented: Binding(
+                    get: { sessions.failure != nil },
+                    set: { if !$0 { sessions.failure = nil } }
+                ),
+                presenting: sessions.failure
+            ) { _ in
+                Button("OK", role: .cancel) {}
+            } message: { failure in
+                Text(failure.message)
             }
             .onOpenURL { url in
                 // Lien d'invitation padelbuddy://join/CODE reçu par message.
@@ -106,6 +144,7 @@ struct HomeView: View {
             ProgressView("Chargement…")
                 .frame(maxWidth: .infinity, minHeight: 200)
         } else if library.tournaments.isEmpty {
+            sessionsSection
             ContentUnavailableView {
                 Label {
                     Text("Aucun tournoi")
@@ -129,6 +168,7 @@ struct HomeView: View {
                 .font(.footnote)
                 .foregroundStyle(Theme.warning)
             }
+            sessionsSection
             if !library.activeTournaments.isEmpty {
                 section(title: String(localized: "En cours"), tournaments: library.activeTournaments)
             }
@@ -143,6 +183,49 @@ struct HomeView: View {
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(Theme.accent)
                     }
+                }
+            }
+        }
+    }
+
+    /// Sessions : groupes de joueurs habituels, avec leur classement dans le temps.
+    private var sessionsSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Text("Mes sessions")
+                    .eagleSectionTitle()
+                Spacer()
+                Button {
+                    isCreatingSession = true
+                } label: {
+                    Label("Nouvelle session", systemImage: "plus")
+                        .font(.subheadline.weight(.bold))
+                        .frame(minHeight: 44)
+                }
+            }
+            if sessions.sessions.isEmpty {
+                Button {
+                    isCreatingSession = true
+                } label: {
+                    HStack(spacing: 12) {
+                        Image(systemName: "person.3.fill")
+                            .font(.title2)
+                            .foregroundStyle(Theme.gold)
+                        Text("Créez une session pour garder vos joueurs et suivre le classement par semaine, mois et année.")
+                            .font(.subheadline)
+                            .foregroundStyle(Theme.ink)
+                            .multilineTextAlignment(.leading)
+                        Spacer(minLength: 0)
+                    }
+                    .cardStyle()
+                }
+                .buttonStyle(.plain)
+            } else {
+                ForEach(sessions.sessions) { session in
+                    NavigationLink(value: HomeRoute.session(session.id)) {
+                        SessionRow(session: session, tournaments: library.tournaments(in: session.id))
+                    }
+                    .buttonStyle(.plain)
                 }
             }
         }
@@ -187,6 +270,55 @@ struct HomeView: View {
             }
             .buttonStyle(SecondaryButtonStyle())
         }
+    }
+}
+
+/// Carte d'une session sur l'accueil : nom, joueurs, tournois, Aigle du mois.
+struct SessionRow: View {
+    let session: PlaySession
+    let tournaments: [Tournament]
+
+    var body: some View {
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(session.name)
+                    .font(Theme.display(.title3, weight: .heavy))
+                    .foregroundStyle(Theme.ink)
+                Text("\(FrenchPlural.count(session.activeMembers.count, "joueur", "joueurs")) · \(FrenchPlural.count(tournaments.count, "tournoi", "tournois"))")
+                    .font(.subheadline)
+                    .foregroundStyle(Theme.secondaryText)
+                if let eagle = monthEagle {
+                    HStack(spacing: 6) {
+                        EagleEmblem()
+                            .filled(Theme.goldGradient)
+                            .frame(width: 16, height: 16)
+                            .accessibilityHidden(true)
+                        Text("Aigle du mois : \(eagle)")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Theme.gold)
+                    }
+                }
+            }
+            Spacer(minLength: 8)
+            Image(systemName: "chevron.right")
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(Theme.secondaryText)
+        }
+        .cardStyle()
+        .overlay(alignment: .leading) {
+            Capsule().fill(Theme.goldGradient).frame(width: 3).padding(.vertical, 14)
+        }
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
+    }
+
+    /// Numéro 1 du mois en cours, s'il y en a un.
+    private var monthEagle: String? {
+        var calendar = Calendar(identifier: .iso8601)
+        calendar.timeZone = .current
+        let ranking = SessionRanking(session: session, tournaments: tournaments, period: .month, reference: Date(), calendar: calendar)
+        let names = ranking.ranked.filter { $0.rank == 1 }.map { SessionRanking.name(of: $0.id, session: session, tournaments: tournaments) }
+        return names.isEmpty ? nil : names.formatted(.list(type: .and))
     }
 }
 
@@ -362,6 +494,7 @@ struct TournamentListView: View {
     HomeView()
         .previewLoaded()
         .environment(library)
+        .environment(SessionLibrary(store: InMemorySessionStore(DemoData.sessions())))
         .environment(SyncCoordinator(library: library, service: InMemorySyncService(), deviceID: "aperçu"))
 }
 

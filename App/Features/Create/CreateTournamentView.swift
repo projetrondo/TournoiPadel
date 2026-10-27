@@ -5,11 +5,18 @@ struct CreateTournamentView: View {
     var onCreated: (Tournament) -> Void
 
     @Environment(TournamentLibrary.self) private var library
+    @Environment(SessionLibrary.self) private var sessions
     @Environment(\.dismiss) private var dismiss
-    @State private var model = CreateTournamentModel()
+    @State private var model: CreateTournamentModel
     @State private var isConfirmingDiscard = false
     @State private var errorMessage: String?
     @FocusState private var isPlayerFieldFocused: Bool
+
+    /// `session` : le tournoi est créé dans cette session, avec ses joueurs à cocher.
+    init(session: PlaySession? = nil, onCreated: @escaping (Tournament) -> Void) {
+        self.onCreated = onCreated
+        _model = State(initialValue: CreateTournamentModel(session: session))
+    }
 
     var body: some View {
         NavigationStack {
@@ -17,6 +24,9 @@ struct CreateTournamentView: View {
                 nameSection
                 formatSection
                 ScoringSection(selection: $model.scoringSelection)
+                if let session = model.session {
+                    membersSection(session)
+                }
                 playersSection
                 courtsSection
                 roundsSection
@@ -120,9 +130,72 @@ struct CreateTournamentView: View {
                 .accessibilityLabel("Ajouter le joueur")
             }
         } header: {
-            Text("Joueurs (\(model.players.count))")
+            if model.session == nil {
+                Text("Joueurs (\(model.players.count))")
+            } else {
+                Text("Autres joueurs (\(model.players.count))")
+            }
         } footer: {
-            Text("Minimum \(RoundPlanner.minPlayers) joueurs. Balayez une ligne vers la gauche pour la supprimer.")
+            if model.session == nil {
+                Text("Minimum \(RoundPlanner.minPlayers) joueurs. Balayez une ligne vers la gauche pour la supprimer.")
+            } else {
+                Text("Invités ou nouveaux joueurs : ils rejoindront la liste de la session.")
+            }
+        }
+    }
+
+    /// Joueurs enregistrés de la session : on coche les présents.
+    private func membersSection(_ session: PlaySession) -> some View {
+        let members = session.activeMembers
+        let allSelected = !members.isEmpty && members.allSatisfy { model.selectedMemberIDs.contains($0.id) }
+        return Section {
+            if members.isEmpty {
+                Text("Aucun joueur enregistré pour l'instant. Ajoutez-les ci-dessous : ils seront gardés pour les prochains tournois.")
+                    .font(.subheadline)
+                    .foregroundStyle(Theme.secondaryText)
+            } else {
+                Button(allSelected ? "Tout décocher" : "Tout cocher") {
+                    model.selectAllMembers(!allSelected)
+                }
+                ForEach(members) { member in
+                    let isSelected = model.selectedMemberIDs.contains(member.id)
+                    HStack(spacing: 12) {
+                        Button {
+                            model.toggle(member)
+                        } label: {
+                            HStack(spacing: 12) {
+                                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                                    .font(.title3)
+                                    .foregroundStyle(isSelected ? Theme.accent : Theme.secondaryText)
+                                PlayerAvatar(name: member.name, size: 32)
+                                Text(member.name)
+                                    .foregroundStyle(Theme.ink)
+                                Spacer(minLength: 0)
+                            }
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityAddTraits(isSelected ? [.isSelected] : [])
+                        if model.needsLevels, isSelected {
+                            Picker("Niveau", selection: Binding(
+                                get: { model.memberLevels[member.id] ?? member.level },
+                                set: { model.memberLevels[member.id] = $0 }
+                            )) {
+                                Text("Niveau ?").tag(Int?.none)
+                                ForEach(Array(Player.levelRange), id: \.self) { level in
+                                    Text("Niveau \(level)").tag(Int?.some(level))
+                                }
+                            }
+                            .labelsHidden()
+                            .fixedSize()
+                        }
+                    }
+                }
+            }
+        } header: {
+            Text("Présents (\(model.selectedMemberIDs.count) sur \(members.count))")
+        } footer: {
+            Text("Minimum \(RoundPlanner.minPlayers) joueurs au total.")
         }
     }
 
@@ -252,6 +325,8 @@ struct CreateTournamentView: View {
     private func create() {
         do {
             let tournament = try library.create(from: model.draft)
+            // Les nouveaux noms rejoignent la session ; un échec ici n'annule pas le tournoi.
+            sessions.perform { try sessions.absorbPlayers(of: tournament) }
             dismiss()
             onCreated(tournament)
         } catch {
@@ -272,4 +347,5 @@ struct CreateTournamentView: View {
 #Preview {
     CreateTournamentView { _ in }
         .environment(TournamentLibrary(store: InMemoryTournamentStore()))
+        .environment(SessionLibrary(store: InMemorySessionStore()))
 }

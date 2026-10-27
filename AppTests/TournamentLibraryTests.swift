@@ -155,7 +155,12 @@ struct TournamentLibraryTests {
     @Test("Les données de démonstration sont cohérentes")
     func demoData() throws {
         let demo = DemoData.tournaments()
-        #expect(demo.map(\.status).sorted { $0.rawValue < $1.rawValue } == [.draft, .finished, .inProgress])
+        let standalone = demo.filter { $0.sessionID == nil }
+        #expect(standalone.map(\.status).sorted { $0.rawValue < $1.rawValue } == [.draft, .finished, .inProgress])
+        let session = try #require(DemoData.sessions().first)
+        let inSession = demo.filter { $0.sessionID == session.id }
+        #expect(inSession.count == 3 && inSession.allSatisfy { $0.status == .finished })
+        #expect(inSession.allSatisfy { $0.players.allSatisfy { session.member($0.id) != nil } })
         for tournament in demo where tournament.status != .draft {
             try ScheduleValidator.validate(
                 rounds: tournament.rounds,
