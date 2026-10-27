@@ -1,4 +1,4 @@
-# Padel Buddy (TournoiPadel)
+# EAGLE — Own the court. (TournoiPadel)
 
 Application iPhone gratuite pour organiser des tournois de padel **Americano** et **Mexicano**
 entre amis : création en quelques secondes, génération des matchs, saisie des scores, classement

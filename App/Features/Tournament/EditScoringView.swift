@@ -27,6 +27,7 @@ struct EditScoringView: View {
                     )
                 }
             }
+            .eagleScreenBackground()
             .navigationTitle("Points par match")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

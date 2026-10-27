@@ -34,6 +34,7 @@ struct HomeView: View {
                         .accessibilityLabel("Comment ça marche ?")
                     }
                     .padding(.top, 8)
+                    EagleConceptBanner()
                     if dynamicTypeSize.isAccessibilitySize {
                         actionButtons
                     }
@@ -53,7 +54,7 @@ struct HomeView: View {
                 case .tournament(let id):
                     TournamentDetailView(tournamentID: id)
                 case .finishedList:
-                    TournamentListView(title: String(localized: "Tournois terminés"), tournaments: library.finishedTournaments)
+                    TournamentListView(title: String(localized: "Hall of Eagles"), tournaments: library.finishedTournaments)
                 }
             }
             .task {
@@ -105,9 +106,17 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity, minHeight: 200)
         } else if library.tournaments.isEmpty {
             ContentUnavailableView {
-                Label("Aucun tournoi", systemImage: "trophy")
+                Label {
+                    Text("Aucun tournoi")
+                        .font(Theme.display(.title2, weight: .black))
+                        .textCase(.uppercase)
+                } icon: {
+                    EagleEmblem()
+                        .stroke(Theme.gold.opacity(0.7), lineWidth: 1.5)
+                        .frame(width: 56, height: 56)
+                }
             } description: {
-                Text("Créez votre premier tournoi en quelques secondes, ou rejoignez celui d'un ami.")
+                Text("Créez votre premier tournoi en quelques secondes, ou rejoignez celui d'un ami. Le premier score validé désignera l'Aigle.")
             }
             .frame(minHeight: 300)
         } else {
@@ -124,13 +133,14 @@ struct HomeView: View {
             }
             if !library.finishedTournaments.isEmpty {
                 section(
-                    title: String(localized: "Terminés"),
+                    title: String(localized: "Hall of Eagles"),
                     tournaments: Array(library.finishedTournaments.prefix(finishedPreviewCount))
                 )
                 if library.finishedTournaments.count > finishedPreviewCount {
                     NavigationLink(value: HomeRoute.finishedList) {
                         Text("Voir les \(library.finishedTournaments.count) tournois terminés")
                             .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Theme.accent)
                     }
                 }
             }
@@ -140,8 +150,7 @@ struct HomeView: View {
     private func section(title: String, tournaments: [Tournament]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(.title3.weight(.bold))
-                .accessibilityAddTraits(.isHeader)
+                .eagleSectionTitle()
             ForEach(tournaments) { tournament in
                 NavigationLink(value: HomeRoute.tournament(tournament.id)) {
                     TournamentRow(tournament: tournament)
@@ -157,7 +166,8 @@ struct HomeView: View {
             .padding(.horizontal, 16)
             .padding(.top, 12)
             .padding(.bottom, 8)
-            .background(.bar)
+            .background(Theme.background.opacity(0.94))
+            .overlay(alignment: .top) { Divider().overlay(Theme.stroke) }
     }
 
     private var actionButtons: some View {
@@ -201,23 +211,24 @@ struct TournamentRow: View {
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 6) {
                 Text(tournament.name)
-                    .font(.headline)
-                    .foregroundStyle(.primary)
+                    .font(Theme.display(.title3, weight: .heavy))
+                    .foregroundStyle(Theme.ink)
                     .lineLimit(1)
                 HStack(spacing: 6) {
                     badges
                     Text("\(tournament.players.count) joueurs")
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Theme.secondaryText)
                 }
                 status
+                eagleLine
             }
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 6) {
                 date
                 Image(systemName: "chevron.right")
                     .font(.footnote.weight(.semibold))
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(Theme.secondaryText)
             }
         }
     }
@@ -226,14 +237,15 @@ struct TournamentRow: View {
     private var stackedLayout: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(tournament.name)
-                .font(.headline)
-                .foregroundStyle(.primary)
+                .font(Theme.display(.title3, weight: .heavy))
+                .foregroundStyle(Theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
             badges
             Text("\(tournament.players.count) joueurs")
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Theme.secondaryText)
             status
+            eagleLine
             date
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -248,7 +260,7 @@ struct TournamentRow: View {
             } else if tournament.sharing != nil {
                 Image(systemName: "person.2.wave.2.fill")
                     .font(.caption)
-                    .foregroundStyle(Theme.green)
+                    .foregroundStyle(Theme.accent)
                     .accessibilityLabel("Partagé")
             }
         }
@@ -263,7 +275,63 @@ struct TournamentRow: View {
     private var date: some View {
         Text(tournament.updatedAt, format: .dateTime.day().month(.abbreviated))
             .font(.caption)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Theme.secondaryText)
+    }
+
+    /// L'Aigle actuel (ou du tournoi terminé), calculé à partir du classement réel.
+    @ViewBuilder
+    private var eagleLine: some View {
+        let names = tournament.currentEagles.compactMap { tournament.player($0.id)?.name }
+        if !names.isEmpty {
+            HStack(spacing: 6) {
+                EagleEmblem()
+                    .filled(Theme.gold)
+                    .frame(width: 16, height: 16)
+                    .accessibilityHidden(true)
+                Text(tournament.status == .finished
+                     ? String(localized: "Aigle du tournoi : \(names.formatted(.list(type: .and)))")
+                     : String(localized: "Aigle actuel : \(names.formatted(.list(type: .and)))"))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.gold)
+                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
+            }
+        }
+    }
+}
+
+extension Tournament {
+    /// Numéro(s) 1 du classement réel ; vide tant qu'aucun score n'est validé.
+    var currentEagles: [StandingRow] {
+        let rows = standings
+        guard rows.contains(where: { $0.stats.played > 0 }) else { return [] }
+        return rows.filter { $0.rank == 1 }
+    }
+}
+
+/// Le concept en une ligne, dès l'ouverture : le numéro 1 est l'Aigle.
+struct EagleConceptBanner: View {
+    var body: some View {
+        HStack(spacing: 12) {
+            EagleEmblem()
+                .filled(Theme.gold)
+                .frame(width: 30, height: 30)
+                .accessibilityHidden(true)
+            Text("Le n°1 du classement est \(Text("l'Aigle").foregroundStyle(Theme.gold).bold()). Gagne tes matchs, grimpe au classement, prends sa place.")
+                .font(.subheadline)
+                .foregroundStyle(Theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
+                .fill(Theme.gold.opacity(0.08))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
+                .strokeBorder(Theme.gold.opacity(0.35), lineWidth: 1)
+        )
+        .accessibilityElement(children: .combine)
     }
 }
 

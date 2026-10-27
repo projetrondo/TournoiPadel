@@ -41,7 +41,8 @@ struct RoundSection: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text("Tour \(round.index)")
-                    .font(.title3.weight(.bold))
+                    .font(Theme.display(.title3, weight: .heavy))
+                    .textCase(.uppercase)
                     .accessibilityAddTraits(.isHeader)
                 if round.isExcluded {
                     BadgeView(text: String(localized: "Non compté"), color: Theme.warning)
@@ -90,7 +91,7 @@ struct MatchCard: View {
             HStack {
                 Label("Terrain \(match.court)", systemImage: "square.split.2x1")
                     .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Theme.green)
+                    .foregroundStyle(Theme.accent)
                 Spacer()
                 BadgeView(text: match.state.title, color: match.state.color)
             }
@@ -158,7 +159,7 @@ extension MatchState {
         switch self {
         case .scheduled: .secondary
         case .inProgress: Theme.warning
-        case .completed: Theme.green
+        case .completed: Theme.accent
         }
     }
 }

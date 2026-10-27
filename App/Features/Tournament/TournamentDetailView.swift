@@ -178,11 +178,11 @@ struct TournamentDetailView: View {
                 BadgeView(text: tournament.statusText, color: tournament.statusColor)
             }
             Text(tournament.name)
-                .font(.largeTitle.weight(.bold))
+                .font(Theme.display(.largeTitle, weight: .black))
             if tournament.isReadOnly {
                 Label("Suivi en lecture seule : l'organisateur saisit les scores.", systemImage: "eye")
                     .font(.footnote.weight(.semibold))
-                    .foregroundStyle(Theme.green)
+                    .foregroundStyle(Theme.accent)
             }
             if tournament.sharing != nil {
                 SyncStatusLabel(status: sync.status(of: tournament.id), tournament: tournament)
@@ -330,7 +330,7 @@ struct TournamentDetailView: View {
                             .fontWeight(.semibold)
                             .foregroundStyle(.primary)
                         Image(systemName: "pencil.circle.fill")
-                            .foregroundStyle(Theme.green)
+                            .foregroundStyle(Theme.accent)
                     }
                 }
                 .accessibilityHint("Modifier le nombre de points par match")
@@ -349,7 +349,7 @@ struct TournamentDetailView: View {
             ForEach(tournament.players) { player in
                 HStack {
                     Image(systemName: "person.fill")
-                        .foregroundStyle(Theme.green)
+                        .foregroundStyle(Theme.accent)
                     Text(player.name)
                     Spacer()
                     if let level = player.level {
@@ -381,7 +381,7 @@ struct TournamentDetailView: View {
                 isConfirmingLaunch = true
             } label: {
                 if isLaunching {
-                    ProgressView().tint(.white)
+                    ProgressView().tint(Theme.onAccent)
                 } else {
                     Label("Lancer le tournoi", systemImage: "play.fill")
                 }

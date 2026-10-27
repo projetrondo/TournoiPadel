@@ -198,6 +198,24 @@ struct TournamentLibraryTests {
         #expect(finished.standings.allSatisfy { $0.stats.played == 1 })
     }
 
+    @Test("L'Aigle affiché sur l'accueil suit le vrai numéro 1")
+    func currentEagleFollowsStandings() async throws {
+        let library = TournamentLibrary(store: InMemoryTournamentStore())
+        let created = try library.create(from: Self.validDraft())
+        try await library.start(id: created.id)
+        #expect(library.tournament(id: created.id)?.currentEagles.isEmpty == true, "pas d'Aigle sans score")
+
+        let match = try #require(library.tournament(id: created.id)?.orderedMatches.first)
+        try library.modify(id: created.id) { t, date in try t.validateScore(match.id, score: Score(15, 9), now: date) }
+        var tournament = try #require(library.tournament(id: created.id))
+        #expect(Set(tournament.currentEagles.map(\.id)) == Set(match.teamA.players))
+
+        try library.modify(id: created.id) { t, date in try t.correctScore(match.id, score: Score(9, 15), now: date) }
+        tournament = try #require(library.tournament(id: created.id))
+        #expect(Set(tournament.currentEagles.map(\.id)) == Set(match.teamB.players))
+        #expect(tournament.currentEagles.map(\.id) == EagleInsights(tournament: tournament).eagles.map(\.id))
+    }
+
     @Test("Suppression")
     func delete() throws {
         let store = InMemoryTournamentStore()

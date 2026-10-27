@@ -32,7 +32,8 @@ struct PadelBuddyApp: App {
             HomeView()
                 .environment(library)
                 .environment(sync)
-                .tint(Theme.green)
+                .tint(Theme.accent)
+                .preferredColorScheme(.dark)
                 .task {
                     library.loadIfNeeded()
                     sync.startMonitoringNetwork()

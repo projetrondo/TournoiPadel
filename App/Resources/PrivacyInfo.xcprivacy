@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
-  Manifeste de confidentialité de Padel Buddy.
+  Manifeste de confidentialité d'EAGLE (anciennement Padel Buddy).
   - Aucun suivi (tracking), aucun domaine de suivi, aucun SDK tiers.
   - Données collectées : uniquement le contenu d'un tournoi que l'organisateur choisit de
     partager (nom du tournoi, prénoms ou surnoms, scores), stocké dans la base publique

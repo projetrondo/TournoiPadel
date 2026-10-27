@@ -66,7 +66,7 @@ struct ShareTournamentView: View {
 
             Button(action: share) {
                 if isWorking {
-                    ProgressView().tint(.white)
+                    ProgressView().tint(Theme.onAccent)
                 } else {
                     Label("Publier et obtenir un code", systemImage: "icloud.and.arrow.up")
                 }
@@ -128,7 +128,7 @@ struct ShareTournamentView: View {
             Text(text)
         } icon: {
             Image(systemName: symbol)
-                .foregroundStyle(Theme.green)
+                .foregroundStyle(Theme.accent)
         }
         .font(.subheadline)
     }
@@ -136,7 +136,7 @@ struct ShareTournamentView: View {
     /// Message d'invitation, avec solution de repli pour ceux qui n'ont pas l'app.
     private func invitation(_ tournament: Tournament, code: InviteCode) -> String {
         var lines = [
-            String(localized: "🎾 Rejoins le tournoi « \(tournament.name) » sur Padel Buddy"),
+            String(localized: "🦅 Rejoins le tournoi « \(tournament.name) » sur EAGLE. Qui sera l'Aigle ?"),
             String(localized: "Code : \(code.formatted)"),
             String(localized: "Ouvrir dans l'app : \(code.appURL.absoluteString)"),
         ]
@@ -232,7 +232,7 @@ struct SyncStatusLabel: View {
     private var color: Color {
         switch status {
         case .failed, .unpublished, .pending: Theme.warning
-        default: Theme.green
+        default: Theme.accent
         }
     }
 }

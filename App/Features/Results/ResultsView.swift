@@ -11,11 +11,9 @@ struct ResultsView: View {
     var body: some View {
         let results = TournamentResults(tournament: tournament)
         VStack(alignment: .leading, spacing: 16) {
+            Text("Podium final")
+                .eagleSectionTitle()
             PodiumView(tournament: tournament, podium: results.podium)
-
-            if !results.winners.isEmpty {
-                winnerBanner(results)
-            }
 
             HStack(spacing: 10) {
                 keyFigure("\(results.matchesPlayed)", label: results.matchesPlayed <= 1 ? String(localized: "match") : String(localized: "matchs"))
@@ -37,37 +35,25 @@ struct ResultsView: View {
         }
     }
 
-    private func winnerBanner(_ results: TournamentResults) -> some View {
-        let names = results.winners.compactMap { tournament.player($0.id)?.name }.formatted(.list(type: .and))
-        return Label {
-            VStack(alignment: .leading, spacing: 2) {
-                Text(results.winners.count > 1 ? "Meilleurs joueurs (ex aequo)" : "Meilleur joueur")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.secondary)
-                Text(names)
-                    .font(.title3.weight(.bold))
-            }
-        } icon: {
-            Image(systemName: "trophy.fill")
-                .font(.title2)
-                .foregroundStyle(Theme.ball)
-        }
-        .cardStyle()
-    }
-
     private func keyFigure(_ value: String, label: String) -> some View {
         VStack(spacing: 2) {
             Text(value)
-                .font(.title2.weight(.heavy).monospacedDigit())
+                .font(Theme.display(.title, weight: .black).monospacedDigit())
+                .foregroundStyle(Theme.ink)
             Text(label)
-                .font(.caption)
-                .foregroundStyle(.secondary)
+                .font(.caption.weight(.bold))
+                .textCase(.uppercase)
+                .foregroundStyle(Theme.secondaryText)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 12)
         .background(
             RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
                 .fill(Theme.card)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
+                .strokeBorder(Theme.stroke, lineWidth: 1)
         )
     }
 
@@ -102,8 +88,13 @@ struct ResultsView: View {
 
     /// Résumé texte pour WhatsApp, iMessage, etc. (aucune API tierce : feuille de partage iOS).
     private func shareText(_ results: TournamentResults) -> String {
-        let medals = ["🥇", "🥈", "🥉"]
-        var lines = ["🎾 \(tournament.name) — \(tournament.format.title)", ""]
+        let medals = ["🦅", "🥈", "🥉"]
+        var lines = ["EAGLE · \(tournament.name) — \(tournament.format.title)", ""]
+        let eagles = results.winners.compactMap { tournament.player($0.id)?.name }
+        if !eagles.isEmpty {
+            lines.append(String(localized: "L'Aigle : \(eagles.formatted(.list(type: .and)))"))
+            lines.append("")
+        }
         for row in results.standings {
             let prefix = row.rank <= 3 ? medals[row.rank - 1] : "\(row.rank)."
             let name = tournament.player(row.id)?.name ?? "?"
@@ -111,12 +102,13 @@ struct ResultsView: View {
         }
         lines.append("")
         lines.append(String(localized: "\(results.matchesPlayed) matchs · \(results.totalPoints) points joués"))
-        lines.append(String(localized: "Organisé avec Padel Buddy"))
+        lines.append(String(localized: "EAGLE — Own the court."))
         return lines.joined(separator: "\n")
     }
 }
 
-/// Podium à trois marches ; les ex aequo partagent une marche.
+/// Podium à trois marches : l'Aigle au sommet (or), puis argent et bronze.
+/// Les ex aequo partagent une marche ; mêmes données que le classement.
 struct PodiumView: View {
     let tournament: Tournament
     let podium: [[StandingRow]]
@@ -126,7 +118,7 @@ struct PodiumView: View {
             // Ordre visuel classique : 2ᵉ, 1ᵉʳ, 3ᵉ.
             ForEach([1, 0, 2], id: \.self) { index in
                 if index < podium.count {
-                    step(podium[index], height: [120, 90, 70][index])
+                    step(podium[index], height: [132, 92, 68][index])
                 } else {
                     Color.clear.frame(maxWidth: .infinity, minHeight: 1)
                 }
@@ -137,29 +129,43 @@ struct PodiumView: View {
 
     private func step(_ rows: [StandingRow], height: CGFloat) -> some View {
         let rank = rows.first?.rank ?? 1
+        let tier = RankTier(rank: rank)
         return VStack(spacing: 6) {
-            Text(verbatim: ["🥇", "🥈", "🥉"][min(max(rank, 1), 3) - 1])
-                .font(.largeTitle)
+            if tier == .eagle {
+                EagleEmblem()
+                    .filled(Theme.gold)
+                    .frame(width: 54, height: 54)
+                    .shadow(color: Theme.gold.opacity(0.5), radius: 14)
+                Text(rows.count > 1 ? "Aigles" : "L'Aigle")
+                    .font(.caption2.weight(.heavy))
+                    .textCase(.uppercase)
+                    .tracking(1.2)
+                    .foregroundStyle(Theme.gold)
+            } else {
+                RankMedal(rank: rank, isTied: rows.count > 1, tier: tier, size: 36)
+            }
             ForEach(rows) { row in
                 Text(tournament.player(row.id)?.name ?? "?")
-                    .font(.headline)
+                    .font(Theme.display(tier == .eagle ? .title3 : .headline, weight: .heavy))
+                    .foregroundStyle(Theme.ink)
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
             }
             if let first = rows.first {
                 Text("\(first.stats.pointsFor) pts")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.secondary)
+                    .font(.caption.weight(.bold).monospacedDigit())
+                    .foregroundStyle(tier.color)
             }
             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(LinearGradient(colors: [Theme.green, Theme.deepGreen], startPoint: .top, endPoint: .bottom))
+                .fill(LinearGradient(colors: [tier.color.opacity(0.9), tier.color.opacity(0.35)], startPoint: .top, endPoint: .bottom))
                 .frame(height: height)
                 .overlay(alignment: .top) {
                     Text("\(rank)")
-                        .font(.title.weight(.heavy))
-                        .foregroundStyle(.white)
+                        .font(.system(size: 30, weight: .black).width(.condensed))
+                        .foregroundStyle(Theme.carbon)
                         .padding(.top, 8)
                 }
+                .shadow(color: tier == .eagle ? Theme.gold.opacity(0.3) : .clear, radius: 12)
         }
         .frame(maxWidth: .infinity)
     }
@@ -172,54 +178,73 @@ struct ResultsShareCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(tournament.name)
-                        .font(.title.weight(.heavy))
-                    Text("\(tournament.format.title) · \(results.matchesPlayed) matchs")
-                        .font(.subheadline)
-                        .foregroundStyle(.white.opacity(0.8))
+            HStack(spacing: 10) {
+                EagleEmblem().filled(Theme.gold).frame(width: 40, height: 40)
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(verbatim: "EAGLE")
+                        .font(.system(size: 26, weight: .black).width(.compressed))
+                        .tracking(2)
+                        .foregroundStyle(Theme.ink)
+                    Text(verbatim: "OWN THE COURT.")
+                        .font(.system(size: 10, weight: .heavy).width(.condensed))
+                        .tracking(2)
+                        .foregroundStyle(Theme.accent)
                 }
-                Spacer()
-                Image(systemName: "trophy.fill")
-                    .font(.largeTitle)
-                    .foregroundStyle(Theme.ball)
+            }
+            VStack(alignment: .leading, spacing: 2) {
+                Text(tournament.name)
+                    .font(.system(.title2, weight: .black).width(.condensed))
+                    .foregroundStyle(Theme.ink)
+                Text("\(tournament.format.title) · \(results.matchesPlayed) matchs")
+                    .font(.subheadline)
+                    .foregroundStyle(Theme.secondaryText)
             }
             VStack(spacing: 6) {
                 ForEach(results.standings.prefix(10)) { row in
+                    let tier = RankTier(rank: row.rank)
                     HStack {
-                        Text(row.isTied ? "\(row.rank)=" : "\(row.rank)")
-                            .font(.headline.monospacedDigit())
+                        RankMedal(rank: row.rank, isTied: row.isTied, tier: tier, size: 26)
                             .frame(width: 34, alignment: .leading)
                         Text(tournament.player(row.id)?.name ?? "?")
                             .font(.headline)
+                            .foregroundStyle(Theme.ink)
+                        if tier == .eagle {
+                            Text("L'Aigle")
+                                .font(.caption2.weight(.heavy))
+                                .textCase(.uppercase)
+                                .foregroundStyle(Theme.gold)
+                        }
                         Spacer()
                         Text("\(row.stats.pointsFor) pts")
                             .font(.headline.monospacedDigit())
+                            .foregroundStyle(tier == .standard ? Theme.ink : tier.color)
                         Text(row.stats.pointDifference.signedText)
                             .font(.subheadline.monospacedDigit())
-                            .foregroundStyle(.white.opacity(0.75))
+                            .foregroundStyle(Theme.secondaryText)
                             .frame(width: 44, alignment: .trailing)
                     }
                     .padding(.vertical, 6)
                     .padding(.horizontal, 10)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(.white.opacity(row.rank == 1 ? 0.22 : 0.1)))
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(tier == .eagle ? Theme.gold.opacity(0.14) : Theme.graphite)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(tier == .eagle ? Theme.gold.opacity(0.8) : Theme.stroke, lineWidth: 1)
+                    )
                 }
                 if results.standings.count > 10 {
                     Text("+ \(results.standings.count - 10) autres joueurs")
                         .font(.footnote)
-                        .foregroundStyle(.white.opacity(0.8))
+                        .foregroundStyle(Theme.secondaryText)
                 }
             }
-            Text(verbatim: "Padel Buddy")
-                .font(.footnote.weight(.semibold))
-                .foregroundStyle(.white.opacity(0.7))
-                .frame(maxWidth: .infinity, alignment: .trailing)
         }
-        .foregroundStyle(.white)
         .padding(24)
         .frame(width: 390)
-        .background(LinearGradient(colors: [Color(light: 0x1E9E5A, dark: 0x1E9E5A), Color(light: 0x0F5132, dark: 0x0F5132)],
-                                   startPoint: .topLeading, endPoint: .bottomTrailing))
+        .background(Theme.carbon)
+        .environment(\.colorScheme, .dark)
     }
+
 }

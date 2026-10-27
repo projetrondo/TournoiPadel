@@ -7,6 +7,29 @@ struct HelpView: View {
     var body: some View {
         NavigationStack {
             List {
+                Section("L'univers EAGLE") {
+                    topic(
+                        "L'Aigle",
+                        symbol: "crown.fill",
+                        text: "Le numéro 1 du classement est l'Aigle. Le statut est calculé automatiquement : dès qu'un joueur passe devant, il devient le nouvel Aigle."
+                    )
+                    topic(
+                        "Defend your crown",
+                        symbol: "shield.lefthalf.filled",
+                        text: "La carte de l'Aigle indique depuis combien de tours il tient la première place."
+                    )
+                    topic(
+                        "Hunt the Eagle · Rise above",
+                        symbol: "arrow.up.right",
+                        text: "Chaque joueur voit son retard en points sur l'Aigle et les places gagnées ou perdues au dernier tour."
+                    )
+                    topic(
+                        "Hall of Eagles",
+                        symbol: "trophy.fill",
+                        text: "Les tournois terminés gardent la trace de leur Aigle, sur l'écran d'accueil."
+                    )
+                }
+
                 Section("Les formats") {
                     topic(
                         "Americano",
@@ -88,9 +111,10 @@ struct HelpView: View {
                 Section {
                     LabeledContent("Version", value: AppInfo.version)
                 } footer: {
-                    Text("Padel Buddy est gratuit, sans publicité ni abonnement.")
+                    Text("EAGLE — Own the court. Gratuit, sans publicité ni abonnement.")
                 }
             }
+            .eagleScreenBackground()
             .navigationTitle("Comment ça marche ?")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -105,7 +129,7 @@ struct HelpView: View {
         VStack(alignment: .leading, spacing: 6) {
             Label(title, systemImage: symbol)
                 .font(.headline)
-                .foregroundStyle(Theme.green)
+                .foregroundStyle(Theme.accent)
             Text(text)
                 .font(.subheadline)
                 .fixedSize(horizontal: false, vertical: true)

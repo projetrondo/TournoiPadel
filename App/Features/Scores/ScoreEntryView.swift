@@ -125,7 +125,7 @@ struct ScoreEntryView: View {
                     }
                 }
                 Text(value.map { "\($0)" } ?? "–")
-                    .font(.system(size: 56, weight: .heavy, design: .rounded).monospacedDigit())
+                    .font(.system(size: 60, weight: .black).width(.condensed).monospacedDigit())
                     .foregroundStyle(value == nil ? .secondary : .primary)
                     .contentTransition(.numericText())
                 if editable {
@@ -143,7 +143,7 @@ struct ScoreEntryView: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
-                    .strokeBorder(isSelected ? Theme.green : .clear, lineWidth: 3)
+                    .strokeBorder(isSelected ? Theme.accent : .clear, lineWidth: 3)
             )
         }
         .buttonStyle(.plain)
@@ -162,7 +162,7 @@ struct ScoreEntryView: View {
         } label: {
             Image(systemName: "\(symbol).circle.fill")
                 .font(.system(size: 34))
-                .foregroundStyle(Theme.green)
+                .foregroundStyle(Theme.accent)
         }
         .buttonStyle(.borderless)
         .accessibilityLabel(delta > 0 ? "Plus un" : "Moins un")
@@ -177,7 +177,7 @@ struct ScoreEntryView: View {
                     .font(.subheadline)
             } else {
                 Label(outcomeText(score), systemImage: "checkmark.circle.fill")
-                    .foregroundStyle(Theme.green)
+                    .foregroundStyle(Theme.accent)
                     .font(.subheadline)
             }
         } else {
@@ -281,7 +281,7 @@ struct ScoreEntryView: View {
     private func undoBanner(_ id: Match.ID) -> some View {
         HStack {
             Label("Score validé", systemImage: "checkmark.circle.fill")
-                .foregroundStyle(Theme.green)
+                .foregroundStyle(Theme.accent)
                 .font(.subheadline.weight(.semibold))
             Spacer()
             Button("Annuler") { undo(id) }

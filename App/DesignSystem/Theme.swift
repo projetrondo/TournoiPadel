@@ -1,33 +1,52 @@
 import SwiftUI
 import UIKit
 
-/// Identité visuelle : vert des terrains de padel, jaune de la balle, fonds système iOS.
-/// Contrastes vérifiés (WCAG AA, ≥ 4,5:1) : texte vert sur fond clair 5,8 ; texte blanc sur
-/// bouton 5,8 (clair) et 5,0 (sombre) ; avertissement orange 5,1 sur fond clair.
+/// Identité EAGLE — « OWN THE COURT. »
+///
+/// Base noir carbone (l'app est toujours en mode sombre), vert électrique pour les actions,
+/// or réservé à l'Aigle (le numéro 1), argent et bronze pour les 2ᵉ et 3ᵉ places.
+/// Contrastes vérifiés (WCAG AA ≥ 4,5:1) : texte blanc, vert, or, argent et bronze sur fond
+/// carbone et sur cartes ; texte carbone sur bouton vert (15:1).
 enum Theme {
-    /// Texte et accents.
-    static var green: Color { Color(light: 0x137445, dark: 0x34C77B) }
-    /// Fond des boutons principaux (texte blanc).
-    static var buttonFill: Color { Color(light: 0x137445, dark: 0x17804A) }
-    static var deepGreen: Color { Color(light: 0x0F5132, dark: 0x0B3D26) }
-    static var ball: Color { Color(light: 0xC6DC00, dark: 0xDDF23A) }
-    static var warning: Color { Color(light: 0xC24400, dark: 0xFF9F0A) }
-    static var error: Color { Color(light: 0xC4161C, dark: 0xFF6961) }
+    // Palette de marque
+    static var carbon: Color { Color(hex: 0x0B0D10) }
+    static var graphite: Color { Color(hex: 0x171A20) }
+    static var accent: Color { Color(hex: 0xC6FF00) }
+    static var ink: Color { Color(hex: 0xF5F7FA) }
+    static var gold: Color { Color(hex: 0xFFC857) }
+    static var silver: Color { Color(hex: 0xD6DCE4) }
+    static var bronze: Color { Color(hex: 0xD9945B) }
 
-    static var background: Color { Color(uiColor: .systemGroupedBackground) }
-    static var card: Color { Color(uiColor: .secondarySystemGroupedBackground) }
+    // Rôles
+    static var background: Color { carbon }
+    static var card: Color { graphite }
+    /// Bordure discrète des cartes.
+    static var stroke: Color { Color.white.opacity(0.08) }
+    /// Texte posé sur le vert électrique.
+    static var onAccent: Color { carbon }
+    static var secondaryText: Color { Color(hex: 0xA4ACB9) }
+    static var warning: Color { Color(hex: 0xFFB020) }
+    static var error: Color { Color(hex: 0xFF6B6B) }
 
-    static let cornerRadius: CGFloat = 16
+    static let cornerRadius: CGFloat = 14
     /// Hauteur minimale des boutons principaux : confortable au pouce, au bord du terrain.
     static let buttonHeight: CGFloat = 56
+
+    /// Typographie sportive : grotesque condensée et grasse pour les titres.
+    static func display(_ style: Font.TextStyle, weight: Font.Weight = .black) -> Font {
+        .system(style, design: .default, weight: weight).width(.condensed)
+    }
 }
 
 extension Color {
-    /// Couleur qui s'adapte au mode clair / sombre, à partir de valeurs hexadécimales.
-    init(light: UInt32, dark: UInt32) {
-        self.init(uiColor: UIColor { traits in
-            UIColor(hex: traits.userInterfaceStyle == .dark ? dark : light)
-        })
+    init(hex: UInt32, opacity: Double = 1) {
+        self.init(
+            .sRGB,
+            red: Double((hex >> 16) & 0xFF) / 255,
+            green: Double((hex >> 8) & 0xFF) / 255,
+            blue: Double(hex & 0xFF) / 255,
+            opacity: opacity
+        )
     }
 }
 
@@ -39,5 +58,13 @@ extension UIColor {
             blue: CGFloat(hex & 0xFF) / 255,
             alpha: 1
         )
+    }
+}
+
+extension View {
+    /// Formulaires et listes système sur le fond carbone de la marque.
+    func eagleScreenBackground() -> some View {
+        scrollContentBackground(.hidden)
+            .background(Theme.background)
     }
 }

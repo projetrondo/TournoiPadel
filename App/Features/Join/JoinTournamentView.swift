@@ -57,7 +57,7 @@ struct JoinTournamentView: View {
 
                     Button(action: join) {
                         if isJoining {
-                            ProgressView().tint(.white)
+                            ProgressView().tint(Theme.onAccent)
                         } else {
                             Label("Rejoindre", systemImage: "arrow.right.circle.fill")
                         }
@@ -91,7 +91,7 @@ struct JoinTournamentView: View {
             Text(text)
         } icon: {
             Image(systemName: "info.circle.fill")
-                .foregroundStyle(Theme.green)
+                .foregroundStyle(Theme.accent)
         }
         .font(.subheadline)
         .foregroundStyle(.secondary)

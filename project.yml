@@ -37,14 +37,16 @@ targets:
     info:
       path: Config/Info.plist
       properties:
-        CFBundleDisplayName: Padel Buddy
+        CFBundleDisplayName: EAGLE
         CFBundleDevelopmentRegion: fr
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         LSRequiresIPhoneOS: true
         ITSAppUsesNonExemptEncryption: false
         UILaunchScreen:
-          UIColorName: AccentColor
+          UIColorName: LaunchBackground
+        # Identité EAGLE : interface toujours sombre (noir carbone).
+        UIUserInterfaceStyle: Dark
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         UISupportedInterfaceOrientations:

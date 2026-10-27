@@ -22,6 +22,7 @@ struct CreateTournamentView: View {
                 roundsSection
                 issuesSection
             }
+            .eagleScreenBackground()
             .navigationTitle("Nouveau tournoi")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -159,7 +160,7 @@ struct CreateTournamentView: View {
                         .foregroundStyle(.secondary)
                 }
             }
-            .tint(Theme.green)
+            .tint(Theme.accent)
 
             if planner.activeCourts == 0 {
                 Text("Le nombre de tours sera proposé dès 4 joueurs.")
@@ -200,7 +201,7 @@ struct CreateTournamentView: View {
                     }
                 } else if planner.isEquitable(rounds: draft.rounds) {
                     Label("Chacun joue le même nombre de matchs. Vous pourrez aussi arrêter plus tôt.", systemImage: "checkmark.seal.fill")
-                        .foregroundStyle(Theme.green)
+                        .foregroundStyle(Theme.accent)
                 } else {
                     Label("Tout le monde ne jouera pas le même nombre de matchs.", systemImage: "exclamationmark.triangle.fill")
                         .foregroundStyle(Theme.warning)

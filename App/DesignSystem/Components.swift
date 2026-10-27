@@ -1,34 +1,43 @@
 import PadelCore
 import SwiftUI
 
-/// Bouton plein, pleine largeur, pour l'action principale d'un écran.
+/// Bouton plein, pleine largeur, pour l'action principale d'un écran (vert électrique).
 struct PrimaryButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.headline)
+            .font(Theme.display(.headline, weight: .heavy))
+            .textCase(.uppercase)
+            .tracking(0.6)
             .frame(maxWidth: .infinity, minHeight: Theme.buttonHeight)
-            .foregroundStyle(.white)
+            .foregroundStyle(isEnabled ? Theme.onAccent : Theme.secondaryText)
             .background(
                 RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
-                    .fill(isEnabled ? Theme.buttonFill : Color.gray.opacity(0.4))
+                    .fill(isEnabled ? Theme.accent : Color.white.opacity(0.08))
             )
+            .shadow(color: isEnabled ? Theme.accent.opacity(configuration.isPressed ? 0.15 : 0.35) : .clear, radius: 12, y: 0)
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
             .animation(.easeOut(duration: 0.12), value: configuration.isPressed)
     }
 }
 
-/// Bouton secondaire, teinté, pleine largeur.
+/// Bouton secondaire : contour vert sur fond sombre.
 struct SecondaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.headline)
+            .font(Theme.display(.headline, weight: .bold))
+            .textCase(.uppercase)
+            .tracking(0.6)
             .frame(maxWidth: .infinity, minHeight: Theme.buttonHeight)
-            .foregroundStyle(Theme.green)
+            .foregroundStyle(Theme.accent)
             .background(
                 RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
-                    .fill(Theme.green.opacity(0.14))
+                    .fill(Theme.accent.opacity(configuration.isPressed ? 0.16 : 0.08))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
+                    .strokeBorder(Theme.accent.opacity(0.45), lineWidth: 1)
             )
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
             .animation(.easeOut(duration: 0.12), value: configuration.isPressed)
@@ -36,7 +45,7 @@ struct SecondaryButtonStyle: ButtonStyle {
 }
 
 extension View {
-    /// Carte arrondie sur fond secondaire.
+    /// Carte sombre à bordure discrète.
     func cardStyle() -> some View {
         padding(16)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -44,53 +53,147 @@ extension View {
                 RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
                     .fill(Theme.card)
             )
+            .overlay(
+                RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
+                    .strokeBorder(Theme.stroke, lineWidth: 1)
+            )
+    }
+
+    /// Titre de section en capitales condensées.
+    func eagleSectionTitle() -> some View {
+        font(Theme.display(.title3, weight: .heavy))
+            .textCase(.uppercase)
+            .tracking(0.8)
+            .accessibilityAddTraits(.isHeader)
     }
 }
 
-/// Logo de l'application : pastille verte avec balle, et nom.
+/// Emblème EAGLE : tête d'aigle angulaire de profil, vectorielle (mêmes points que
+/// docs/brand/eagle-emblem.svg). Le regard et la commissure du bec sont évidés.
+struct EagleEmblem: Shape {
+    private static let headPoints: [(CGFloat, CGFloat)] = [
+        (4, 50), (18, 32), (36, 18), (56, 11), (74, 12), (87, 19), (96, 31), (100, 45), (97, 60), (91, 52),
+        (84, 49), (79, 57), (69, 59), (63, 71), (56, 95), (45, 85), (42, 73), (30, 83), (31, 67), (15, 73), (22, 57),
+    ]
+    private static let eyePoints: [(CGFloat, CGFloat)] = [(58, 29), (80, 35), (63, 39)]
+    private static let mouthPoints: [(CGFloat, CGFloat)] = [(79, 44), (95, 40), (95, 42.5), (81, 47)]
+
+    private static let head = headPoints.map { CGPoint(x: $0.0, y: $0.1) }
+    private static let eye = eyePoints.map { CGPoint(x: $0.0, y: $0.1) }
+    private static let mouth = mouthPoints.map { CGPoint(x: $0.0, y: $0.1) }
+
+    func path(in rect: CGRect) -> Path {
+        // Repère 104 × 104 (dessin 100 × 95 centré), mis à l'échelle sans déformation.
+        let scale = min(rect.width, rect.height) / 104
+        let origin = CGPoint(
+            x: rect.midX - 52 * scale,
+            y: rect.midY - 52 * scale + 4 * scale
+        )
+        func polygon(_ points: [CGPoint]) -> Path {
+            var path = Path()
+            path.addLines(points.map { CGPoint(x: origin.x + $0.x * scale, y: origin.y + $0.y * scale) })
+            path.closeSubpath()
+            return path
+        }
+        var path = polygon(Self.head)
+        path.addPath(polygon(Self.eye))
+        path.addPath(polygon(Self.mouth))
+        return path
+    }
+}
+
+extension EagleEmblem {
+    /// Emblème rempli avec les évidements (règle pair-impair).
+    func filled(_ color: Color) -> some View {
+        fill(color, style: FillStyle(eoFill: true))
+    }
+}
+
+/// Logo de l'application : emblème, nom de marque et signature.
 struct LogoView: View {
     var body: some View {
         HStack(spacing: 12) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .fill(LinearGradient(colors: [Theme.green, Theme.deepGreen], startPoint: .topLeading, endPoint: .bottomTrailing))
-                Image(systemName: "figure.tennis")
-                    .font(.system(size: 26, weight: .semibold))
-                    .foregroundStyle(.white)
-                Circle()
-                    .fill(Theme.ball)
-                    .frame(width: 11, height: 11)
-                    .offset(x: 15, y: -15)
-            }
-            .frame(width: 52, height: 52)
-            .accessibilityHidden(true)
+            EagleEmblem()
+                .filled(Theme.gold)
+                .frame(width: 48, height: 48)
+                .shadow(color: Theme.gold.opacity(0.35), radius: 10)
+                .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 0) {
-                Text(verbatim: "Padel Buddy")
-                    .font(.system(.title, design: .rounded, weight: .heavy))
-                Text("Tournois entre amis")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                Text(verbatim: "EAGLE")
+                    .font(.system(size: 34, weight: .black).width(.compressed))
+                    .tracking(3)
+                    .foregroundStyle(Theme.ink)
+                Text(verbatim: "OWN THE COURT.")
+                    .font(.system(.caption, weight: .heavy).width(.condensed))
+                    .tracking(2.5)
+                    .foregroundStyle(Theme.accent)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .combine)
+        .accessibilityLabel("EAGLE, Own the court")
     }
 }
 
 /// Petite étiquette colorée (format, statut).
 struct BadgeView: View {
     let text: String
-    var color: Color = Theme.green
+    var color: Color = Theme.accent
 
     var body: some View {
         Text(text)
-            .font(.caption.weight(.semibold))
+            .font(.caption.weight(.bold))
+            .textCase(.uppercase)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
             .foregroundStyle(color)
             .background(Capsule().fill(color.opacity(0.14)))
+            .overlay(Capsule().strokeBorder(color.opacity(0.3), lineWidth: 1))
     }
+}
+
+extension RankTier {
+    var color: Color {
+        switch self {
+        case .eagle: Theme.gold
+        case .silver: Theme.silver
+        case .bronze: Theme.bronze
+        case .standard: Theme.secondaryText
+        }
+    }
+}
+
+/// Médaille de position : emblème doré pour l'Aigle, disque argent / bronze, numéro sinon.
+struct RankMedal: View {
+    let rank: Int
+    let isTied: Bool
+    let tier: RankTier
+    var size: CGFloat = 34
+
+    var body: some View {
+        ZStack {
+            switch tier {
+            case .eagle:
+                Circle().fill(Theme.gold.opacity(0.16))
+                Circle().strokeBorder(Theme.gold, lineWidth: 1.5)
+                EagleEmblem().filled(Theme.gold).padding(size * 0.17)
+            case .silver, .bronze:
+                Circle().fill(tier.color)
+                Text(rankText)
+                    .font(.system(size: size * 0.42, weight: .black).width(.condensed))
+                    .foregroundStyle(Theme.carbon)
+            case .standard:
+                Text(rankText)
+                    .font(.system(size: size * 0.42, weight: .heavy).width(.condensed).monospacedDigit())
+                    .foregroundStyle(Theme.secondaryText)
+            }
+        }
+        .frame(width: size, height: size)
+        .accessibilityHidden(true)
+    }
+
+    private var rankText: String { isTied ? "\(rank)=" : "\(rank)" }
 }
 
 extension TournamentFormat {
@@ -128,8 +231,8 @@ extension Tournament {
     var statusColor: Color {
         switch status {
         case .draft: Theme.warning
-        case .inProgress: Theme.green
-        case .finished: .secondary
+        case .inProgress: Theme.accent
+        case .finished: Theme.secondaryText
         }
     }
 }
