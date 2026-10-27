@@ -17,6 +17,13 @@ enum Theme {
     static var silver: Color { Color(hex: 0xD6DCE4) }
     static var bronze: Color { Color(hex: 0xD9945B) }
 
+    // Or « premium » : reflets clair → profond, pour l'Aigle et les bordures dorées.
+    static var goldLight: Color { Color(hex: 0xFFE29A) }
+    static var goldDeep: Color { Color(hex: 0xB8862B) }
+    static var goldGradient: LinearGradient {
+        LinearGradient(colors: [goldLight, gold, goldDeep], startPoint: .topLeading, endPoint: .bottomTrailing)
+    }
+
     // Rôles
     static var background: Color { carbon }
     static var card: Color { graphite }

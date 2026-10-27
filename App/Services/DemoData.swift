@@ -96,6 +96,9 @@ enum LaunchOptions {
     /// `-demo-score` : ouvre la saisie du premier match non joué.
     static var opensScoreEntry: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-score") }
 
+    /// `-demo-player` : ouvre le profil de l'Aigle depuis le classement.
+    static var opensPlayerProfile: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-player") }
+
     private static func value(after flag: String) -> String? {
         guard arguments.contains("-ui-testing"), let index = arguments.firstIndex(of: flag),
               index + 1 < arguments.count else { return nil }
