@@ -1,0 +1,16 @@
+monolog:
+    handlers:
+        main:
+            type: stream
+            path: php://stderr
+            level: notice
+            formatter: monolog.formatter.json
+            channels: ['!doctrine', '!event']
+
+when@test:
+    monolog:
+        handlers:
+            main:
+                type: stream
+                path: '%kernel.logs_dir%/test.log'
+                level: warning

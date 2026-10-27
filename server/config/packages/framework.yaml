@@ -1,0 +1,30 @@
+framework:
+    secret: '%env(APP_SECRET)%'
+    http_method_override: false
+    handle_all_throwables: true
+    php_errors:
+        log: true
+    # API sans état : pas de session PHP.
+    session: false
+    router:
+        utf8: true
+    rate_limiter:
+        # Connexions et renouvellements : de quoi utiliser l'app normalement, pas de quoi
+        # deviner un code de passage ou épuiser la base.
+        auth:
+            policy: sliding_window
+            limit: 30
+            interval: '10 minutes'
+
+when@test:
+    framework:
+        test: true
+        # Cache en mémoire : chaque test repart de zéro (clés Apple de test comprises).
+        cache:
+            app: cache.adapter.array
+        rate_limiter:
+            auth:
+                policy: no_limit
+        # Google et Apple simulés : aucun appel réseau pendant les tests.
+        http_client:
+            mock_response_factory: App\Tests\Support\ProviderStub

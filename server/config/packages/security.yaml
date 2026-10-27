@@ -1,0 +1,20 @@
+security:
+    providers:
+        accounts:
+            entity:
+                class: App\Entity\User
+                property: id
+
+    firewalls:
+        api:
+            pattern: ^/api/
+            stateless: true
+            provider: accounts
+            access_token:
+                token_handler: App\Security\AccessTokenHandler
+        public:
+            pattern: ^/
+            security: false
+
+    access_control:
+        - { path: ^/api/, roles: ROLE_USER }
