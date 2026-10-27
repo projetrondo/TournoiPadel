@@ -118,4 +118,25 @@ struct EagleInsightsTests {
         #expect(insights.eagles.map(\.id) == [t.players[0].id, t.players[1].id])
         #expect(insights.movement.isEmpty)
     }
+
+    @Test("Historique des positions, tour par tour")
+    func rankHistory() {
+        let t = Self.tournament([((0, 1), (2, 3), Score(13, 11)), ((0, 2), (1, 3), Score(4, 20))])
+        let history = EagleInsights(tournament: t).rankHistory
+        #expect(history[t.players[0].id] == [RankPoint(round: 1, rank: 1), RankPoint(round: 2, rank: 3)])
+        #expect(history[t.players[3].id] == [RankPoint(round: 1, rank: 3), RankPoint(round: 2, rank: 2)])
+        // Le dernier point de l'historique est toujours la position actuelle.
+        let insights = EagleInsights(tournament: t)
+        for row in insights.standings {
+            #expect(insights.rankHistory[row.id]?.last?.rank == row.rank)
+        }
+    }
+
+    @Test("Pourcentage de victoires : nuls exclus, rien sans match")
+    func winRate() {
+        var stats = PlayerStats(playerID: UUID())
+        #expect(stats.winRate == nil)
+        stats.played = 4; stats.wins = 3; stats.draws = 1
+        #expect(stats.winRate == 0.75)
+    }
 }

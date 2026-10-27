@@ -1,3 +1,4 @@
+import Charts
 import PadelCore
 import SwiftUI
 
@@ -6,7 +7,6 @@ import SwiftUI
 struct StandingsView: View {
     let tournament: Tournament
 
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var selectedPlayer: PlayerSelection?
     @State private var isShowingRules = false
 
@@ -54,11 +54,10 @@ struct StandingsView: View {
 
             if !challengers.isEmpty {
                 VStack(spacing: 0) {
-                    if !dynamicTypeSize.isAccessibilitySize {
-                        headerRow
-                    }
                     ForEach(challengers) { row in
-                        Divider().overlay(Theme.stroke)
+                        if row.id != challengers.first?.id {
+                            Divider().overlay(Theme.stroke).padding(.leading, 14)
+                        }
                         Button {
                             selectedPlayer = PlayerSelection(id: row.id)
                         } label: {
@@ -83,6 +82,11 @@ struct StandingsView: View {
                     RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
                         .strokeBorder(Theme.stroke, lineWidth: 1)
                 )
+            }
+        }
+        .onAppear {
+            if LaunchOptions.opensPlayerProfile, selectedPlayer == nil, let eagle = insights.eagles.first {
+                selectedPlayer = PlayerSelection(id: eagle.id)
             }
         }
         .sheet(item: $selectedPlayer) { selection in
@@ -117,23 +121,6 @@ struct StandingsView: View {
         }
         .cardStyle()
     }
-
-    private var headerRow: some View {
-        HStack(spacing: 8) {
-            Text("#").frame(width: 34, alignment: .leading)
-            Text("Joueur").frame(maxWidth: .infinity, alignment: .leading)
-            Text("J").frame(width: 26)
-            Text("V").frame(width: 26)
-            Text("Diff").frame(width: 40)
-            Text("Pts").frame(width: 44, alignment: .trailing)
-        }
-        .font(.caption.weight(.bold))
-        .textCase(.uppercase)
-        .foregroundStyle(Theme.secondaryText)
-        .padding(.horizontal, 14)
-        .padding(.vertical, 8)
-        .accessibilityHidden(true)
-    }
 }
 
 /// Carte du champion : l'Aigle, numéro 1 du classement réel.
@@ -152,15 +139,12 @@ struct EagleChampionCard: View {
     var body: some View {
         let layout = dynamicTypeSize.isAccessibilitySize
             ? AnyLayout(VStackLayout(alignment: .leading, spacing: 12))
-            : AnyLayout(HStackLayout(alignment: .center, spacing: 16))
+            : AnyLayout(HStackLayout(alignment: .center, spacing: 14))
         layout {
-            EagleEmblem()
-                .filled(Theme.gold)
-                .frame(width: 64, height: 64)
-                .shadow(color: Theme.gold.opacity(0.45), radius: 14)
-                .accessibilityHidden(true)
+            CrownRank()
+            PlayerAvatar(name: name, tier: .eagle, size: 64)
 
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(isShared ? "Aigles ex aequo" : "L'Aigle · Champion actuel")
                     .font(.caption.weight(.heavy))
                     .textCase(.uppercase)
@@ -171,43 +155,38 @@ struct EagleChampionCard: View {
                     .foregroundStyle(Theme.ink)
                     .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
                     .minimumScaleFactor(0.7)
-                Text(verbatim: "J \(row.stats.played) · V \(row.stats.wins) · N \(row.stats.draws) · D \(row.stats.losses) · \(row.stats.pointDifference.signedText)")
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Text("\(row.stats.pointsFor)")
+                        .font(.system(size: 30, weight: .black).width(.condensed).monospacedDigit())
+                        .foregroundStyle(Theme.goldGradient)
+                    Text("pts")
+                        .font(.caption.weight(.heavy))
+                        .textCase(.uppercase)
+                        .foregroundStyle(Theme.secondaryText)
+                }
+                Text(verbatim: row.stats.recordText)
                     .font(.footnote.weight(.semibold).monospacedDigit())
-                    .foregroundStyle(Theme.secondaryText)
+                    .foregroundStyle(Theme.ink.opacity(0.8))
                 if let crownText {
                     Label(crownText, systemImage: "crown.fill")
                         .font(.caption.weight(.bold))
                         .foregroundStyle(Theme.gold)
                 }
             }
-
-            if !dynamicTypeSize.isAccessibilitySize { Spacer(minLength: 4) }
-
-            VStack(alignment: dynamicTypeSize.isAccessibilitySize ? .leading : .trailing, spacing: 0) {
-                Text("\(row.stats.pointsFor)")
-                    .font(.system(size: 40, weight: .black).width(.condensed).monospacedDigit())
-                    .foregroundStyle(Theme.gold)
-                Text("pts")
-                    .font(.caption.weight(.heavy))
-                    .textCase(.uppercase)
-                    .foregroundStyle(Theme.secondaryText)
-            }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: Theme.cornerRadius + 4, style: .continuous)
-                .fill(LinearGradient(
-                    colors: [Theme.gold.opacity(0.16), Theme.card],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                ))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: Theme.cornerRadius + 4, style: .continuous)
-                .strokeBorder(Theme.gold.opacity(0.85), lineWidth: 1.5)
-        )
-        .shadow(color: Theme.gold.opacity(0.18), radius: 16)
+        .background(alignment: .trailing) {
+            // Grand aigle décoratif, à droite de la carte.
+            EagleEmblem()
+                .filled(Theme.goldGradient)
+                .frame(width: 150, height: 150)
+                .opacity(0.16)
+                .offset(x: 34, y: 8)
+                .accessibilityHidden(true)
+        }
+        .goldGlowCard()
         .contentShape(Rectangle())
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityText)
@@ -224,7 +203,15 @@ struct EagleChampionCard: View {
 
     private var accessibilityText: String {
         let title = isShared ? String(localized: "Aigle ex aequo") : String(localized: "L'Aigle, champion actuel")
-        return "\(title), \(name), \(FrenchPlural.count(row.stats.pointsFor, "point", "points")), \(FrenchPlural.count(row.stats.wins, "victoire", "victoires")), différence \(row.stats.pointDifference.signedText), \(FrenchPlural.count(row.stats.played, "match", "matchs"))"
+        var parts = [title, name, FrenchPlural.count(row.stats.pointsFor, "point", "points"),
+                     FrenchPlural.count(row.stats.wins, "victoire", "victoires"),
+                     FrenchPlural.count(row.stats.losses, "défaite", "défaites")]
+        if row.stats.winRate != nil {
+            parts.append(String(localized: "\(row.stats.winRateText) de victoires"))
+        }
+        parts.append(FrenchPlural.count(row.stats.played, "match", "matchs"))
+        if let crownText { parts.append(crownText) }
+        return parts.joined(separator: ", ")
     }
 }
 
@@ -243,7 +230,7 @@ struct StandingRowView: View {
         if dynamicTypeSize.isAccessibilitySize {
             stackedLayout
         } else {
-            tableLayout
+            rowLayout
         }
     }
 
@@ -253,7 +240,7 @@ struct StandingRowView: View {
             Text(verbatim: "\(row.isTied ? "\(row.rank)=" : "\(row.rank)") \(name)")
                 .font(.headline)
                 .foregroundStyle(tier == .standard ? Theme.ink : tier.color)
-            Text(verbatim: "\(FrenchPlural.count(row.stats.pointsFor, "point", "points")) · \(FrenchPlural.count(row.stats.wins, "victoire", "victoires")) · \(row.stats.pointDifference.signedText)")
+            Text(verbatim: "\(FrenchPlural.count(row.stats.pointsFor, "point", "points")) · \(row.stats.recordText)")
                 .font(.subheadline)
                 .foregroundStyle(Theme.secondaryText)
             if let huntText {
@@ -274,6 +261,7 @@ struct StandingRowView: View {
         let rank = row.rank == 1 ? "1er" : "\(row.rank)e"
         var parts = [rank, name, FrenchPlural.count(row.stats.pointsFor, "point", "points"),
                      FrenchPlural.count(row.stats.wins, "victoire", "victoires"),
+                     FrenchPlural.count(row.stats.losses, "défaite", "défaites"),
                      "différence \(row.stats.pointDifference.signedText)",
                      FrenchPlural.count(row.stats.played, "match", "matchs")]
         if let movementText { parts.append(movementText) }
@@ -295,36 +283,46 @@ struct StandingRowView: View {
             : String(localized: "perd \(FrenchPlural.count(-movement, "place", "places"))")
     }
 
-    private var tableLayout: some View {
-        HStack(spacing: 8) {
-            RankMedal(rank: row.rank, isTied: row.isTied, tier: tier, size: 30)
-                .frame(width: 34, alignment: .leading)
+    /// Médaille, avatar, nom et bilan, points à droite, chevron.
+    private var rowLayout: some View {
+        HStack(spacing: 10) {
+            RankMedal(rank: row.rank, isTied: row.isTied, tier: tier, size: 28)
+                .frame(width: 30)
+            PlayerAvatar(name: name, tier: tier, size: 38)
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 6) {
                     Text(name)
-                        .font(.body.weight(tier == .standard ? .medium : .bold))
+                        .font(.body.weight(tier == .standard ? .semibold : .bold))
                         .foregroundStyle(Theme.ink)
                         .lineLimit(1)
                     MovementIndicator(movement: movement)
                 }
+                Text(verbatim: "\(row.stats.recordText) · \(row.stats.pointDifference.signedText)")
+                    .font(.caption.weight(.semibold).monospacedDigit())
+                    .foregroundStyle(Theme.secondaryText)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
                 if let huntText {
                     Text(huntText)
-                        .font(.caption)
-                        .foregroundStyle(Theme.secondaryText)
+                        .font(.caption2)
+                        .foregroundStyle(Theme.secondaryText.opacity(0.8))
                         .lineLimit(1)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            Text("\(row.stats.played)").frame(width: 26)
-            Text("\(row.stats.wins)").frame(width: 26)
-            Text(row.stats.pointDifference.signedText).frame(width: 40)
-            Text("\(row.stats.pointsFor)")
-                .font(Theme.display(.headline, weight: .heavy).monospacedDigit())
-                .foregroundStyle(tier == .standard ? Theme.ink : tier.color)
-                .frame(width: 44, alignment: .trailing)
+            VStack(alignment: .trailing, spacing: 0) {
+                Text("\(row.stats.pointsFor)")
+                    .font(Theme.display(.title3, weight: .black).monospacedDigit())
+                    .foregroundStyle(tier == .standard ? Theme.ink : tier.color)
+                Text("pts")
+                    .font(.caption2.weight(.heavy))
+                    .textCase(.uppercase)
+                    .foregroundStyle(Theme.secondaryText)
+            }
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(Theme.secondaryText.opacity(0.6))
         }
-        .font(.subheadline.monospacedDigit())
-        .foregroundStyle(Theme.secondaryText)
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
         .contentShape(Rectangle())
@@ -351,7 +349,7 @@ struct MovementIndicator: View {
     }
 }
 
-/// Détail des statistiques et des matchs d'un joueur.
+/// Profil d'un joueur : statut, chiffres clés, courbe de classement et matchs.
 struct PlayerDetailView: View {
     let tournament: Tournament
     let playerID: Player.ID
@@ -361,30 +359,47 @@ struct PlayerDetailView: View {
         let stats = Standings.stats(for: tournament)[playerID] ?? PlayerStats(playerID: playerID)
         let insights = EagleInsights(tournament: tournament)
         let row = insights.standings.first { $0.id == playerID }
+        let tier = row.map { insights.tier(of: $0) } ?? .standard
         NavigationStack {
             List {
-                if let row {
-                    Section {
-                        profileHeader(row, insights: insights)
-                    }
+                Section {
+                    profileHeader(row, tier: tier, insights: insights)
+                    if let row { statusTile(row, tier: tier, insights: insights) }
+                    statTiles(stats)
                 }
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 0))
+
+                Section {
+                    RankHistoryChart(
+                        history: insights.rankHistory[playerID] ?? [],
+                        playerCount: insights.standings.count,
+                        tier: tier
+                    )
+                    .listRowBackground(Theme.card)
+                } header: {
+                    Text("Historique classement")
+                }
+
                 Section("Statistiques") {
-                    statRow("Position", value: row.map { $0.isTied ? "\($0.rank)= " : "\($0.rank)" } ?? "–")
                     statRow("Matchs joués", value: "\(stats.played)")
-                    statRow("Points marqués", value: "\(stats.pointsFor)")
                     statRow("Points encaissés", value: "\(stats.pointsAgainst)")
                     statRow("Différence", value: stats.pointDifference.signedText)
-                    statRow("Victoires · nuls · défaites", value: "\(stats.wins) · \(stats.draws) · \(stats.losses)")
+                    statRow("Matchs nuls", value: "\(stats.draws)")
                     if let average = stats.averagePoints {
                         statRow("Points par match", value: average.formatted(.number.precision(.fractionLength(1))))
                     }
                     statRow("Pauses", value: "\(stats.rests)")
                 }
+                .listRowBackground(Theme.card)
+
                 Section("Matchs") {
                     ForEach(matches, id: \.match.id) { entry in
                         matchRow(entry.round, entry.match)
                     }
                 }
+                .listRowBackground(Theme.card)
             }
             .eagleScreenBackground()
             .navigationTitle("Eagle Profile")
@@ -397,21 +412,52 @@ struct PlayerDetailView: View {
         }
     }
 
-    /// En-tête du profil : position, statut (Aigle, argent, bronze), progression, écart.
-    private func profileHeader(_ row: StandingRow, insights: EagleInsights) -> some View {
-        let tier = insights.tier(of: row)
+    /// Avatar à anneau, nom et statut (Aigle, argent, bronze).
+    private func profileHeader(_ row: StandingRow?, tier: RankTier, insights: EagleInsights) -> some View {
+        let name = tournament.player(playerID)?.name ?? ""
+        return VStack(spacing: 8) {
+            ZStack(alignment: .top) {
+                PlayerAvatar(name: name, tier: tier, size: 104)
+                    .padding(.top, tier == .eagle ? 18 : 0)
+                if tier == .eagle {
+                    Image(systemName: "crown.fill")
+                        .font(.system(size: 24, weight: .bold))
+                        .foregroundStyle(Theme.goldGradient)
+                        .shadow(color: Theme.gold.opacity(0.6), radius: 6)
+                        .accessibilityHidden(true)
+                }
+            }
+            Text(name)
+                .font(Theme.display(.largeTitle, weight: .black))
+                .foregroundStyle(Theme.ink)
+                .multilineTextAlignment(.center)
+            if let row {
+                Text(tierTitle(tier, row: row, insights: insights))
+                    .font(Theme.display(.subheadline, weight: .heavy))
+                    .textCase(.uppercase)
+                    .tracking(2)
+                    .foregroundStyle(tier == .standard ? AnyShapeStyle(Theme.secondaryText) : tier == .eagle ? AnyShapeStyle(Theme.goldGradient) : AnyShapeStyle(tier.color))
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 8)
+        .accessibilityElement(children: .combine)
+    }
+
+    /// Tuile de statut : couronne à défendre pour l'Aigle, écart à combler pour les autres.
+    private func statusTile(_ row: StandingRow, tier: RankTier, insights: EagleInsights) -> some View {
         let movement = insights.movement[row.id] ?? 0
         return HStack(spacing: 14) {
-            RankMedal(rank: row.rank, isTied: row.isTied, tier: tier, size: 52)
+            if tier == .eagle {
+                GoldEagle(size: 52)
+            } else {
+                RankMedal(rank: row.rank, isTied: row.isTied, tier: tier, size: 44)
+            }
             VStack(alignment: .leading, spacing: 4) {
-                Text(tournament.player(playerID)?.name ?? "")
-                    .font(Theme.display(.title2, weight: .black))
-                    .foregroundStyle(Theme.ink)
-                Text(tierTitle(tier, row: row, insights: insights))
-                    .font(.caption.weight(.heavy))
+                Text(statusHeadline(row, tier: tier, insights: insights))
+                    .font(Theme.display(.headline, weight: .heavy))
                     .textCase(.uppercase)
-                    .tracking(1)
-                    .foregroundStyle(tier == .standard ? Theme.secondaryText : tier.color)
+                    .foregroundStyle(tier == .eagle ? Theme.gold : Theme.ink)
                 if movement != 0 {
                     Label(
                         movement > 0
@@ -422,24 +468,42 @@ struct PlayerDetailView: View {
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(movement > 0 ? Theme.accent : Theme.error)
                 }
-                if let behind = insights.pointsBehindEagle(row), behind > 0 {
-                    Text("Hunt the Eagle : \(FrenchPlural.count(behind, "point", "points")) de retard")
-                        .font(.caption)
-                        .foregroundStyle(Theme.secondaryText)
-                }
             }
+            Spacer(minLength: 0)
         }
-        .padding(.vertical, 4)
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .modifier(StatusTileBackground(isEagle: tier == .eagle))
         .accessibilityElement(children: .combine)
+    }
+
+    private func statusHeadline(_ row: StandingRow, tier: RankTier, insights: EagleInsights) -> String {
+        if tier == .eagle {
+            let streak = insights.crownStreak[row.id] ?? 0
+            return streak >= 2
+                ? String(localized: "Defend your crown · \(streak) tours en tête")
+                : String(localized: "Defend your crown")
+        }
+        if let behind = insights.pointsBehindEagle(row) {
+            return behind > 0
+                ? String(localized: "Hunt the Eagle : \(FrenchPlural.count(behind, "point", "points")) de retard")
+                : String(localized: "À égalité de points avec l'Aigle")
+        }
+        return String(localized: "Pas encore classé")
+    }
+
+    private func statTiles(_ stats: PlayerStats) -> some View {
+        LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
+            StatTile(value: "\(stats.pointsFor)", label: String(localized: "Points"), systemImage: "star.fill", color: Theme.gold)
+            StatTile(value: "\(stats.wins)", label: String(localized: "Victoires"), systemImage: "checkmark.circle.fill", color: Theme.accent)
+            StatTile(value: "\(stats.losses)", label: String(localized: "Défaites"), systemImage: "xmark.circle.fill", color: Theme.error)
+            StatTile(value: stats.winRateText, label: String(localized: "Win rate"), systemImage: "percent", color: Theme.silver)
+        }
     }
 
     private func tierTitle(_ tier: RankTier, row: StandingRow, insights: EagleInsights) -> String {
         switch tier {
-        case .eagle:
-            let streak = insights.crownStreak[row.id] ?? 0
-            return streak >= 2
-                ? String(localized: "L'Aigle · en tête depuis \(streak) tours")
-                : String(localized: "L'Aigle · champion actuel")
+        case .eagle: return String(localized: "L'Aigle")
         case .silver: return String(localized: "\(row.rank)e place · argent")
         case .bronze: return String(localized: "\(row.rank)e place · bronze")
         case .standard:
@@ -489,6 +553,100 @@ struct PlayerDetailView: View {
                     .foregroundStyle(.secondary)
             }
         }
+    }
+}
+
+/// Fond de la tuile de statut : doré pour l'Aigle, carte sobre sinon.
+private struct StatusTileBackground: ViewModifier {
+    let isEagle: Bool
+
+    func body(content: Content) -> some View {
+        if isEagle {
+            content.goldGlowCard(cornerRadius: Theme.cornerRadius, glow: false)
+        } else {
+            content
+                .background(RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous).fill(Theme.card))
+                .overlay(RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous).strokeBorder(Theme.stroke, lineWidth: 1))
+        }
+    }
+}
+
+/// Courbe de la position du joueur après chaque tour (1 en haut), couronne quand il est l'Aigle.
+struct RankHistoryChart: View {
+    let history: [RankPoint]
+    let playerCount: Int
+    let tier: RankTier
+
+    var body: some View {
+        if history.count < 2 {
+            Text("La courbe apparaît après deux tours joués.")
+                .font(.subheadline)
+                .foregroundStyle(Theme.secondaryText)
+                .padding(.vertical, 8)
+        } else {
+            // Position tracée en négatif : le 1er est en haut, sans axe inversé ni zéro parasite.
+            Chart {
+                ForEach(history, id: \.round) { point in
+                    AreaMark(
+                        x: .value("Tour", point.round),
+                        yStart: .value("Position", -playerCount),
+                        yEnd: .value("Position", -point.rank)
+                    )
+                    .foregroundStyle(LinearGradient(colors: [lineColor.opacity(0.28), .clear], startPoint: .top, endPoint: .bottom))
+                    .interpolationMethod(.monotone)
+                    LineMark(x: .value("Tour", point.round), y: .value("Position", -point.rank))
+                        .foregroundStyle(lineColor)
+                        .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round))
+                        .interpolationMethod(.monotone)
+                    PointMark(x: .value("Tour", point.round), y: .value("Position", -point.rank))
+                        .foregroundStyle(point.rank == 1 ? Theme.gold : lineColor)
+                        .symbolSize(point.rank == 1 ? 80 : 36)
+                        .annotation(position: .top, spacing: 2) {
+                            if point.rank == 1 {
+                                Image(systemName: "crown.fill")
+                                    .font(.caption2)
+                                    .foregroundStyle(Theme.gold)
+                            }
+                        }
+                }
+            }
+            .chartYScale(domain: -playerCount ... -1)
+            .chartXScale(domain: (history.first?.round ?? 1) ... (history.last?.round ?? 2))
+            .chartYAxis {
+                AxisMarks(position: .leading, values: rankTicks.map { -$0 }) { value in
+                    AxisGridLine().foregroundStyle(Theme.stroke)
+                    AxisValueLabel {
+                        if let rank = value.as(Int.self) { Text(verbatim: "\(-rank)") }
+                    }
+                }
+            }
+            .chartXAxis {
+                AxisMarks(values: history.map(\.round)) { value in
+                    AxisValueLabel {
+                        if let round = value.as(Int.self) { Text("T\(round)") }
+                    }
+                }
+            }
+            .padding(.top, 14)
+            .frame(height: 180)
+            .padding(.vertical, 8)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(accessibilityText)
+        }
+    }
+
+    private var lineColor: Color {
+        tier == .standard ? Theme.accent : tier.color
+    }
+
+    /// Graduations : 1, le dernier, et quelques positions intermédiaires.
+    private var rankTicks: [Int] {
+        let step = max(1, (playerCount - 1) / 3)
+        return Array(Set(Array(stride(from: 1, through: playerCount, by: step)) + [playerCount])).sorted()
+    }
+
+    private var accessibilityText: String {
+        history.map { String(localized: "tour \($0.round) : \($0.rank)e") }.joined(separator: ", ")
     }
 }
 

@@ -70,12 +70,11 @@ struct TournamentDetailView: View {
                 header(tournament)
 
                 if available.count > 1 {
-                    Picker("Affichage", selection: Binding(get: { current }, set: { tab = $0 })) {
-                        ForEach(available, id: \.self) { tab in
-                            Text(tab.title).tag(tab)
-                        }
-                    }
-                    .pickerStyle(.segmented)
+                    PillTabBar(
+                        items: available,
+                        selection: Binding(get: { current }, set: { tab = $0 }),
+                        title: \.title
+                    )
                 }
 
                 switch current {

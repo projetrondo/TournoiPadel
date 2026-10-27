@@ -40,3 +40,7 @@ WCAG AA (4,5:1).
 | Eagle Profile | Fiche joueur | Statistiques du tournoi |
 
 Pas de système de défis : « Hunt the Eagle » désigne seulement l'écart à combler.
+
+## Icône
+
+`make_app_icon.py` régénère l'icône (aigle doré, balle de padel, bordure or) : `python3 docs/brand/make_app_icon.py App/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png` (Pillow requis).

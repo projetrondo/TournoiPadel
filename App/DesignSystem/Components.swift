@@ -104,35 +104,8 @@ struct EagleEmblem: Shape {
 
 extension EagleEmblem {
     /// Emblème rempli avec les évidements (règle pair-impair).
-    func filled(_ color: Color) -> some View {
-        fill(color, style: FillStyle(eoFill: true))
-    }
-}
-
-/// Logo de l'application : emblème, nom de marque et signature.
-struct LogoView: View {
-    var body: some View {
-        HStack(spacing: 12) {
-            EagleEmblem()
-                .filled(Theme.gold)
-                .frame(width: 48, height: 48)
-                .shadow(color: Theme.gold.opacity(0.35), radius: 10)
-                .accessibilityHidden(true)
-
-            VStack(alignment: .leading, spacing: 0) {
-                Text(verbatim: "EAGLE")
-                    .font(.system(size: 34, weight: .black).width(.compressed))
-                    .tracking(3)
-                    .foregroundStyle(Theme.ink)
-                Text(verbatim: "OWN THE COURT.")
-                    .font(.system(.caption, weight: .heavy).width(.condensed))
-                    .tracking(2.5)
-                    .foregroundStyle(Theme.accent)
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("EAGLE, Own the court")
+    func filled<S: ShapeStyle>(_ style: S) -> some View {
+        fill(style, style: FillStyle(eoFill: true))
     }
 }
 

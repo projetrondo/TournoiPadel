@@ -22,18 +22,19 @@ struct HomeView: View {
         NavigationStack(path: $path) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    HStack(alignment: .top) {
-                        LogoView()
-                        Button {
-                            isShowingHelp = true
-                        } label: {
-                            Image(systemName: "questionmark.circle")
-                                .font(.title2)
-                                .frame(minWidth: 44, minHeight: 44)
+                    EagleWordmark()
+                        .padding(.horizontal, 48)
+                        .overlay(alignment: .topTrailing) {
+                            Button {
+                                isShowingHelp = true
+                            } label: {
+                                Image(systemName: "questionmark.circle")
+                                    .font(.title2)
+                                    .frame(minWidth: 44, minHeight: 44)
+                            }
+                            .accessibilityLabel("Comment ça marche ?")
                         }
-                        .accessibilityLabel("Comment ça marche ?")
-                    }
-                    .padding(.top, 8)
+                        .padding(.top, 8)
                     EagleConceptBanner()
                     if dynamicTypeSize.isAccessibilitySize {
                         actionButtons
@@ -285,7 +286,7 @@ struct TournamentRow: View {
         if !names.isEmpty {
             HStack(spacing: 6) {
                 EagleEmblem()
-                    .filled(Theme.gold)
+                    .filled(Theme.goldGradient)
                     .frame(width: 16, height: 16)
                     .accessibilityHidden(true)
                 Text(tournament.status == .finished
@@ -313,7 +314,7 @@ struct EagleConceptBanner: View {
     var body: some View {
         HStack(spacing: 12) {
             EagleEmblem()
-                .filled(Theme.gold)
+                .filled(Theme.goldGradient)
                 .frame(width: 30, height: 30)
                 .accessibilityHidden(true)
             Text("Le n°1 du classement est \(Text("l'Aigle").foregroundStyle(Theme.gold).bold()). Gagne tes matchs, grimpe au classement, prends sa place.")

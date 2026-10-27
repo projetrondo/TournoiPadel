@@ -107,7 +107,7 @@ struct ResultsView: View {
     }
 }
 
-/// Podium à trois marches : l'Aigle au sommet (or), puis argent et bronze.
+/// Podium à trois marches : l'Aigle au sommet (ailes dorées), puis argent et bronze.
 /// Les ex aequo partagent une marche ; mêmes données que le classement.
 struct PodiumView: View {
     let tournament: Tournament
@@ -118,56 +118,99 @@ struct PodiumView: View {
             // Ordre visuel classique : 2ᵉ, 1ᵉʳ, 3ᵉ.
             ForEach([1, 0, 2], id: \.self) { index in
                 if index < podium.count {
-                    step(podium[index], height: [132, 92, 68][index])
+                    step(podium[index], height: [118, 84, 64][index])
                 } else {
                     Color.clear.frame(maxWidth: .infinity, minHeight: 1)
                 }
             }
         }
+        .padding(.top, 8)
         .accessibilityElement(children: .combine)
     }
 
     private func step(_ rows: [StandingRow], height: CGFloat) -> some View {
         let rank = rows.first?.rank ?? 1
         let tier = RankTier(rank: rank)
+        let isEagle = tier == .eagle
         return VStack(spacing: 6) {
-            if tier == .eagle {
-                EagleEmblem()
-                    .filled(Theme.gold)
-                    .frame(width: 54, height: 54)
-                    .shadow(color: Theme.gold.opacity(0.5), radius: 14)
+            ZStack {
+                if isEagle {
+                    EagleWings()
+                        .fill(Theme.goldGradient)
+                        .frame(width: 190, height: 58)
+                        .opacity(0.85)
+                        .shadow(color: Theme.gold.opacity(0.5), radius: 12)
+                        .offset(y: -6)
+                        .accessibilityHidden(true)
+                }
+                HStack(spacing: -12) {
+                    ForEach(rows.prefix(2)) { row in
+                        PlayerAvatar(name: tournament.player(row.id)?.name ?? "?", tier: tier, size: isEagle ? 70 : 54)
+                    }
+                }
+            }
+            .overlay(alignment: .top) {
+                if isEagle {
+                    Image(systemName: "crown.fill")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundStyle(Theme.goldGradient)
+                        .shadow(color: Theme.gold.opacity(0.6), radius: 6)
+                        .offset(y: -22)
+                        .accessibilityHidden(true)
+                }
+            }
+            .padding(.top, isEagle ? 22 : 0)
+
+            if isEagle {
                 Text(rows.count > 1 ? "Aigles" : "L'Aigle")
                     .font(.caption2.weight(.heavy))
                     .textCase(.uppercase)
                     .tracking(1.2)
                     .foregroundStyle(Theme.gold)
-            } else {
-                RankMedal(rank: rank, isTied: rows.count > 1, tier: tier, size: 36)
             }
             ForEach(rows) { row in
                 Text(tournament.player(row.id)?.name ?? "?")
-                    .font(Theme.display(tier == .eagle ? .title3 : .headline, weight: .heavy))
+                    .font(Theme.display(isEagle ? .title3 : .headline, weight: .heavy))
                     .foregroundStyle(Theme.ink)
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
             }
             if let first = rows.first {
-                Text("\(first.stats.pointsFor) pts")
-                    .font(.caption.weight(.bold).monospacedDigit())
-                    .foregroundStyle(tier.color)
-            }
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(LinearGradient(colors: [tier.color.opacity(0.9), tier.color.opacity(0.35)], startPoint: .top, endPoint: .bottom))
-                .frame(height: height)
-                .overlay(alignment: .top) {
-                    Text("\(rank)")
-                        .font(.system(size: 30, weight: .black).width(.condensed))
-                        .foregroundStyle(Theme.carbon)
-                        .padding(.top, 8)
+                VStack(spacing: 0) {
+                    Text("\(first.stats.pointsFor) pts")
+                        .font(Theme.display(.subheadline, weight: .black).monospacedDigit())
+                        .foregroundStyle(isEagle ? AnyShapeStyle(Theme.goldGradient) : AnyShapeStyle(tier.color))
+                    Text(verbatim: "\(first.stats.wins) V – \(first.stats.losses) D")
+                        .font(.caption2.weight(.semibold).monospacedDigit())
+                        .foregroundStyle(Theme.secondaryText)
                 }
-                .shadow(color: tier == .eagle ? Theme.gold.opacity(0.3) : .clear, radius: 12)
+            }
+            pedestal(rank: rank, tier: tier, height: height)
         }
         .frame(maxWidth: .infinity)
+    }
+
+    /// Socle en verre sombre, arête lumineuse à la couleur du rang, grand numéro.
+    private func pedestal(rank: Int, tier: RankTier, height: CGFloat) -> some View {
+        let shape = UnevenRoundedRectangle(topLeadingRadius: 12, topTrailingRadius: 12, style: .continuous)
+        return shape
+            .fill(LinearGradient(colors: [tier.color.opacity(0.30), Theme.graphite, Theme.carbon], startPoint: .top, endPoint: .bottom))
+            .frame(height: height)
+            .overlay(alignment: .top) {
+                Capsule()
+                    .fill(tier == .eagle ? AnyShapeStyle(Theme.goldGradient) : AnyShapeStyle(tier.color))
+                    .frame(height: 3)
+                    .padding(.horizontal, 6)
+                    .shadow(color: tier.color.opacity(0.9), radius: 8)
+            }
+            .overlay(shape.strokeBorder(tier.color.opacity(0.35), lineWidth: 1))
+            .overlay {
+                Text("\(rank)")
+                    .font(.system(size: tier == .eagle ? 48 : 38, weight: .black).width(.condensed))
+                    .foregroundStyle(tier == .eagle ? AnyShapeStyle(Theme.goldGradient) : AnyShapeStyle(tier.color))
+                    .shadow(color: tier.color.opacity(0.5), radius: 8)
+            }
+            .shadow(color: tier.color.opacity(tier == .eagle ? 0.35 : 0.15), radius: 14, y: -2)
     }
 }
 
@@ -179,7 +222,7 @@ struct ResultsShareCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 10) {
-                EagleEmblem().filled(Theme.gold).frame(width: 40, height: 40)
+                EagleEmblem().filled(Theme.goldGradient).frame(width: 40, height: 40)
                 VStack(alignment: .leading, spacing: 0) {
                     Text(verbatim: "EAGLE")
                         .font(.system(size: 26, weight: .black).width(.compressed))
