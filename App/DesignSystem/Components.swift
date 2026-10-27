@@ -145,6 +145,8 @@ struct BadgeView: View {
         Text(text)
             .font(.caption.weight(.bold))
             .textCase(.uppercase)
+            .lineLimit(1)
+            .minimumScaleFactor(0.7)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
             .foregroundStyle(color)

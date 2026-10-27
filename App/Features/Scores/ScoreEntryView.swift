@@ -303,9 +303,11 @@ struct ScoreEntryView: View {
         .disabled(index == nil || index == 0)
         Spacer()
         if let index {
-            Text("Match \(index + 1) sur \(matches.count)")
-                .font(.footnote)
+            Text(verbatim: "\(index + 1) / \(matches.count)")
+                .font(.footnote.weight(.semibold).monospacedDigit())
                 .foregroundStyle(.secondary)
+                .fixedSize()
+                .accessibilityLabel(String(localized: "Match \(index + 1) sur \(matches.count)"))
         }
         Spacer()
         Button {
