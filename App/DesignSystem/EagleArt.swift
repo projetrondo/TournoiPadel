@@ -173,6 +173,8 @@ struct PillTabBar<Item: Hashable>: View {
             row
             ScrollView(.horizontal, showsIndicators: false) { row }
         }
+        // Onglets : taille plafonnée pour rester sur une ligne, comme une barre d'onglets système.
+        .dynamicTypeSize(...DynamicTypeSize.xxLarge)
     }
 
     private var row: some View {
@@ -210,7 +212,7 @@ struct PillTabBar<Item: Hashable>: View {
 
 extension View {
     /// Carte premium : fond sombre, bordure dégradée or et halo doré.
-    func goldGlowCard(cornerRadius: CGFloat = Theme.cornerRadius + 4) -> some View {
+    func goldGlowCard(cornerRadius: CGFloat = Theme.cornerRadius + 4, glow: Bool = true) -> some View {
         background(
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .fill(LinearGradient(
@@ -224,7 +226,7 @@ extension View {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .strokeBorder(Theme.goldGradient, lineWidth: 1.5)
         )
-        .shadow(color: Theme.gold.opacity(0.25), radius: 18)
+        .shadow(color: glow ? Theme.gold.opacity(0.25) : .clear, radius: 18)
     }
 }
 

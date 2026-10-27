@@ -562,7 +562,7 @@ private struct StatusTileBackground: ViewModifier {
 
     func body(content: Content) -> some View {
         if isEagle {
-            content.goldGlowCard(cornerRadius: Theme.cornerRadius)
+            content.goldGlowCard(cornerRadius: Theme.cornerRadius, glow: false)
         } else {
             content
                 .background(RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous).fill(Theme.card))
@@ -584,20 +584,21 @@ struct RankHistoryChart: View {
                 .foregroundStyle(Theme.secondaryText)
                 .padding(.vertical, 8)
         } else {
+            // Position tracée en négatif : le 1er est en haut, sans axe inversé ni zéro parasite.
             Chart {
                 ForEach(history, id: \.round) { point in
                     AreaMark(
                         x: .value("Tour", point.round),
-                        yStart: .value("Position", playerCount),
-                        yEnd: .value("Position", point.rank)
+                        yStart: .value("Position", -playerCount),
+                        yEnd: .value("Position", -point.rank)
                     )
                     .foregroundStyle(LinearGradient(colors: [lineColor.opacity(0.28), .clear], startPoint: .top, endPoint: .bottom))
                     .interpolationMethod(.monotone)
-                    LineMark(x: .value("Tour", point.round), y: .value("Position", point.rank))
+                    LineMark(x: .value("Tour", point.round), y: .value("Position", -point.rank))
                         .foregroundStyle(lineColor)
                         .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round))
                         .interpolationMethod(.monotone)
-                    PointMark(x: .value("Tour", point.round), y: .value("Position", point.rank))
+                    PointMark(x: .value("Tour", point.round), y: .value("Position", -point.rank))
                         .foregroundStyle(point.rank == 1 ? Theme.gold : lineColor)
                         .symbolSize(point.rank == 1 ? 80 : 36)
                         .annotation(position: .top, spacing: 2) {
@@ -609,12 +610,13 @@ struct RankHistoryChart: View {
                         }
                 }
             }
-            .chartYScale(domain: .automatic(includesZero: false, reversed: true))
+            .chartYScale(domain: -playerCount ... -1)
+            .chartXScale(domain: (history.first?.round ?? 1) ... (history.last?.round ?? 2))
             .chartYAxis {
-                AxisMarks(position: .leading, values: .automatic(desiredCount: min(playerCount, 5))) { value in
+                AxisMarks(position: .leading, values: rankTicks.map { -$0 }) { value in
                     AxisGridLine().foregroundStyle(Theme.stroke)
                     AxisValueLabel {
-                        if let rank = value.as(Int.self) { Text(verbatim: "\(rank)") }
+                        if let rank = value.as(Int.self) { Text(verbatim: "\(-rank)") }
                     }
                 }
             }
@@ -625,6 +627,7 @@ struct RankHistoryChart: View {
                     }
                 }
             }
+            .padding(.top, 14)
             .frame(height: 180)
             .padding(.vertical, 8)
             .accessibilityElement(children: .ignore)
@@ -634,6 +637,12 @@ struct RankHistoryChart: View {
 
     private var lineColor: Color {
         tier == .standard ? Theme.accent : tier.color
+    }
+
+    /// Graduations : 1, le dernier, et quelques positions intermédiaires.
+    private var rankTicks: [Int] {
+        let step = max(1, (playerCount - 1) / 3)
+        return Array(Set(Array(stride(from: 1, through: playerCount, by: step)) + [playerCount])).sorted()
     }
 
     private var accessibilityText: String {
