@@ -1,0 +1,2320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="App/Resources/InfoPlist.xcstrings" source-language="fr" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="26.6" build-num="17F113"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
+        <source>EAGLE</source>
+        <note>Bundle display name</note>
+      </trans-unit>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>PadelBuddy</source>
+        <note>Bundle name</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="App/Resources/Localizable.xcstrings" source-language="fr" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="26.6" build-num="17F113"/>
+    </header>
+    <body>
+      <trans-unit id="%@ %@ — %lld pts (%@), %lld V" xml:space="preserve">
+        <source>%@ %@ — %lld pts (%@), %lld V</source>
+        <target state="translated">%1$@ %2$@ — %3$lld pts (%4$@), %5$lld W</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@ : %@" xml:space="preserve">
+        <source>%@ : %@</source>
+        <target state="translated">%1$@: %2$@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@ : %lld points" xml:space="preserve">
+        <source>%@ : %lld points</source>
+        <target state="translated">%1$@: %2$lld points</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@ : pas de score" xml:space="preserve">
+        <source>%@ : pas de score</source>
+        <target state="translated">%@: no score</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@ au dernier tour" xml:space="preserve">
+        <source>%@ au dernier tour</source>
+        <target state="translated">%@ in the last round</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@ de l'année" xml:space="preserve">
+        <source>%@ de l'année</source>
+        <target state="translated">%@ of the year</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@ de la semaine" xml:space="preserve">
+        <source>%@ de la semaine</source>
+        <target state="translated">%@ of the week</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@ de victoires" xml:space="preserve">
+        <source>%@ de victoires</source>
+        <target state="translated">%@ win rate</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@ du mois" xml:space="preserve">
+        <source>%@ du mois</source>
+        <target state="translated">%@ of the month</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@ · %@" xml:space="preserve">
+        <source>%@ · %@</source>
+        <target state="translated">%1$@ · %2$@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@ · %@ · classé dès %@" xml:space="preserve">
+        <source>%@ · %@ · classé dès %@</source>
+        <target state="translated">%1$@ · %2$@ · ranked from %3$@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@ · %lld matchs" xml:space="preserve">
+        <source>%@ · %lld matchs</source>
+        <target state="translated">%1$@ · %2$lld matches</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@, %@, %@ points par match, %@, %@" xml:space="preserve">
+        <source>%@, %@, %@ points par match, %@, %@</source>
+        <target state="translated">%1$@, %2$@, %3$@ points per match, %4$@, %5$@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld" xml:space="preserve">
+        <source>%lld</source>
+        <target state="translated">%lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld D" xml:space="preserve">
+        <source>%lld D</source>
+        <target state="translated">%lld L</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld N" xml:space="preserve">
+        <source>%lld N</source>
+        <target state="translated">%lld D</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld V" xml:space="preserve">
+        <source>%lld V</source>
+        <target state="translated">%lld W</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld V – %lld D" xml:space="preserve">
+        <source>%lld V – %lld D</source>
+        <target state="translated">%1$lld W – %2$lld L</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld duo(s) joueront ensemble jusqu'à %lld fois. Le programme limite ces répétitions au strict nécessaire." xml:space="preserve">
+        <source>%lld duo(s) joueront ensemble jusqu'à %lld fois. Le programme limite ces répétitions au strict nécessaire.</source>
+        <target state="translated">%1$lld pair(s) will play together up to %2$lld times. The schedule keeps these repeats to the strict minimum.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld joueur(s) en pause à chaque tour, à tour de rôle." xml:space="preserve">
+        <source>%lld joueur(s) en pause à chaque tour, à tour de rôle.</source>
+        <target state="translated">%lld player(s) sit out each round, in turn.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld joueurs" xml:space="preserve">
+        <source>%lld joueurs</source>
+        <target state="translated">%lld players</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld joueurs maximum." xml:space="preserve">
+        <source>%lld joueurs maximum.</source>
+        <target state="translated">%lld players maximum.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld matchs · %lld points joués" xml:space="preserve">
+        <source>%lld matchs · %lld points joués</source>
+        <target state="translated">%1$lld matches · %2$lld points played</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld points au total" xml:space="preserve">
+        <source>%lld points au total</source>
+        <target state="translated">%lld points in total</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld pts" xml:space="preserve">
+        <source>%lld pts</source>
+        <target state="translated">%lld pts</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld terrain(s) utilisé(s), %lld joueur(s) en pause à chaque tour, à tour de rôle." xml:space="preserve">
+        <source>%lld terrain(s) utilisé(s), %lld joueur(s) en pause à chaque tour, à tour de rôle.</source>
+        <target state="translated">%1$lld court(s) used, %2$lld player(s) sit out each round, in turn.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld terrain(s) utilisé(s). Tout le monde joue à chaque tour." xml:space="preserve">
+        <source>%lld terrain(s) utilisé(s). Tout le monde joue à chaque tour.</source>
+        <target state="translated">%lld court(s) used. Everyone plays every round.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld tour(s) joué(s) sur %lld prévus. Les tours non joués seront retirés et le classement actuel deviendra le classement final." xml:space="preserve">
+        <source>%lld tour(s) joué(s) sur %lld prévus. Les tours non joués seront retirés et le classement actuel deviendra le classement final.</source>
+        <target state="translated">%1$lld round(s) played out of %2$lld planned. Unplayed rounds will be removed and the current standings will become the final standings.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld tournoi(s) n'ont pas pu être lus. Ils sont conservés à part." xml:space="preserve">
+        <source>%lld tournoi(s) n'ont pas pu être lus. Ils sont conservés à part.</source>
+        <target state="translated">%lld tournament(s) could not be read. They are kept aside.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld tours" xml:space="preserve">
+        <source>%lld tours</source>
+        <target state="translated">%lld rounds</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld – %lld" xml:space="preserve">
+        <source>%lld – %lld</source>
+        <target state="translated">%1$lld – %2$lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%llde place" xml:space="preserve">
+        <source>%llde place</source>
+        <target state="translated">Rank %lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%llde place · argent" xml:space="preserve">
+        <source>%llde place · argent</source>
+        <target state="translated">Rank %lld · silver</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%llde place · bronze" xml:space="preserve">
+        <source>%llde place · bronze</source>
+        <target state="translated">Rank %lld · bronze</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld–%lld" xml:space="preserve">
+        <source>%lld–%lld</source>
+        <target state="translated">%1$lld–%2$lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld–%lld sera remplacé par %lld–%lld. Le classement sera recalculé." xml:space="preserve">
+        <source>%lld–%lld sera remplacé par %lld–%lld. Le classement sera recalculé.</source>
+        <target state="translated">%1$lld–%2$lld will be replaced by %3$lld–%4$lld. The standings will be recalculated.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="+ %lld autres joueurs" xml:space="preserve">
+        <source>+ %lld autres joueurs</source>
+        <target state="translated">+ %lld other players</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="1. Points marqués (total)" xml:space="preserve">
+        <source>1. Points marqués (total)</source>
+        <target state="translated">1. Points scored (total)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="1. Points marqués. 2. Victoires. 3. Différence de points. Sinon, les joueurs sont ex aequo et partagent la même place (signalée par « = »)." xml:space="preserve">
+        <source>1. Points marqués. 2. Victoires. 3. Différence de points. Sinon, les joueurs sont ex aequo et partagent la même place (signalée par « = »).</source>
+        <target state="translated">1. Points scored. 2. Wins. 3. Point difference. Otherwise, players are tied and share the same place (shown with “=”).</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="2. Victoires" xml:space="preserve">
+        <source>2. Victoires</source>
+        <target state="translated">2. Wins</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="3. Différence de points (marqués − encaissés)" xml:space="preserve">
+        <source>3. Différence de points (marqués − encaissés)</source>
+        <target state="translated">3. Point difference (scored − conceded)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="4. Sinon ex aequo : même position, signalée par « = »" xml:space="preserve">
+        <source>4. Sinon ex aequo : même position, signalée par « = »</source>
+        <target state="translated">4. Otherwise tied: same position, shown with “=”</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Abandonner" xml:space="preserve">
+        <source>Abandonner</source>
+        <target state="translated">Discard</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Abandonner ce tournoi ?" xml:space="preserve">
+        <source>Abandonner ce tournoi ?</source>
+        <target state="translated">Discard this tournament?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Abandonner la correction" xml:space="preserve">
+        <source>Abandonner la correction</source>
+        <target state="translated">Discard the correction</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Actualiser" xml:space="preserve">
+        <source>Actualiser</source>
+        <target state="translated">Refresh</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aigle actuel : %@" xml:space="preserve">
+        <source>Aigle actuel : %@</source>
+        <target state="translated">Current Eagle: %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aigle du mois : %@" xml:space="preserve">
+        <source>Aigle du mois : %@</source>
+        <target state="translated">Eagle of the month: %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aigle du tournoi : %@" xml:space="preserve">
+        <source>Aigle du tournoi : %@</source>
+        <target state="translated">Tournament Eagle: %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aigle ex aequo" xml:space="preserve">
+        <source>Aigle ex aequo</source>
+        <target state="translated">Joint Eagle</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aigles" xml:space="preserve">
+        <source>Aigles</source>
+        <target state="translated">Eagles</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aigles ex aequo" xml:space="preserve">
+        <source>Aigles ex aequo</source>
+        <target state="translated">Joint Eagles</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ajouter le joueur" xml:space="preserve">
+        <source>Ajouter le joueur</source>
+        <target state="translated">Add player</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ajoutez au moins %lld joueurs." xml:space="preserve">
+        <source>Ajoutez au moins %lld joueurs.</source>
+        <target state="translated">Add at least %lld players.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ajoutez des joueurs pour voir la répartition." xml:space="preserve">
+        <source>Ajoutez des joueurs pour voir la répartition.</source>
+        <target state="translated">Add players to see how they are split.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ajoutez les joueurs du groupe une seule fois : ils seront proposés à chaque nouveau tournoi." xml:space="preserve">
+        <source>Ajoutez les joueurs du groupe une seule fois : ils seront proposés à chaque nouveau tournoi.</source>
+        <target state="translated">Add the group's players once: they will be offered for every new tournament.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aléatoire" xml:space="preserve">
+        <source>Aléatoire</source>
+        <target state="translated">Random</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Americano" xml:space="preserve">
+        <source>Americano</source>
+        <target state="translated">Americano</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Année" xml:space="preserve">
+        <source>Année</source>
+        <target state="translated">Year</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Annuler" xml:space="preserve">
+        <source>Annuler</source>
+        <target state="translated">Cancel</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Annuler la validation" xml:space="preserve">
+        <source>Annuler la validation</source>
+        <target state="translated">Undo validation</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Annuler la validation ?" xml:space="preserve">
+        <source>Annuler la validation ?</source>
+        <target state="translated">Undo validation?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Apple n'a pas transmis votre identité. Réessayez." xml:space="preserve">
+        <source>Apple n'a pas transmis votre identité. Réessayez.</source>
+        <target state="translated">Apple did not send your identity. Please try again.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Après chaque tour, les joueurs proches au classement sont regroupés pour des matchs serrés. Les partenaires changent autant que possible." xml:space="preserve">
+        <source>Après chaque tour, les joueurs proches au classement sont regroupés pour des matchs serrés. Les partenaires changent autant que possible.</source>
+        <target state="translated">After each round, players close in the standings are grouped together for tight matches. Partners change as much as possible.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aucun compte n'est nécessaire. Une connexion est requise pour rejoindre ; ensuite le tournoi reste consultable hors ligne." xml:space="preserve">
+        <source>Aucun compte n'est nécessaire. Une connexion est requise pour rejoindre ; ensuite le tournoi reste consultable hors ligne.</source>
+        <target state="translated">No account needed. A connection is required to join; afterwards the tournament stays available offline.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aucun joueur enregistré pour l'instant. Ajoutez-les ci-dessous : ils seront gardés pour les prochains tournois." xml:space="preserve">
+        <source>Aucun joueur enregistré pour l'instant. Ajoutez-les ci-dessous : ils seront gardés pour les prochains tournois.</source>
+        <target state="translated">No saved players yet. Add them below: they will be kept for future tournaments.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aucun match validé sur cette période." xml:space="preserve">
+        <source>Aucun match validé sur cette période.</source>
+        <target state="translated">No validated match in this period.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aucun tournoi" xml:space="preserve">
+        <source>Aucun tournoi</source>
+        <target state="translated">No tournaments</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aucun tournoi ne correspond à ce code. Vérifiez-le auprès de l'organisateur : le tournoi a peut-être été retiré." xml:space="preserve">
+        <source>Aucun tournoi ne correspond à ce code. Vérifiez-le auprès de l'organisateur : le tournoi a peut-être été retiré.</source>
+        <target state="translated">No tournament matches this code. Check it with the organiser: the tournament may have been removed.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Aucun tournoi pour l'instant. Créez-en un : les joueurs de la session seront proposés, il suffira de cocher les présents." xml:space="preserve">
+        <source>Aucun tournoi pour l'instant. Créez-en un : les joueurs de la session seront proposés, il suffira de cocher les présents.</source>
+        <target state="translated">No tournaments yet. Create one: the session's players will be offered, just tick who is here.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Autres joueurs (%lld)" xml:space="preserve">
+        <source>Autres joueurs (%lld)</source>
+        <target state="translated">Other players (%lld)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Avec ce nombre de joueurs, seuls %lld terrain(s) seront utilisés." xml:space="preserve">
+        <source>Avec ce nombre de joueurs, seuls %lld terrain(s) seront utilisés.</source>
+        <target state="translated">With this number of players, only %lld court(s) will be used.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="À %@ de l'Aigle" xml:space="preserve">
+        <source>À %@ de l'Aigle</source>
+        <target state="translated">%@ behind the Eagle</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="À égalité de points avec l'Aigle" xml:space="preserve">
+        <source>À égalité de points avec l'Aigle</source>
+        <target state="translated">Level on points with the Eagle</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="À jouer" xml:space="preserve">
+        <source>À jouer</source>
+        <target state="translated">To play</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="À vérifier" xml:space="preserve">
+        <source>À vérifier</source>
+        <target state="translated">To check</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ce joueur n'existe plus." xml:space="preserve">
+        <source>Ce joueur n'existe plus.</source>
+        <target state="translated">This player no longer exists.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ce match a déjà été validé. Utilisez « Corriger le score » pour le modifier." xml:space="preserve">
+        <source>Ce match a déjà été validé. Utilisez « Corriger le score » pour le modifier.</source>
+        <target state="translated">This match has already been validated. Use “Correct the score” to change it.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ce match n'a pas encore été validé." xml:space="preserve">
+        <source>Ce match n'a pas encore été validé.</source>
+        <target state="translated">This match has not been validated yet.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ce match n'est plus disponible." xml:space="preserve">
+        <source>Ce match n'est plus disponible.</source>
+        <target state="translated">This match is no longer available.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ce tournoi a été modifié en ligne depuis un autre appareil. Rien n'a été remplacé." xml:space="preserve">
+        <source>Ce tournoi a été modifié en ligne depuis un autre appareil. Rien n'a été remplacé.</source>
+        <target state="translated">This tournament was changed online from another device. Nothing was replaced.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Chacun joue le même nombre de matchs. Vous pourrez aussi arrêter plus tôt." xml:space="preserve">
+        <source>Chacun joue le même nombre de matchs. Vous pourrez aussi arrêter plus tôt.</source>
+        <target state="translated">Everyone plays the same number of matches. You can also stop earlier.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Chaque joueur reçoit les points marqués par son équipe." xml:space="preserve">
+        <source>Chaque joueur reçoit les points marqués par son équipe.</source>
+        <target state="translated">Each player gets the points scored by their team.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Chaque joueur voit son retard en points sur l'Aigle et les places gagnées ou perdues au dernier tour." xml:space="preserve">
+        <source>Chaque joueur voit son retard en points sur l'Aigle et les places gagnées ou perdues au dernier tour.</source>
+        <target state="translated">Each player sees how many points they trail the Eagle by, and the places gained or lost in the last round.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Chaque tour est généré quand le précédent est terminé ; arrêtez quand vous voulez. Pour que chacun ait joué autant, arrêtez après un multiple de %lld tours." xml:space="preserve">
+        <source>Chaque tour est généré quand le précédent est terminé ; arrêtez quand vous voulez. Pour que chacun ait joué autant, arrêtez après un multiple de %lld tours.</source>
+        <target state="translated">Each round is generated when the previous one is finished; stop whenever you like. For everyone to have played the same amount, stop after a multiple of %lld rounds.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Chaque tour est généré quand le précédent est terminé ; arrêtez quand vous voulez. Tout le monde joue à chaque tour : le classement reste équitable à la fin de chaque tour." xml:space="preserve">
+        <source>Chaque tour est généré quand le précédent est terminé ; arrêtez quand vous voulez. Tout le monde joue à chaque tour : le classement reste équitable à la fin de chaque tour.</source>
+        <target state="translated">Each round is generated when the previous one is finished; stop whenever you like. Everyone plays every round: the standings stay fair at the end of each round.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Chargement…" xml:space="preserve">
+        <source>Chargement…</source>
+        <target state="translated">Loading…</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Classement" xml:space="preserve">
+        <source>Classement</source>
+        <target state="translated">Standings</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Classement à la moyenne de points par match, puis au % de victoires, puis à la différence moyenne. Chaque tournoi compte dans la période où il a été joué." xml:space="preserve">
+        <source>Classement à la moyenne de points par match, puis au % de victoires, puis à la différence moyenne. Chaque tournoi compte dans la période où il a été joué.</source>
+        <target state="translated">Ranked by average points per match, then win rate, then average difference. Each tournament counts in the period when it was played.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Classé dès %@" xml:space="preserve">
+        <source>Classé dès %@</source>
+        <target state="translated">Ranked from %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Code : %@" xml:space="preserve">
+        <source>Code : %@</source>
+        <target state="translated">Code: %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Code d'invitation" xml:space="preserve">
+        <source>Code d'invitation</source>
+        <target state="translated">Invite code</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Comment ça marche ?" xml:space="preserve">
+        <source>Comment ça marche ?</source>
+        <target state="translated">How does it work?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Compte" xml:space="preserve">
+        <source>Compte</source>
+        <target state="translated">Account</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Compter seulement les tours complets" xml:space="preserve">
+        <source>Compter seulement les tours complets</source>
+        <target state="translated">Count complete rounds only</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Compter tous les matchs joués" xml:space="preserve">
+        <source>Compter tous les matchs joués</source>
+        <target state="translated">Count every match played</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Confidentialité" xml:space="preserve">
+        <source>Confidentialité</source>
+        <target state="translated">Privacy</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Connectez-vous à iCloud (Réglages › votre nom) pour publier un tournoi. Suivre un tournoi ne nécessite pas de compte." xml:space="preserve">
+        <source>Connectez-vous à iCloud (Réglages › votre nom) pour publier un tournoi. Suivre un tournoi ne nécessite pas de compte.</source>
+        <target state="translated">Sign in to iCloud (Settings › your name) to publish a tournament. Following a tournament needs no account.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Connecté avec Apple" xml:space="preserve">
+        <source>Connecté avec Apple</source>
+        <target state="translated">Signed in with Apple</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Connecté avec Google" xml:space="preserve">
+        <source>Connecté avec Google</source>
+        <target state="translated">Signed in with Google</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Connexion annulée." xml:space="preserve">
+        <source>Connexion annulée.</source>
+        <target state="translated">Sign-in cancelled.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Continuer avec Google" xml:space="preserve">
+        <source>Continuer avec Google</source>
+        <target state="translated">Continue with Google</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Continuer à jouer" xml:space="preserve">
+        <source>Continuer à jouer</source>
+        <target state="translated">Keep playing</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Continuer la saisie" xml:space="preserve">
+        <source>Continuer la saisie</source>
+        <target state="translated">Keep editing</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Correction" xml:space="preserve">
+        <source>Correction</source>
+        <target state="translated">Correction</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Corriger le score" xml:space="preserve">
+        <source>Corriger le score</source>
+        <target state="translated">Correct the score</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Corriger le score ?" xml:space="preserve">
+        <source>Corriger le score ?</source>
+        <target state="translated">Correct the score?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Corriger une erreur" xml:space="preserve">
+        <source>Corriger une erreur</source>
+        <target state="translated">Fix a mistake</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Créer" xml:space="preserve">
+        <source>Créer</source>
+        <target state="translated">Create</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Créer le tournoi" xml:space="preserve">
+        <source>Créer le tournoi</source>
+        <target state="translated">Create tournament</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Créer un tournoi" xml:space="preserve">
+        <source>Créer un tournoi</source>
+        <target state="translated">Create a tournament</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Créez une session pour garder vos joueurs et suivre le classement par semaine, mois et année." xml:space="preserve">
+        <source>Créez une session pour garder vos joueurs et suivre le classement par semaine, mois et année.</source>
+        <target state="translated">Create a session to keep your players and follow the standings by week, month and year.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Créez votre premier tournoi en quelques secondes, ou rejoignez celui d'un ami. Le premier score validé désignera l'Aigle." xml:space="preserve">
+        <source>Créez votre premier tournoi en quelques secondes, ou rejoignez celui d'un ami. Le premier score validé désignera l'Aigle.</source>
+        <target state="translated">Create your first tournament in seconds, or join a friend's. The first validated score will crown the Eagle.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Defend your crown" xml:space="preserve">
+        <source>Defend your crown</source>
+        <target state="translated">Defend your crown</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Defend your crown · %lld tours en tête" xml:space="preserve">
+        <source>Defend your crown · %lld tours en tête</source>
+        <target state="translated">Defend your crown · %lld rounds on top</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Defend your crown · en tête depuis %lld tours" xml:space="preserve">
+        <source>Defend your crown · en tête depuis %lld tours</source>
+        <target state="translated">Defend your crown · on top for %lld rounds</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Depuis le début" xml:space="preserve">
+        <source>Depuis le début</source>
+        <target state="translated">All time</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Dernière sauvegarde %@" xml:space="preserve">
+        <source>Dernière sauvegarde %@</source>
+        <target state="translated">Last backup %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Défaites" xml:space="preserve">
+        <source>Défaites</source>
+        <target state="translated">Losses</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Différence" xml:space="preserve">
+        <source>Différence</source>
+        <target state="translated">Difference</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Donnez un nom au tournoi." xml:space="preserve">
+        <source>Donnez un nom au tournoi.</source>
+        <target state="translated">Give the tournament a name.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Durée estimée" xml:space="preserve">
+        <source>Durée estimée</source>
+        <target state="translated">Estimated duration</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="EAGLE — Own the court." xml:space="preserve">
+        <source>EAGLE — Own the court.</source>
+        <target state="translated">EAGLE — Own the court.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="EAGLE — Own the court. Gratuit, sans publicité ni abonnement." xml:space="preserve">
+        <source>EAGLE — Own the court. Gratuit, sans publicité ni abonnement.</source>
+        <target state="translated">EAGLE — Own the court. Free, no ads, no subscription.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="EAGLE, Own the court" xml:space="preserve">
+        <source>EAGLE, Own the court</source>
+        <target state="translated">EAGLE, Own the court</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Eagle Profile" xml:space="preserve">
+        <source>Eagle Profile</source>
+        <target state="translated">Eagle Profile</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="En cours" xml:space="preserve">
+        <source>En cours</source>
+        <target state="translated">In progress</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="En pause : %@" xml:space="preserve">
+        <source>En pause : %@</source>
+        <target state="translated">Sitting out: %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="En pause par tour" xml:space="preserve">
+        <source>En pause par tour</source>
+        <target state="translated">Sitting out per round</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enregistrer" xml:space="preserve">
+        <source>Enregistrer</source>
+        <target state="translated">Save</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enregistrer la correction" xml:space="preserve">
+        <source>Enregistrer la correction</source>
+        <target state="translated">Save correction</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Envoyer l'invitation" xml:space="preserve">
+        <source>Envoyer l'invitation</source>
+        <target state="translated">Send the invitation</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Envoyer maintenant" xml:space="preserve">
+        <source>Envoyer maintenant</source>
+        <target state="translated">Send now</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Erreur" xml:space="preserve">
+        <source>Erreur</source>
+        <target state="translated">Error</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ex. : K7M2QP" xml:space="preserve">
+        <source>Ex. : K7M2QP</source>
+        <target state="translated">E.g. K7M2QP</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ex. : Padel du jeudi" xml:space="preserve">
+        <source>Ex. : Padel du jeudi</source>
+        <target state="translated">E.g. Thursday padel</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Fermer" xml:space="preserve">
+        <source>Fermer</source>
+        <target state="translated">Close</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Format" xml:space="preserve">
+        <source>Format</source>
+        <target state="translated">Format</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Garde tes tournois en sécurité" xml:space="preserve">
+        <source>Garde tes tournois en sécurité</source>
+        <target state="translated">Keep your tournaments safe</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Garder le score" xml:space="preserve">
+        <source>Garder le score</source>
+        <target state="translated">Keep the score</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Garder les matchs actuels" xml:space="preserve">
+        <source>Garder les matchs actuels</source>
+        <target state="translated">Keep the current matches</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Générer le tour %lld" xml:space="preserve">
+        <source>Générer le tour %lld</source>
+        <target state="translated">Generate round %lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Hall of Eagles" xml:space="preserve">
+        <source>Hall of Eagles</source>
+        <target state="translated">Hall of Eagles</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Historique classement" xml:space="preserve">
+        <source>Historique classement</source>
+        <target state="translated">Ranking history</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Hors ligne : modifications enregistrées sur cet iPhone, envoi au retour du réseau." xml:space="preserve">
+        <source>Hors ligne : modifications enregistrées sur cet iPhone, envoi au retour du réseau.</source>
+        <target state="translated">Offline: changes saved on this iPhone, sent when the network is back.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Hunt the Eagle : %@ de retard" xml:space="preserve">
+        <source>Hunt the Eagle : %@ de retard</source>
+        <target state="translated">Hunt the Eagle: %@ behind</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Hunt the Eagle · Rise above" xml:space="preserve">
+        <source>Hunt the Eagle · Rise above</source>
+        <target state="translated">Hunt the Eagle · Rise above</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Impossible d'obtenir un code d'invitation. Réessayez dans un instant." xml:space="preserve">
+        <source>Impossible d'obtenir un code d'invitation. Réessayez dans un instant.</source>
+        <target state="translated">Could not get an invite code. Try again in a moment.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Impossible de lire les sessions enregistrées." xml:space="preserve">
+        <source>Impossible de lire les sessions enregistrées.</source>
+        <target state="translated">Could not read the saved sessions.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Impossible de lire les tournois enregistrés." xml:space="preserve">
+        <source>Impossible de lire les tournois enregistrés.</source>
+        <target state="translated">Could not read the saved tournaments.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Indiquez le niveau de chaque joueur, ou choisissez un premier tour aléatoire." xml:space="preserve">
+        <source>Indiquez le niveau de chaque joueur, ou choisissez un premier tour aléatoire.</source>
+        <target state="translated">Enter each player's level, or choose a random first round.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Infos" xml:space="preserve">
+        <source>Infos</source>
+        <target state="translated">Info</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Invités ou nouveaux joueurs : ils rejoindront la liste de la session." xml:space="preserve">
+        <source>Invités ou nouveaux joueurs : ils rejoindront la liste de la session.</source>
+        <target state="translated">Guests or new players: they will join the session's list.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Joueur EAGLE" xml:space="preserve">
+        <source>Joueur EAGLE</source>
+        <target state="translated">EAGLE player</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Joueurs" xml:space="preserve">
+        <source>Joueurs</source>
+        <target state="translated">Players</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Joueurs (%lld)" xml:space="preserve">
+        <source>Joueurs (%lld)</source>
+        <target state="translated">Players (%lld)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Joueurs retirés (%lld)" xml:space="preserve">
+        <source>Joueurs retirés (%lld)</source>
+        <target state="translated">Removed players (%lld)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="L'Aigle" xml:space="preserve">
+        <source>L'Aigle</source>
+        <target state="translated">The Eagle</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="L'Aigle : %@" xml:space="preserve">
+        <source>L'Aigle : %@</source>
+        <target state="translated">The Eagle: %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="L'Aigle · Champion actuel" xml:space="preserve">
+        <source>L'Aigle · Champion actuel</source>
+        <target state="translated">The Eagle · Current champion</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="L'Aigle, champion actuel" xml:space="preserve">
+        <source>L'Aigle, champion actuel</source>
+        <target state="translated">The Eagle, current champion</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="L'enregistrement a échoué. Les scores précédents sont intacts." xml:space="preserve">
+        <source>L'enregistrement a échoué. Les scores précédents sont intacts.</source>
+        <target state="translated">Saving failed. The previous scores are intact.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="L'enregistrement a échoué. Vos données précédentes sont intactes." xml:space="preserve">
+        <source>L'enregistrement a échoué. Vos données précédentes sont intactes.</source>
+        <target state="translated">Saving failed. Your previous data is intact.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="L'équipe gagnante doit atteindre %lld points." xml:space="preserve">
+        <source>L'équipe gagnante doit atteindre %lld points.</source>
+        <target state="translated">The winning team must reach %lld points.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="L'organisateur a retiré ce tournoi du partage. Dernière version conservée sur cet iPhone." xml:space="preserve">
+        <source>L'organisateur a retiré ce tournoi du partage. Dernière version conservée sur cet iPhone.</source>
+        <target state="translated">The organiser removed this tournament from sharing. The last version is kept on this iPhone.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="L'organisateur n'a pas encore lancé le tournoi." xml:space="preserve">
+        <source>L'organisateur n'a pas encore lancé le tournoi.</source>
+        <target state="translated">The organiser has not started the tournament yet.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="L'organisateur partage un code à 6 caractères. Les amis le saisissent dans « Rejoindre un tournoi » et suivent les scores et le classement. Seul l'organisateur saisit les scores." xml:space="preserve">
+        <source>L'organisateur partage un code à 6 caractères. Les amis le saisissent dans « Rejoindre un tournoi » et suivent les scores et le classement. Seul l'organisateur saisit les scores.</source>
+        <target state="translated">The organiser shares a 6-character code. Friends enter it in “Join a tournament” and follow the scores and standings. Only the organiser enters scores.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="L'univers EAGLE" xml:space="preserve">
+        <source>L'univers EAGLE</source>
+        <target state="translated">The EAGLE world</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="La carte de l'Aigle indique depuis combien de tours il tient la première place." xml:space="preserve">
+        <source>La carte de l'Aigle indique depuis combien de tours il tient la première place.</source>
+        <target state="translated">The Eagle's card shows how many rounds they have held first place.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="La connexion avec Apple a échoué. Réessayez." xml:space="preserve">
+        <source>La connexion avec Apple a échoué. Réessayez.</source>
+        <target state="translated">Sign in with Apple failed. Please try again.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="La copie de ce tournoi sera retirée de cet iPhone. Le tournoi de l'organisateur n'est pas modifié." xml:space="preserve">
+        <source>La copie de ce tournoi sera retirée de cet iPhone. Le tournoi de l'organisateur n'est pas modifié.</source>
+        <target state="translated">The copy of this tournament will be removed from this iPhone. The organiser's tournament is not changed.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="La courbe apparaît après deux tours joués." xml:space="preserve">
+        <source>La courbe apparaît après deux tours joués.</source>
+        <target state="translated">The chart appears after two rounds played.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="La liste des joueurs et les classements de la session seront supprimés. Les tournois restent enregistrés." xml:space="preserve">
+        <source>La liste des joueurs et les classements de la session seront supprimés. Les tournois restent enregistrés.</source>
+        <target state="translated">The session's player list and standings will be deleted. The tournaments stay saved.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="La modification n'a pas pu être enregistrée." xml:space="preserve">
+        <source>La modification n'a pas pu être enregistrée.</source>
+        <target state="translated">The change could not be saved.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="La première équipe à %lld points gagne. Chaque joueur reçoit les points de son équipe." xml:space="preserve">
+        <source>La première équipe à %lld points gagne. Chaque joueur reçoit les points de son équipe.</source>
+        <target state="translated">The first team to %lld points wins. Each player gets their team's points.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="La première équipe à atteindre N points gagne. Saisissez le score du perdant." xml:space="preserve">
+        <source>La première équipe à atteindre N points gagne. Saisissez le score du perdant.</source>
+        <target state="translated">The first team to reach N points wins. Enter the loser's score.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="La version en ligne n'a pas pu être retirée : %@ Si vous supprimez seulement sur cet iPhone, le code restera lisible en ligne." xml:space="preserve">
+        <source>La version en ligne n'a pas pu être retirée : %@ Si vous supprimez seulement sur cet iPhone, le code restera lisible en ligne.</source>
+        <target state="translated">The online version could not be removed: %@ If you delete only on this iPhone, the code will stay readable online.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="La version en ligne sera supprimée et le code ne fonctionnera plus. Le tournoi reste sur cet iPhone ; les copies déjà ouvertes par vos amis ne seront plus mises à jour." xml:space="preserve">
+        <source>La version en ligne sera supprimée et le code ne fonctionnera plus. Le tournoi reste sur cet iPhone ; les copies déjà ouvertes par vos amis ne seront plus mises à jour.</source>
+        <target state="translated">The online version will be deleted and the code will stop working. The tournament stays on this iPhone; copies your friends already opened will no longer update.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Lancer" xml:space="preserve">
+        <source>Lancer</source>
+        <target state="translated">Start</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Lancer le tournoi" xml:space="preserve">
+        <source>Lancer le tournoi</source>
+        <target state="translated">Start the tournament</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Lancer le tournoi ?" xml:space="preserve">
+        <source>Lancer le tournoi ?</source>
+        <target state="translated">Start the tournament?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le classement" xml:space="preserve">
+        <source>Le classement</source>
+        <target state="translated">The standings</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le classement actuel deviendra le classement final. Les scores pourront encore être corrigés." xml:space="preserve">
+        <source>Le classement actuel deviendra le classement final. Les scores pourront encore être corrigés.</source>
+        <target state="translated">The current standings will become the final standings. Scores can still be corrected.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le compte et toute la sauvegarde en ligne sont effacés définitivement. Les sessions et tournois présents sur cet iPhone sont conservés." xml:space="preserve">
+        <source>Le compte et toute la sauvegarde en ligne sont effacés définitivement. Les sessions et tournois présents sur cet iPhone sont conservés.</source>
+        <target state="translated">The account and the whole online backup are permanently erased. The sessions and tournaments on this iPhone are kept.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le match repassera « en cours » et son score sera retiré du classement." xml:space="preserve">
+        <source>Le match repassera « en cours » et son score sera retiré du classement.</source>
+        <target state="translated">The match will go back to “in progress” and its score will be removed from the standings.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le niveau sert au premier tour Mexicano « selon le niveau »." xml:space="preserve">
+        <source>Le niveau sert au premier tour Mexicano « selon le niveau ».</source>
+        <target state="translated">The level is used for the Mexicano first round “by level”.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le nom du tournoi ne doit pas dépasser %lld caractères." xml:space="preserve">
+        <source>Le nom du tournoi ne doit pas dépasser %lld caractères.</source>
+        <target state="translated">The tournament name must not exceed %lld characters.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le nom ne doit pas dépasser %lld caractères." xml:space="preserve">
+        <source>Le nom ne doit pas dépasser %lld caractères.</source>
+        <target state="translated">The name must not exceed %lld characters.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le nom ne peut pas être vide." xml:space="preserve">
+        <source>Le nom ne peut pas être vide.</source>
+        <target state="translated">The name cannot be empty.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le nombre de points doit être compris entre %lld et %lld." xml:space="preserve">
+        <source>Le nombre de points doit être compris entre %lld et %lld.</source>
+        <target state="translated">The number of points must be between %1$lld and %2$lld.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le nombre de terrains doit être compris entre %lld et %lld." xml:space="preserve">
+        <source>Le nombre de terrains doit être compris entre %lld et %lld.</source>
+        <target state="translated">The number of courts must be between %1$lld and %2$lld.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le nombre de tours doit être compris entre %lld et %lld." xml:space="preserve">
+        <source>Le nombre de tours doit être compris entre %lld et %lld.</source>
+        <target state="translated">The number of rounds must be between %1$lld and %2$lld.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le nombre de tours sera proposé dès 4 joueurs." xml:space="preserve">
+        <source>Le nombre de tours sera proposé dès 4 joueurs.</source>
+        <target state="translated">The number of rounds will be suggested from 4 players.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le numéro 1 du classement est l'Aigle. Le statut change automatiquement dès qu'un autre joueur passe devant." xml:space="preserve">
+        <source>Le numéro 1 du classement est l'Aigle. Le statut change automatiquement dès qu'un autre joueur passe devant.</source>
+        <target state="translated">The number 1 in the standings is the Eagle. The status changes automatically as soon as another player moves ahead.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le numéro 1 du classement est l'Aigle. Le statut est calculé automatiquement : dès qu'un joueur passe devant, il devient le nouvel Aigle." xml:space="preserve">
+        <source>Le numéro 1 du classement est l'Aigle. Le statut est calculé automatiquement : dès qu'un joueur passe devant, il devient le nouvel Aigle.</source>
+        <target state="translated">The number 1 in the standings is the Eagle. The status is computed automatically: as soon as a player moves ahead, they become the new Eagle.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le n°1 du classement est %@. Gagne tes matchs, grimpe au classement, prends sa place." xml:space="preserve">
+        <source>Le n°1 du classement est %@. Gagne tes matchs, grimpe au classement, prends sa place.</source>
+        <target state="translated">The no. 1 in the standings is %@. Win your matches, climb the standings, take their place.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le partage a échoué (%@). Les données de cet iPhone sont intactes." xml:space="preserve">
+        <source>Le partage a échoué (%@). Les données de cet iPhone sont intactes.</source>
+        <target state="translated">Sharing failed (%@). The data on this iPhone is intact.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le partage entre iPhone n'est pas encore activé dans cette version de l'app." xml:space="preserve">
+        <source>Le partage entre iPhone n'est pas encore activé dans cette version de l'app.</source>
+        <target state="translated">Sharing between iPhones is not enabled yet in this version of the app.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le partage entre iPhone n'est pas encore activé dans cette version de l'app. Il le sera dans la version publiée." xml:space="preserve">
+        <source>Le partage entre iPhone n'est pas encore activé dans cette version de l'app. Il le sera dans la version publiée.</source>
+        <target state="translated">Sharing between iPhones is not enabled yet in this version of the app. It will be in the released version.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le premier score validé désigne l'Aigle. Gagnez des points pour prendre sa place." xml:space="preserve">
+        <source>Le premier score validé désigne l'Aigle. Gagnez des points pour prendre sa place.</source>
+        <target state="translated">The first validated score crowns the Eagle. Score points to take their place.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le premier tour est tiré au sort (ou selon le niveau). Ensuite, après chaque tour, les joueurs proches au classement sont regroupés : le 1er joue avec le 4e contre le 2e et le 3e, et ainsi de suite. Les matchs restent serrés du début à la fin." xml:space="preserve">
+        <source>Le premier tour est tiré au sort (ou selon le niveau). Ensuite, après chaque tour, les joueurs proches au classement sont regroupés : le 1er joue avec le 4e contre le 2e et le 3e, et ainsi de suite. Les matchs restent serrés du début à la fin.</source>
+        <target state="translated">The first round is drawn at random (or by level). Then, after each round, players close in the standings are grouped: 1st plays with 4th against 2nd and 3rd, and so on. Matches stay tight from start to finish.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le premier tour sera généré. Les suivants dépendront des scores." xml:space="preserve">
+        <source>Le premier tour sera généré. Les suivants dépendront des scores.</source>
+        <target state="translated">The first round will be generated. The next ones will depend on the scores.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le service de partage est très sollicité. Nouvel essai automatique dans un instant." xml:space="preserve">
+        <source>Le service de partage est très sollicité. Nouvel essai automatique dans un instant.</source>
+        <target state="translated">The sharing service is very busy. Retrying automatically in a moment.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le tour %lld est en cours (%lld match(s) sur %lld joués). Compter seulement les tours complets garantit que tout le monde a joué autant de tours ; ses scores restent conservés. Le classement final ne changera plus, mais les scores pourront encore être corrigés." xml:space="preserve">
+        <source>Le tour %lld est en cours (%lld match(s) sur %lld joués). Compter seulement les tours complets garantit que tout le monde a joué autant de tours ; ses scores restent conservés. Le classement final ne changera plus, mais les scores pourront encore être corrigés.</source>
+        <target state="translated">Round %1$lld is in progress (%2$lld of %3$lld match(es) played). Counting complete rounds only ensures everyone has played the same number of rounds; its scores are kept. The final standings will no longer change, but scores can still be corrected.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le tour suivant a déjà été composé avec ce résultat : corrigez le score plutôt que d'annuler la validation." xml:space="preserve">
+        <source>Le tour suivant a déjà été composé avec ce résultat : corrigez le score plutôt que d'annuler la validation.</source>
+        <target state="translated">The next round has already been built from this result: correct the score rather than undoing the validation.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le tour suivant sera composé d'après le classement dès que tous les matchs de ce tour seront terminés." xml:space="preserve">
+        <source>Le tour suivant sera composé d'après le classement dès que tous les matchs de ce tour seront terminés.</source>
+        <target state="translated">The next round will be built from the standings as soon as all matches of this round are finished.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le tour suivant sera généré dès que tous les matchs de ce tour seront terminés. Vous pouvez arrêter quand vous voulez." xml:space="preserve">
+        <source>Le tour suivant sera généré dès que tous les matchs de ce tour seront terminés. Vous pouvez arrêter quand vous voulez.</source>
+        <target state="translated">The next round will be generated as soon as all matches of this round are finished. You can stop whenever you like.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le tournoi a déjà commencé : les points ne peuvent plus être modifiés." xml:space="preserve">
+        <source>Le tournoi a déjà commencé : les points ne peuvent plus être modifiés.</source>
+        <target state="translated">The tournament has already started: the points can no longer be changed.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le tournoi est publié en ligne avec un code à 6 caractères. Toute personne qui a le code peut le consulter (noms des joueurs et scores)." xml:space="preserve">
+        <source>Le tournoi est publié en ligne avec un code à 6 caractères. Toute personne qui a le code peut le consulter (noms des joueurs et scores).</source>
+        <target state="translated">The tournament is published online with a 6-character code. Anyone with the code can view it (player names and scores).</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le tournoi n'a pas pu être enregistré. Réessayez." xml:space="preserve">
+        <source>Le tournoi n'a pas pu être enregistré. Réessayez.</source>
+        <target state="translated">The tournament could not be saved. Please try again.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Le tournoi n'a pas pu être lancé. Il reste inchangé." xml:space="preserve">
+        <source>Le tournoi n'a pas pu être lancé. Il reste inchangé.</source>
+        <target state="translated">The tournament could not be started. It is unchanged.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Les deux scores doivent totaliser %lld points." xml:space="preserve">
+        <source>Les deux scores doivent totaliser %lld points.</source>
+        <target state="translated">Both scores must add up to %lld points.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Les deux scores totalisent %lld points (ex. %lld–%lld). Chaque joueur reçoit les points de son équipe." xml:space="preserve">
+        <source>Les deux scores totalisent %lld points (ex. %lld–%lld). Chaque joueur reçoit les points de son équipe.</source>
+        <target state="translated">Both scores add up to %1$lld points (e.g. %2$lld–%3$lld). Each player gets their team's points.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Les formats" xml:space="preserve">
+        <source>Les formats</source>
+        <target state="translated">The formats</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Les informations saisies seront perdues." xml:space="preserve">
+        <source>Les informations saisies seront perdues.</source>
+        <target state="translated">What you entered will be lost.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Les joueurs et les réglages ne pourront plus être modifiés." xml:space="preserve">
+        <source>Les joueurs et les réglages ne pourront plus être modifiés.</source>
+        <target state="translated">Players and settings can no longer be changed.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Les matchs et scores de ce tournoi seront définitivement effacés de cet iPhone." xml:space="preserve">
+        <source>Les matchs et scores de ce tournoi seront définitivement effacés de cet iPhone.</source>
+        <target state="translated">This tournament's matches and scores will be permanently erased from this iPhone.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Les matchs et scores seront effacés de cet iPhone, et le tournoi retiré du partage." xml:space="preserve">
+        <source>Les matchs et scores seront effacés de cet iPhone, et le tournoi retiré du partage.</source>
+        <target state="translated">The matches and scores will be erased from this iPhone, and the tournament removed from sharing.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Les mises à jour arrivent en général en quelques secondes, sans garantie de temps réel. Sans réseau, vos scores restent sur cet iPhone et partent au retour de la connexion." xml:space="preserve">
+        <source>Les mises à jour arrivent en général en quelques secondes, sans garantie de temps réel. Sans réseau, vos scores restent sur cet iPhone et partent au retour de la connexion.</source>
+        <target state="translated">Updates usually arrive within seconds, without a real-time guarantee. Without a network, your scores stay on this iPhone and are sent when the connection is back.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Les partenaires changent à chaque tour. Chaque joueur marque les points de son équipe. Tout le programme est connu dès le départ." xml:space="preserve">
+        <source>Les partenaires changent à chaque tour. Chaque joueur marque les points de son équipe. Tout le programme est connu dès le départ.</source>
+        <target state="translated">Partners change every round. Each player scores their team's points. The whole schedule is known from the start.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Les points" xml:space="preserve">
+        <source>Les points</source>
+        <target state="translated">Points</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Les tournois terminés gardent la trace de leur Aigle, sur l'écran d'accueil." xml:space="preserve">
+        <source>Les tournois terminés gardent la trace de leur Aigle, sur l'écran d'accueil.</source>
+        <target state="translated">Finished tournaments keep a record of their Eagle on the home screen.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Libre" xml:space="preserve">
+        <source>Libre</source>
+        <target state="translated">Free</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Libre (au temps)" xml:space="preserve">
+        <source>Libre (au temps)</source>
+        <target state="translated">Free (timed)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Match %lld sur %lld" xml:space="preserve">
+        <source>Match %lld sur %lld</source>
+        <target state="translated">Match %1$lld of %2$lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Match introuvable" xml:space="preserve">
+        <source>Match introuvable</source>
+        <target state="translated">Match not found</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Match précédent" xml:space="preserve">
+        <source>Match précédent</source>
+        <target state="translated">Previous match</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Match suivant" xml:space="preserve">
+        <source>Match suivant</source>
+        <target state="translated">Next match</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Matchs" xml:space="preserve">
+        <source>Matchs</source>
+        <target state="translated">Matches</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Matchs en double, 2 contre 2. Les partenaires changent à chaque tour pour que chacun joue avec le plus de monde possible. Chaque joueur marque les points de son équipe : en 24 points, si votre équipe gagne 15–9, vous marquez 15 points et vos adversaires 9 chacun." xml:space="preserve">
+        <source>Matchs en double, 2 contre 2. Les partenaires changent à chaque tour pour que chacun joue avec le plus de monde possible. Chaque joueur marque les points de son équipe : en 24 points, si votre équipe gagne 15–9, vous marquez 15 points et vos adversaires 9 chacun.</source>
+        <target state="translated">Doubles matches, 2 against 2. Partners change every round so everyone plays with as many people as possible. Each player scores their team's points: in 24 points, if your team wins 15–9, you score 15 points and your opponents 9 each.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Matchs joués" xml:space="preserve">
+        <source>Matchs joués</source>
+        <target state="translated">Matches played</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Matchs minimum pour être classé" xml:space="preserve">
+        <source>Matchs minimum pour être classé</source>
+        <target state="translated">Minimum matches to be ranked</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Matchs nuls" xml:space="preserve">
+        <source>Matchs nuls</source>
+        <target state="translated">Draws</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Mes sessions" xml:space="preserve">
+        <source>Mes sessions</source>
+        <target state="translated">My sessions</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Mexicano" xml:space="preserve">
+        <source>Mexicano</source>
+        <target state="translated">Mexicano</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Minimum %lld joueurs au total." xml:space="preserve">
+        <source>Minimum %lld joueurs au total.</source>
+        <target state="translated">Minimum %lld players in total.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Minimum %lld joueurs. Balayez une ligne vers la gauche pour la supprimer." xml:space="preserve">
+        <source>Minimum %lld joueurs. Balayez une ligne vers la gauche pour la supprimer.</source>
+        <target state="translated">Minimum %lld players. Swipe a row to the left to delete it.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Mis à jour %@." xml:space="preserve">
+        <source>Mis à jour %@.</source>
+        <target state="translated">Updated %@.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Modifications en attente d'envoi." xml:space="preserve">
+        <source>Modifications en attente d'envoi.</source>
+        <target state="translated">Changes waiting to be sent.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Modifier" xml:space="preserve">
+        <source>Modifier</source>
+        <target state="translated">Edit</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Modifier le joueur" xml:space="preserve">
+        <source>Modifier le joueur</source>
+        <target state="translated">Edit player</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Modifier le nombre de points par match" xml:space="preserve">
+        <source>Modifier le nombre de points par match</source>
+        <target state="translated">Change the number of points per match</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Moins un" xml:space="preserve">
+        <source>Moins un</source>
+        <target state="translated">Minus one</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Mois" xml:space="preserve">
+        <source>Mois</source>
+        <target state="translated">Month</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Mon compte" xml:space="preserve">
+        <source>Mon compte</source>
+        <target state="translated">My account</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ne plus suivre" xml:space="preserve">
+        <source>Ne plus suivre</source>
+        <target state="translated">Stop following</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ne plus suivre « %@ » ?" xml:space="preserve">
+        <source>Ne plus suivre « %@ » ?</source>
+        <target state="translated">Stop following “%@”?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Niveau" xml:space="preserve">
+        <source>Niveau</source>
+        <target state="translated">Level</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Niveau %lld" xml:space="preserve">
+        <source>Niveau %lld</source>
+        <target state="translated">Level %lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Niveau ?" xml:space="preserve">
+        <source>Niveau ?</source>
+        <target state="translated">Level?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Nom" xml:space="preserve">
+        <source>Nom</source>
+        <target state="translated">Name</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Nom du joueur" xml:space="preserve">
+        <source>Nom du joueur</source>
+        <target state="translated">Player name</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Nom du tournoi" xml:space="preserve">
+        <source>Nom du tournoi</source>
+        <target state="translated">Tournament name</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Noms en double : %@. Ajoutez une initiale pour les distinguer." xml:space="preserve">
+        <source>Noms en double : %@. Ajoutez une initiale pour les distinguer.</source>
+        <target state="translated">Duplicate names: %@. Add an initial to tell them apart.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Non compté" xml:space="preserve">
+        <source>Non compté</source>
+        <target state="translated">Not counted</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Non renseigné" xml:space="preserve">
+        <source>Non renseigné</source>
+        <target state="translated">Not set</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Nous enregistrons ton identifiant de connexion, ton prénom et ton adresse (si Google ou Apple la transmettent), et le contenu de tes sessions et tournois. Rien d'autre, pas de publicité." xml:space="preserve">
+        <source>Nous enregistrons ton identifiant de connexion, ton prénom et ton adresse (si Google ou Apple la transmettent), et le contenu de tes sessions et tournois. Rien d'autre, pas de publicité.</source>
+        <target state="translated">We store your sign-in identifier, your first name and your email address (if Google or Apple share it), and the content of your sessions and tournaments. Nothing else, no ads.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Nouveau tournoi" xml:space="preserve">
+        <source>Nouveau tournoi</source>
+        <target state="translated">New tournament</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Nouvel Aigle" xml:space="preserve">
+        <source>Nouvel Aigle</source>
+        <target state="translated">New Eagle</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Nouvelle session" xml:space="preserve">
+        <source>Nouvelle session</source>
+        <target state="translated">New session</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="OK" xml:space="preserve">
+        <source>OK</source>
+        <target state="translated">OK</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="On joue jusqu'à la fin du créneau, sans nombre de tours fixé." xml:space="preserve">
+        <source>On joue jusqu'à la fin du créneau, sans nombre de tours fixé.</source>
+        <target state="translated">Play until the end of your slot, with no set number of rounds.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="On joue un nombre de points fixe, peu importe qui les gagne. En 21 points, un match se termine par exemple 12–9. Saisissez le score d'une équipe : l'autre est calculé." xml:space="preserve">
+        <source>On joue un nombre de points fixe, peu importe qui les gagne. En 21 points, un match se termine par exemple 12–9. Saisissez le score d'une équipe : l'autre est calculé.</source>
+        <target state="translated">A fixed number of points is played, no matter who wins them. In 21 points, a match ends for example 12–9. Enter one team's score: the other is calculated.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Options" xml:space="preserve">
+        <source>Options</source>
+        <target state="translated">Options</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Options pour %@" xml:space="preserve">
+        <source>Options pour %@</source>
+        <target state="translated">Options for %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ordre" xml:space="preserve">
+        <source>Ordre</source>
+        <target state="translated">Order</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ordre du classement" xml:space="preserve">
+        <source>Ordre du classement</source>
+        <target state="translated">Ranking order</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Ouvrir dans l'app : %@" xml:space="preserve">
+        <source>Ouvrir dans l'app : %@</source>
+        <target state="translated">Open in the app: %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Partage entre amis" xml:space="preserve">
+        <source>Partage entre amis</source>
+        <target state="translated">Sharing with friends</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Partager en texte" xml:space="preserve">
+        <source>Partager en texte</source>
+        <target state="translated">Share as text</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Partager le tournoi" xml:space="preserve">
+        <source>Partager le tournoi</source>
+        <target state="translated">Share the tournament</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Partager les résultats" xml:space="preserve">
+        <source>Partager les résultats</source>
+        <target state="translated">Share the results</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Partagé" xml:space="preserve">
+        <source>Partagé</source>
+        <target state="translated">Shared</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pas de compte, pas de publicité, aucun suivi. Les tournois sont enregistrés sur votre iPhone. Un tournoi n'est envoyé en ligne que si vous le partagez, et vous pouvez le retirer à tout moment." xml:space="preserve">
+        <source>Pas de compte, pas de publicité, aucun suivi. Les tournois sont enregistrés sur votre iPhone. Un tournoi n'est envoyé en ligne que si vous le partagez, et vous pouvez le retirer à tout moment.</source>
+        <target state="translated">No account, no ads, no tracking. Tournaments are saved on your iPhone. A tournament is only sent online if you share it, and you can remove it at any time.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pas de connexion. Les scores sont enregistrés sur cet iPhone et seront envoyés dès le retour du réseau." xml:space="preserve">
+        <source>Pas de connexion. Les scores sont enregistrés sur cet iPhone et seront envoyés dès le retour du réseau.</source>
+        <target state="translated">No connection. Scores are saved on this iPhone and will be sent as soon as the network is back.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pas de match nul avec cette règle : une seule équipe atteint le score." xml:space="preserve">
+        <source>Pas de match nul avec cette règle : une seule équipe atteint le score.</source>
+        <target state="translated">No draws with this rule: only one team reaches the score.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pas encore classé" xml:space="preserve">
+        <source>Pas encore classé</source>
+        <target state="translated">Not ranked yet</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pas encore classés" xml:space="preserve">
+        <source>Pas encore classés</source>
+        <target state="translated">Not ranked yet</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pas encore d'Aigle" xml:space="preserve">
+        <source>Pas encore d'Aigle</source>
+        <target state="translated">No Eagle yet</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pas encore l'app ? Demande-moi le lien pour l'installer, puis saisis le code dans « Rejoindre un tournoi »." xml:space="preserve">
+        <source>Pas encore l'app ? Demande-moi le lien pour l'installer, puis saisis le code dans « Rejoindre un tournoi ».</source>
+        <target state="translated">Don't have the app yet? Ask me for the link to install it, then enter the code in “Join a tournament”.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pas encore l'app ? Télécharge-la gratuitement : %@" xml:space="preserve">
+        <source>Pas encore l'app ? Télécharge-la gratuitement : %@</source>
+        <target state="translated">Don't have the app yet? Download it for free: %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pas encore synchronisé." xml:space="preserve">
+        <source>Pas encore synchronisé.</source>
+        <target state="translated">Not synced yet.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pauses" xml:space="preserve">
+        <source>Pauses</source>
+        <target state="translated">Sit-outs</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pendant le tournoi" xml:space="preserve">
+        <source>Pendant le tournoi</source>
+        <target state="translated">During the tournament</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Perso" xml:space="preserve">
+        <source>Perso</source>
+        <target state="translated">Custom</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Période précédente" xml:space="preserve">
+        <source>Période précédente</source>
+        <target state="translated">Previous period</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Période suivante" xml:space="preserve">
+        <source>Période suivante</source>
+        <target state="translated">Next period</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Plus un" xml:space="preserve">
+        <source>Plus un</source>
+        <target state="translated">Plus one</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Podium final" xml:space="preserve">
+        <source>Podium final</source>
+        <target state="translated">Final podium</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Points" xml:space="preserve">
+        <source>Points</source>
+        <target state="translated">Points</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Points encaissés" xml:space="preserve">
+        <source>Points encaissés</source>
+        <target state="translated">Points conceded</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Points individuels" xml:space="preserve">
+        <source>Points individuels</source>
+        <target state="translated">Individual points</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Points par match" xml:space="preserve">
+        <source>Points par match</source>
+        <target state="translated">Points per match</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Points personnalisés" xml:space="preserve">
+        <source>Points personnalisés</source>
+        <target state="translated">Custom points</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Politique de confidentialité" xml:space="preserve">
+        <source>Politique de confidentialité</source>
+        <target state="translated">Privacy policy</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Position" xml:space="preserve">
+        <source>Position</source>
+        <target state="translated">Position</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pour les matchs au temps : saisissez les points marqués par chaque équipe à la fin." xml:space="preserve">
+        <source>Pour les matchs au temps : saisissez les points marqués par chaque équipe à la fin.</source>
+        <target state="translated">For timed matches: enter the points scored by each team at the end.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pour les matchs joués sur une durée : saisissez les points de chaque équipe à la fin." xml:space="preserve">
+        <source>Pour les matchs joués sur une durée : saisissez les points de chaque équipe à la fin.</source>
+        <target state="translated">For matches played over a set time: enter each team's points at the end.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Premier à" xml:space="preserve">
+        <source>Premier à</source>
+        <target state="translated">First to</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Premier à %lld points" xml:space="preserve">
+        <source>Premier à %lld points</source>
+        <target state="translated">First to %lld points</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Premier à N" xml:space="preserve">
+        <source>Premier à N</source>
+        <target state="translated">First to N</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Premier tour" xml:space="preserve">
+        <source>Premier tour</source>
+        <target state="translated">First round</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Première sauvegarde à la prochaine modification." xml:space="preserve">
+        <source>Première sauvegarde à la prochaine modification.</source>
+        <target state="translated">First backup at the next change.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Prénom ou surnom" xml:space="preserve">
+        <source>Prénom ou surnom</source>
+        <target state="translated">First name or nickname</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Présents (%lld sur %lld)" xml:space="preserve">
+        <source>Présents (%lld sur %lld)</source>
+        <target state="translated">Present (%1$lld of %2$lld)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Prêt à lancer" xml:space="preserve">
+        <source>Prêt à lancer</source>
+        <target state="translated">Ready to start</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Publier et obtenir un code" xml:space="preserve">
+        <source>Publier et obtenir un code</source>
+        <target state="translated">Publish and get a code</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Publier nécessite d'être connecté à iCloud. Suivre un tournoi ne nécessite aucun compte." xml:space="preserve">
+        <source>Publier nécessite d'être connecté à iCloud. Suivre un tournoi ne nécessite aucun compte.</source>
+        <target state="translated">Publishing requires being signed in to iCloud. Following a tournament needs no account.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Recomposer" xml:space="preserve">
+        <source>Recomposer</source>
+        <target state="translated">Rebuild</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Recomposer le tour %lld" xml:space="preserve">
+        <source>Recomposer le tour %lld</source>
+        <target state="translated">Rebuild round %lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Recomposer le tour %lld ?" xml:space="preserve">
+        <source>Recomposer le tour %lld ?</source>
+        <target state="translated">Rebuild round %lld?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Rejoindre" xml:space="preserve">
+        <source>Rejoindre</source>
+        <target state="translated">Join</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Rejoindre un tournoi" xml:space="preserve">
+        <source>Rejoindre un tournoi</source>
+        <target state="translated">Join a tournament</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Remplacer le score" xml:space="preserve">
+        <source>Remplacer le score</source>
+        <target state="translated">Replace the score</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Renommer" xml:space="preserve">
+        <source>Renommer</source>
+        <target state="translated">Rename</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Renommer la session" xml:space="preserve">
+        <source>Renommer la session</source>
+        <target state="translated">Rename the session</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Retirer" xml:space="preserve">
+        <source>Retirer</source>
+        <target state="translated">Remove</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Retirer de la liste" xml:space="preserve">
+        <source>Retirer de la liste</source>
+        <target state="translated">Remove from the list</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Retirer du partage" xml:space="preserve">
+        <source>Retirer du partage</source>
+        <target state="translated">Stop sharing</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Retirer du partage ?" xml:space="preserve">
+        <source>Retirer du partage ?</source>
+        <target state="translated">Stop sharing?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Retirer un joueur ne supprime pas ses résultats : il reste dans les classements des périodes où il a joué." xml:space="preserve">
+        <source>Retirer un joueur ne supprime pas ses résultats : il reste dans les classements des périodes où il a joué.</source>
+        <target state="translated">Removing a player does not delete their results: they stay in the standings of the periods they played.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Revenir à la recommandation (%lld tours)" xml:space="preserve">
+        <source>Revenir à la recommandation (%lld tours)</source>
+        <target state="translated">Back to the recommendation (%lld rounds)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Règle de score" xml:space="preserve">
+        <source>Règle de score</source>
+        <target state="translated">Scoring rule</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Règles de départage" xml:space="preserve">
+        <source>Règles de départage</source>
+        <target state="translated">Tie-break rules</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Règles du classement" xml:space="preserve">
+        <source>Règles du classement</source>
+        <target state="translated">Ranking rules</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Réactiver" xml:space="preserve">
+        <source>Réactiver</source>
+        <target state="translated">Reactivate</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Résultats" xml:space="preserve">
+        <source>Résultats</source>
+        <target state="translated">Results</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Rise above : %@ au dernier tour" xml:space="preserve">
+        <source>Rise above : %@ au dernier tour</source>
+        <target state="translated">Rise above: %@ in the last round</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Rythme estimé" xml:space="preserve">
+        <source>Rythme estimé</source>
+        <target state="translated">Estimated pace</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Saisir le score" xml:space="preserve">
+        <source>Saisir le score</source>
+        <target state="translated">Enter the score</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Saisissez au moins un point." xml:space="preserve">
+        <source>Saisissez au moins un point.</source>
+        <target state="translated">Enter at least one point.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Saisissez le code reçu de l'organisateur." xml:space="preserve">
+        <source>Saisissez le code reçu de l'organisateur.</source>
+        <target state="translated">Enter the code you received from the organiser.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Sans compte ou sans réseau, l'app fonctionne exactement pareil." xml:space="preserve">
+        <source>Sans compte ou sans réseau, l'app fonctionne exactement pareil.</source>
+        <target state="translated">Without an account or a network, the app works exactly the same.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Sauvegarde automatique" xml:space="preserve">
+        <source>Sauvegarde automatique</source>
+        <target state="translated">Automatic backup</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Sauvegarde en cours…" xml:space="preserve">
+        <source>Sauvegarde en cours…</source>
+        <target state="translated">Backing up…</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Sauvegarder maintenant" xml:space="preserve">
+        <source>Sauvegarder maintenant</source>
+        <target state="translated">Back up now</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Score libre (au temps)" xml:space="preserve">
+        <source>Score libre (au temps)</source>
+        <target state="translated">Free score (timed)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Score non enregistré" xml:space="preserve">
+        <source>Score non enregistré</source>
+        <target state="translated">Score not saved</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Score trop élevé (%lld maximum)." xml:space="preserve">
+        <source>Score trop élevé (%lld maximum).</source>
+        <target state="translated">Score too high (%lld maximum).</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Score valide : match nul." xml:space="preserve">
+        <source>Score valide : match nul.</source>
+        <target state="translated">Valid score: draw.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Score valide." xml:space="preserve">
+        <source>Score valide.</source>
+        <target state="translated">Valid score.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Score validé" xml:space="preserve">
+        <source>Score validé</source>
+        <target state="translated">Score validated</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Se connecter" xml:space="preserve">
+        <source>Se connecter</source>
+        <target state="translated">Sign in</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Se déconnecter" xml:space="preserve">
+        <source>Se déconnecter</source>
+        <target state="translated">Sign out</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Se déconnecter ?" xml:space="preserve">
+        <source>Se déconnecter ?</source>
+        <target state="translated">Sign out?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Selon le niveau" xml:space="preserve">
+        <source>Selon le niveau</source>
+        <target state="translated">By level</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Selon les joueurs, %lld ou %lld matchs joués : le classement au total des points avantage ceux qui ont joué un match de plus." xml:space="preserve">
+        <source>Selon les joueurs, %lld ou %lld matchs joués : le classement au total des points avantage ceux qui ont joué un match de plus.</source>
+        <target state="translated">Depending on the player, %1$lld or %2$lld matches played: ranking by total points favours those who played one more match.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Semaine" xml:space="preserve">
+        <source>Semaine</source>
+        <target state="translated">Week</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Serveur injoignable. Vos données restent sur l'iPhone ; la sauvegarde reprendra au retour du réseau." xml:space="preserve">
+        <source>Serveur injoignable. Vos données restent sur l'iPhone ; la sauvegarde reprendra au retour du réseau.</source>
+        <target state="translated">Server unreachable. Your data stays on the iPhone; the backup will resume when the network is back.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Session" xml:space="preserve">
+        <source>Session</source>
+        <target state="translated">Session</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Session introuvable" xml:space="preserve">
+        <source>Session introuvable</source>
+        <target state="translated">Session not found</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Sessions, joueurs et tournois sauvegardés automatiquement." xml:space="preserve">
+        <source>Sessions, joueurs et tournois sauvegardés automatiquement.</source>
+        <target state="translated">Sessions, players and tournaments backed up automatically.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Seuls les matchs validés comptent. Une correction de score met le classement à jour immédiatement." xml:space="preserve">
+        <source>Seuls les matchs validés comptent. Une correction de score met le classement à jour immédiatement.</source>
+        <target state="translated">Only validated matches count. A score correction updates the standings immediately.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Si le nombre de joueurs n'est pas un multiple de 4, certains font une pause à chaque tour, à tour de rôle. L'app répartit les pauses équitablement." xml:space="preserve">
+        <source>Si le nombre de joueurs n'est pas un multiple de 4, certains font une pause à chaque tour, à tour de rôle. L'app répartit les pauses équitablement.</source>
+        <target state="translated">If the number of players is not a multiple of 4, some sit out each round, in turn. The app spreads sit-outs fairly.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Statistiques" xml:space="preserve">
+        <source>Statistiques</source>
+        <target state="translated">Statistics</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Suivi" xml:space="preserve">
+        <source>Suivi</source>
+        <target state="translated">Following</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Suivi en lecture seule : l'organisateur saisit les scores." xml:space="preserve">
+        <source>Suivi en lecture seule : l'organisateur saisit les scores.</source>
+        <target state="translated">Read-only: the organiser enters the scores.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Suivre un tournoi" xml:space="preserve">
+        <source>Suivre un tournoi</source>
+        <target state="translated">Follow a tournament</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Suppression impossible" xml:space="preserve">
+        <source>Suppression impossible</source>
+        <target state="translated">Deletion impossible</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Supprimer" xml:space="preserve">
+        <source>Supprimer</source>
+        <target state="translated">Delete</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Supprimer la session" xml:space="preserve">
+        <source>Supprimer la session</source>
+        <target state="translated">Delete the session</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Supprimer le compte et la sauvegarde" xml:space="preserve">
+        <source>Supprimer le compte et la sauvegarde</source>
+        <target state="translated">Delete the account and the backup</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Supprimer le tournoi" xml:space="preserve">
+        <source>Supprimer le tournoi</source>
+        <target state="translated">Delete the tournament</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Supprimer mon compte" xml:space="preserve">
+        <source>Supprimer mon compte</source>
+        <target state="translated">Delete my account</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Supprimer seulement de cet iPhone" xml:space="preserve">
+        <source>Supprimer seulement de cet iPhone</source>
+        <target state="translated">Delete only from this iPhone</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Supprimer ton compte ?" xml:space="preserve">
+        <source>Supprimer ton compte ?</source>
+        <target state="translated">Delete your account?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Supprimer « %@ » ?" xml:space="preserve">
+        <source>Supprimer « %@ » ?</source>
+        <target state="translated">Delete “%@”?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Synchronisation…" xml:space="preserve">
+        <source>Synchronisation…</source>
+        <target state="translated">Syncing…</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="T%lld" xml:space="preserve">
+        <source>T%lld</source>
+        <target state="translated">R%lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tapez le score d'une équipe : l'autre est calculé (total %lld)." xml:space="preserve">
+        <source>Tapez le score d'une équipe : l'autre est calculé (total %lld).</source>
+        <target state="translated">Type one team's score: the other is calculated (total %lld).</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tapez le score de chaque équipe." xml:space="preserve">
+        <source>Tapez le score de chaque équipe.</source>
+        <target state="translated">Type each team's score.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tapez le score du perdant : le gagnant reçoit %lld." xml:space="preserve">
+        <source>Tapez le score du perdant : le gagnant reçoit %lld.</source>
+        <target state="translated">Type the loser's score: the winner gets %lld.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Terminer et voir les résultats" xml:space="preserve">
+        <source>Terminer et voir les résultats</source>
+        <target state="translated">Finish and see the results</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Terminer le tournoi" xml:space="preserve">
+        <source>Terminer le tournoi</source>
+        <target state="translated">Finish the tournament</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Terminer le tournoi ?" xml:space="preserve">
+        <source>Terminer le tournoi ?</source>
+        <target state="translated">Finish the tournament?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Terminé" xml:space="preserve">
+        <source>Terminé</source>
+        <target state="translated">Finished</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Terrain %lld" xml:space="preserve">
+        <source>Terrain %lld</source>
+        <target state="translated">Court %lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Terrains" xml:space="preserve">
+        <source>Terrains</source>
+        <target state="translated">Courts</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Terrains disponibles" xml:space="preserve">
+        <source>Terrains disponibles</source>
+        <target state="translated">Available courts</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tes sessions et tournois restent sur cet iPhone. La sauvegarde s'arrête jusqu'à la prochaine connexion." xml:space="preserve">
+        <source>Tes sessions et tournois restent sur cet iPhone. La sauvegarde s'arrête jusqu'à la prochaine connexion.</source>
+        <target state="translated">Your sessions and tournaments stay on this iPhone. Backups stop until you sign in again.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Total fixe" xml:space="preserve">
+        <source>Total fixe</source>
+        <target state="translated">Fixed total</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Total fixe (16, 21, 24, 32…)" xml:space="preserve">
+        <source>Total fixe (16, 21, 24, 32…)</source>
+        <target state="translated">Fixed total (16, 21, 24, 32…)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Touchez le match, puis « Corriger le score ». L'ancien score est conservé dans l'historique et le classement se met à jour." xml:space="preserve">
+        <source>Touchez le match, puis « Corriger le score ». L'ancien score est conservé dans l'historique et le classement se met à jour.</source>
+        <target state="translated">Tap the match, then “Correct the score”. The old score is kept in the history and the standings update.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tour" xml:space="preserve">
+        <source>Tour</source>
+        <target state="translated">Round</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tour %lld" xml:space="preserve">
+        <source>Tour %lld</source>
+        <target state="translated">Round %lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tour %lld sur %lld" xml:space="preserve">
+        <source>Tour %lld sur %lld</source>
+        <target state="translated">Round %1$lld of %2$lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tour %lld · Terrain %lld" xml:space="preserve">
+        <source>Tour %lld · Terrain %lld</source>
+        <target state="translated">Round %1$lld · Court %2$lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tour %lld · avec %@" xml:space="preserve">
+        <source>Tour %lld · avec %@</source>
+        <target state="translated">Round %1$lld · with %2$@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tournoi introuvable" xml:space="preserve">
+        <source>Tournoi introuvable</source>
+        <target state="translated">Tournament not found</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tournois" xml:space="preserve">
+        <source>Tournois</source>
+        <target state="translated">Tournaments</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tours" xml:space="preserve">
+        <source>Tours</source>
+        <target state="translated">Rounds</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tours libres" xml:space="preserve">
+        <source>Tours libres</source>
+        <target state="translated">Open-ended rounds</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tout" xml:space="preserve">
+        <source>Tout</source>
+        <target state="translated">All</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tout cocher" xml:space="preserve">
+        <source>Tout cocher</source>
+        <target state="translated">Select all</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tout décocher" xml:space="preserve">
+        <source>Tout décocher</source>
+        <target state="translated">Deselect all</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tout est retrouvé sur un nouvel iPhone, en te connectant." xml:space="preserve">
+        <source>Tout est retrouvé sur un nouvel iPhone, en te connectant.</source>
+        <target state="translated">Everything comes back on a new iPhone when you sign in.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tout le monde ne jouera pas le même nombre de matchs." xml:space="preserve">
+        <source>Tout le monde ne jouera pas le même nombre de matchs.</source>
+        <target state="translated">Not everyone will play the same number of matches.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tout le monde ne jouera pas le même nombre de matchs. Valeurs équitables proches : %@ tours." xml:space="preserve">
+        <source>Tout le monde ne jouera pas le même nombre de matchs. Valeurs équitables proches : %@ tours.</source>
+        <target state="translated">Not everyone will play the same number of matches. Nearby fair values: %@ rounds.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Tout le programme sera généré d'un coup." xml:space="preserve">
+        <source>Tout le programme sera généré d'un coup.</source>
+        <target state="translated">The whole schedule will be generated at once.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Un groupe qui joue régulièrement : ses joueurs sont gardés et ses tournois forment un classement par semaine, mois et année." xml:space="preserve">
+        <source>Un groupe qui joue régulièrement : ses joueurs sont gardés et ses tournois forment un classement par semaine, mois et année.</source>
+        <target state="translated">A group that plays regularly: its players are kept and its tournaments build standings by week, month and year.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Un joueur n'a pas de nom." xml:space="preserve">
+        <source>Un joueur n'a pas de nom.</source>
+        <target state="translated">A player has no name.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Un score ne peut pas être négatif." xml:space="preserve">
+        <source>Un score ne peut pas être négatif.</source>
+        <target state="translated">A score cannot be negative.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Utile après la correction d'un score : les équipes de ce tour seront recalculées avec le classement à jour. Aucun score n'y a encore été saisi." xml:space="preserve">
+        <source>Utile après la correction d'un score : les équipes de ce tour seront recalculées avec le classement à jour. Aucun score n'y a encore été saisi.</source>
+        <target state="translated">Useful after correcting a score: this round's teams will be recalculated with the updated standings. No score has been entered in it yet.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Valider le résultat" xml:space="preserve">
+        <source>Valider le résultat</source>
+        <target state="translated">Validate the result</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Version" xml:space="preserve">
+        <source>Version</source>
+        <target state="translated">Version</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Victoires" xml:space="preserve">
+        <source>Victoires</source>
+        <target state="translated">Wins</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Voir le profil du joueur" xml:space="preserve">
+        <source>Voir le profil du joueur</source>
+        <target state="translated">See the player's profile</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Voir les %lld tournois terminés" xml:space="preserve">
+        <source>Voir les %lld tournois terminés</source>
+        <target state="translated">See the %lld finished tournaments</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Voir ou corriger le score" xml:space="preserve">
+        <source>Voir ou corriger le score</source>
+        <target state="translated">See or correct the score</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Vos amis ouvrent le lien, ou saisissent le code dans « Rejoindre un tournoi ». S'ils n'ont pas encore l'app, le message leur indique comment l'obtenir." xml:space="preserve">
+        <source>Vos amis ouvrent le lien, ou saisissent le code dans « Rejoindre un tournoi ». S'ils n'ont pas encore l'app, le message leur indique comment l'obtenir.</source>
+        <target state="translated">Your friends open the link, or enter the code in “Join a tournament”. If they don't have the app yet, the message tells them how to get it.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Vos amis suivent les matchs, les scores et le classement sur leur iPhone." xml:space="preserve">
+        <source>Vos amis suivent les matchs, les scores et le classement sur leur iPhone.</source>
+        <target state="translated">Your friends follow the matches, scores and standings on their iPhone.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Vos données" xml:space="preserve">
+        <source>Vos données</source>
+        <target state="translated">Your data</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Votre session a expiré. Reconnectez-vous." xml:space="preserve">
+        <source>Votre session a expiré. Reconnectez-vous.</source>
+        <target state="translated">Your session has expired. Please sign in again.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Vous ne savez pas combien de tours vous aurez le temps de jouer ? Activez « Tours libres » : chaque tour est généré quand le précédent est terminé, et vous arrêtez quand vous voulez." xml:space="preserve">
+        <source>Vous ne savez pas combien de tours vous aurez le temps de jouer ? Activez « Tours libres » : chaque tour est généré quand le précédent est terminé, et vous arrêtez quand vous voulez.</source>
+        <target state="translated">Don't know how many rounds you will have time to play? Turn on “Open-ended rounds”: each round is generated when the previous one is finished, and you stop whenever you like.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Vous pouvez retirer le tournoi du partage à tout moment." xml:space="preserve">
+        <source>Vous pouvez retirer le tournoi du partage à tout moment.</source>
+        <target state="translated">You can remove the tournament from sharing at any time.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Vous restez seul à saisir et valider les scores. Les autres consultent en lecture seule." xml:space="preserve">
+        <source>Vous restez seul à saisir et valider les scores. Les autres consultent en lecture seule.</source>
+        <target state="translated">Only you enter and validate scores. The others view in read-only mode.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Vous suivrez les matchs, les scores et le classement en lecture seule. C'est l'organisateur qui valide les scores. Mise à jour toutes les 20 secondes environ, sans garantie de temps réel." xml:space="preserve">
+        <source>Vous suivrez les matchs, les scores et le classement en lecture seule. C'est l'organisateur qui valide les scores. Mise à jour toutes les 20 secondes environ, sans garantie de temps réel.</source>
+        <target state="translated">You will follow the matches, scores and standings in read-only mode. The organiser validates the scores. Updated about every 20 seconds, without a real-time guarantee.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Win rate" xml:space="preserve">
+        <source>Win rate</source>
+        <target state="translated">Win rate</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="contre" xml:space="preserve">
+        <source>contre</source>
+        <target state="translated">vs</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="contre %@" xml:space="preserve">
+        <source>contre %@</source>
+        <target state="translated">vs %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="copie en lecture seule" xml:space="preserve">
+        <source>copie en lecture seule</source>
+        <target state="translated">read-only copy</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="défaite" xml:space="preserve">
+        <source>défaite</source>
+        <target state="translated">loss</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="défaites" xml:space="preserve">
+        <source>défaites</source>
+        <target state="translated">losses</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="différence %@" xml:space="preserve">
+        <source>différence %@</source>
+        <target state="translated">difference %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="données en ligne incomplètes" xml:space="preserve">
+        <source>données en ligne incomplètes</source>
+        <target state="translated">incomplete online data</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="environ %lld min" xml:space="preserve">
+        <source>environ %lld min</source>
+        <target state="translated">about %lld min</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="gagne %@" xml:space="preserve">
+        <source>gagne %@</source>
+        <target state="translated">gains %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="joueur" xml:space="preserve">
+        <source>joueur</source>
+        <target state="translated">player</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="joueurs" xml:space="preserve">
+        <source>joueurs</source>
+        <target state="translated">players</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="l'Aigle" xml:space="preserve">
+        <source>l'Aigle</source>
+        <target state="translated">the Eagle</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="match" xml:space="preserve">
+        <source>match</source>
+        <target state="translated">match</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="matchs" xml:space="preserve">
+        <source>matchs</source>
+        <target state="translated">matches</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="non classé" xml:space="preserve">
+        <source>non classé</source>
+        <target state="translated">not ranked</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="perd %@" xml:space="preserve">
+        <source>perd %@</source>
+        <target state="translated">loses %@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="place" xml:space="preserve">
+        <source>place</source>
+        <target state="translated">place</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="place gagnée" xml:space="preserve">
+        <source>place gagnée</source>
+        <target state="translated">place gained</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="place perdue" xml:space="preserve">
+        <source>place perdue</source>
+        <target state="translated">place lost</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="places" xml:space="preserve">
+        <source>places</source>
+        <target state="translated">places</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="places gagnées" xml:space="preserve">
+        <source>places gagnées</source>
+        <target state="translated">places gained</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="places perdues" xml:space="preserve">
+        <source>places perdues</source>
+        <target state="translated">places lost</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="point" xml:space="preserve">
+        <source>point</source>
+        <target state="translated">point</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="points" xml:space="preserve">
+        <source>points</source>
+        <target state="translated">points</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="points joués" xml:space="preserve">
+        <source>points joués</source>
+        <target state="translated">points played</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="pt" xml:space="preserve">
+        <source>pt</source>
+        <target state="translated">pt</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="pts" xml:space="preserve">
+        <source>pts</source>
+        <target state="translated">pts</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="pts / match" xml:space="preserve">
+        <source>pts / match</source>
+        <target state="translated">pts / match</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="pts/m" xml:space="preserve">
+        <source>pts/m</source>
+        <target state="translated">pts/m</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="tour" xml:space="preserve">
+        <source>tour</source>
+        <target state="translated">round</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="tour %lld : %llde" xml:space="preserve">
+        <source>tour %lld : %llde</source>
+        <target state="translated">round %1$lld: rank %2$lld</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="tournoi" xml:space="preserve">
+        <source>tournoi</source>
+        <target state="translated">tournament</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="tournois" xml:space="preserve">
+        <source>tournois</source>
+        <target state="translated">tournaments</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="tours" xml:space="preserve">
+        <source>tours</source>
+        <target state="translated">rounds</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="victoire" xml:space="preserve">
+        <source>victoire</source>
+        <target state="translated">win</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="victoires" xml:space="preserve">
+        <source>victoires</source>
+        <target state="translated">wins</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="« %@ » est déjà dans la liste." xml:space="preserve">
+        <source>« %@ » est déjà dans la liste.</source>
+        <target state="translated">“%@” is already in the list.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="–" xml:space="preserve">
+        <source>–</source>
+        <target state="translated">–</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="≈ %@ matchs par joueur · environ %lld min" xml:space="preserve">
+        <source>≈ %@ matchs par joueur · environ %lld min</source>
+        <target state="translated">≈ %1$@ matches per player · about %2$lld min</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="≈ %lld tours par heure (%lld min par tour)" xml:space="preserve">
+        <source>≈ %lld tours par heure (%lld min par tour)</source>
+        <target state="translated">≈ %1$lld rounds per hour (%2$lld min per round)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="🦅 Rejoins le tournoi « %@ » sur EAGLE. Qui sera l'Aigle ?" xml:space="preserve">
+        <source>🦅 Rejoins le tournoi « %@ » sur EAGLE. Qui sera l'Aigle ?</source>
+        <target state="translated">🦅 Join the tournament “%@” on EAGLE. Who will be the Eagle?</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
