@@ -45,11 +45,11 @@ struct RoundSection: View {
                     .textCase(.uppercase)
                     .accessibilityAddTraits(.isHeader)
                 if round.isExcluded {
-                    BadgeView(text: String(localized: "Non compté"), color: Theme.warning)
+                    BadgeView(text: String(localized: "Non compté", bundle: .appLanguage), color: Theme.warning)
                 } else if isCurrent {
-                    BadgeView(text: String(localized: "En cours"))
+                    BadgeView(text: String(localized: "En cours", bundle: .appLanguage))
                 } else if round.isComplete {
-                    BadgeView(text: String(localized: "Terminé"), color: .secondary)
+                    BadgeView(text: String(localized: "Terminé", bundle: .appLanguage), color: .secondary)
                 }
             }
             ForEach(round.matches.sorted { $0.court < $1.court }) { match in
@@ -78,7 +78,7 @@ struct RoundSection: View {
     }
 
     private func names(_ ids: [Player.ID]) -> String {
-        ids.compactMap { tournament.player($0)?.name }.formatted(.list(type: .and))
+        ids.compactMap { tournament.player($0)?.name }.formatted(.list(type: .and).locale(.appLanguage))
     }
 }
 
@@ -149,9 +149,9 @@ struct CompromiseNotice: View {
 extension MatchState {
     var title: String {
         switch self {
-        case .scheduled: String(localized: "À jouer")
-        case .inProgress: String(localized: "En cours")
-        case .completed: String(localized: "Terminé")
+        case .scheduled: String(localized: "À jouer", bundle: .appLanguage)
+        case .inProgress: String(localized: "En cours", bundle: .appLanguage)
+        case .completed: String(localized: "Terminé", bundle: .appLanguage)
         }
     }
 
@@ -168,9 +168,9 @@ extension ScheduleCompromise {
     var message: String {
         switch self {
         case .unequalMatches(let range):
-            String(localized: "Selon les joueurs, \(range.lowerBound) ou \(range.upperBound) matchs joués : le classement au total des points avantage ceux qui ont joué un match de plus.")
+            String(localized: "Selon les joueurs, \(range.lowerBound) ou \(range.upperBound) matchs joués : le classement au total des points avantage ceux qui ont joué un match de plus.", bundle: .appLanguage)
         case .repeatedPartners(let pairs, let maxTimes):
-            String(localized: "\(pairs) duo(s) joueront ensemble jusqu'à \(maxTimes) fois. Le programme limite ces répétitions au strict nécessaire.")
+            String(localized: "\(pairs) duo(s) joueront ensemble jusqu'à \(maxTimes) fois. Le programme limite ces répétitions au strict nécessaire.", bundle: .appLanguage)
         }
     }
 }

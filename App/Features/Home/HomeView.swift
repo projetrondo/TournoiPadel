@@ -29,27 +29,30 @@ struct HomeView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     EagleWordmark()
-                        .padding(.horizontal, 48)
+                        .padding(.horizontal, 92)
                         .overlay(alignment: .topLeading) {
-                            if accounts.isAvailable {
+                            HStack(spacing: 0) {
+                                if accounts.isAvailable {
+                                    Button {
+                                        isShowingAccount = true
+                                    } label: {
+                                        accountIcon
+                                            .frame(minWidth: 44, minHeight: 44)
+                                    }
+                                    .accessibilityLabel(accounts.account == nil ? Text("Se connecter") : Text("Mon compte"))
+                                }
                                 Button {
-                                    isShowingAccount = true
+                                    isShowingHelp = true
                                 } label: {
-                                    accountIcon
+                                    Image(systemName: "questionmark.circle")
+                                        .font(.title2)
                                         .frame(minWidth: 44, minHeight: 44)
                                 }
-                                .accessibilityLabel(accounts.account == nil ? "Se connecter" : "Mon compte")
+                                .accessibilityLabel("Comment ça marche ?")
                             }
                         }
                         .overlay(alignment: .topTrailing) {
-                            Button {
-                                isShowingHelp = true
-                            } label: {
-                                Image(systemName: "questionmark.circle")
-                                    .font(.title2)
-                                    .frame(minWidth: 44, minHeight: 44)
-                            }
-                            .accessibilityLabel("Comment ça marche ?")
+                            LanguageSwitcher()
                         }
                         .padding(.top, 8)
                     EagleConceptBanner()
@@ -76,7 +79,7 @@ struct HomeView: View {
                         path.append(.tournament(tournament.id))
                     }
                 case .finishedList:
-                    TournamentListView(title: String(localized: "Hall of Eagles"), tournaments: library.finishedTournaments)
+                    TournamentListView(title: String(localized: "Hall of Eagles", bundle: .appLanguage), tournaments: library.finishedTournaments)
                 }
             }
             .task {
@@ -186,11 +189,11 @@ struct HomeView: View {
             }
             sessionsSection
             if !library.activeTournaments.isEmpty {
-                section(title: String(localized: "En cours"), tournaments: library.activeTournaments)
+                section(title: String(localized: "En cours", bundle: .appLanguage), tournaments: library.activeTournaments)
             }
             if !library.finishedTournaments.isEmpty {
                 section(
-                    title: String(localized: "Hall of Eagles"),
+                    title: String(localized: "Hall of Eagles", bundle: .appLanguage),
                     tournaments: Array(library.finishedTournaments.prefix(finishedPreviewCount))
                 )
                 if library.finishedTournaments.count > finishedPreviewCount {
@@ -311,7 +314,7 @@ struct SessionRow: View {
                 Text(session.name)
                     .font(Theme.display(.title3, weight: .heavy))
                     .foregroundStyle(Theme.ink)
-                Text("\(FrenchPlural.count(session.activeMembers.count, "joueur", "joueurs")) · \(FrenchPlural.count(tournaments.count, "tournoi", "tournois"))")
+                Text("\(Plural.count(session.activeMembers.count, "joueur", "joueurs")) · \(Plural.count(tournaments.count, "tournoi", "tournois"))")
                     .font(.subheadline)
                     .foregroundStyle(Theme.secondaryText)
                 if let eagle = monthEagle {
@@ -345,7 +348,7 @@ struct SessionRow: View {
         calendar.timeZone = .current
         let ranking = SessionRanking(session: session, tournaments: tournaments, period: .month, reference: Date(), calendar: calendar)
         let names = ranking.ranked.filter { $0.rank == 1 }.map { SessionRanking.name(of: $0.id, session: session, tournaments: tournaments) }
-        return names.isEmpty ? nil : names.formatted(.list(type: .and))
+        return names.isEmpty ? nil : names.formatted(.list(type: .and).locale(.appLanguage))
     }
 }
 
@@ -416,7 +419,7 @@ struct TournamentRow: View {
         HStack(spacing: 6) {
             BadgeView(text: tournament.format.title)
             if tournament.isReadOnly {
-                BadgeView(text: String(localized: "Suivi"), color: .blue)
+                BadgeView(text: String(localized: "Suivi", bundle: .appLanguage), color: .blue)
             } else if tournament.sharing != nil {
                 Image(systemName: "person.2.wave.2.fill")
                     .font(.caption)
@@ -449,8 +452,8 @@ struct TournamentRow: View {
                     .frame(width: 16, height: 16)
                     .accessibilityHidden(true)
                 Text(tournament.status == .finished
-                     ? String(localized: "Aigle du tournoi : \(names.formatted(.list(type: .and)))")
-                     : String(localized: "Aigle actuel : \(names.formatted(.list(type: .and)))"))
+                     ? String(localized: "Aigle du tournoi : \(names.formatted(.list(type: .and).locale(.appLanguage)))", bundle: .appLanguage)
+                     : String(localized: "Aigle actuel : \(names.formatted(.list(type: .and).locale(.appLanguage)))", bundle: .appLanguage))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Theme.gold)
                     .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)

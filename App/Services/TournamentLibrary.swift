@@ -55,7 +55,7 @@ final class TournamentLibrary {
             tournaments = result.tournaments
             unreadableFileCount = result.unreadableFiles.count
         } catch {
-            failure = Failure(message: String(localized: "Impossible de lire les tournois enregistrés."))
+            failure = Failure(message: String(localized: "Impossible de lire les tournois enregistrés.", bundle: .appLanguage))
         }
         hasLoaded = true
     }
@@ -144,7 +144,7 @@ final class TournamentLibrary {
         do {
             try action()
         } catch {
-            failure = Failure(message: String(localized: "L'enregistrement a échoué. Vos données précédentes sont intactes."))
+            failure = Failure(message: String(localized: "L'enregistrement a échoué. Vos données précédentes sont intactes.", bundle: .appLanguage))
         }
     }
 }

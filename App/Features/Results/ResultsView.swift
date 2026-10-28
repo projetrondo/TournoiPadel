@@ -16,9 +16,9 @@ struct ResultsView: View {
             PodiumView(tournament: tournament, podium: results.podium)
 
             HStack(spacing: 10) {
-                keyFigure("\(results.matchesPlayed)", label: results.matchesPlayed <= 1 ? String(localized: "match") : String(localized: "matchs"))
-                keyFigure("\(results.roundsPlayed)", label: results.roundsPlayed <= 1 ? String(localized: "tour") : String(localized: "tours"))
-                keyFigure("\(results.totalPoints)", label: String(localized: "points joués"))
+                keyFigure("\(results.matchesPlayed)", label: results.matchesPlayed <= 1 ? String(localized: "match", bundle: .appLanguage) : String(localized: "matchs", bundle: .appLanguage))
+                keyFigure("\(results.roundsPlayed)", label: results.roundsPlayed <= 1 ? String(localized: "tour", bundle: .appLanguage) : String(localized: "tours", bundle: .appLanguage))
+                keyFigure("\(results.totalPoints)", label: String(localized: "points joués", bundle: .appLanguage))
             }
 
             CompromiseNotice(compromises: results.statistics.compromises.filter {
@@ -92,17 +92,17 @@ struct ResultsView: View {
         var lines = ["EAGLE · \(tournament.name) — \(tournament.format.title)", ""]
         let eagles = results.winners.compactMap { tournament.player($0.id)?.name }
         if !eagles.isEmpty {
-            lines.append(String(localized: "L'Aigle : \(eagles.formatted(.list(type: .and)))"))
+            lines.append(String(localized: "L'Aigle : \(eagles.formatted(.list(type: .and).locale(.appLanguage)))", bundle: .appLanguage))
             lines.append("")
         }
         for row in results.standings {
             let prefix = row.rank <= 3 ? medals[row.rank - 1] : "\(row.rank)."
             let name = tournament.player(row.id)?.name ?? "?"
-            lines.append(String(localized: "\(prefix) \(name) — \(row.stats.pointsFor) pts (\(row.stats.pointDifference.signedText)), \(row.stats.wins) V"))
+            lines.append(String(localized: "\(prefix) \(name) — \(row.stats.pointsFor) pts (\(row.stats.pointDifference.signedText)), \(row.stats.wins) V", bundle: .appLanguage))
         }
         lines.append("")
-        lines.append(String(localized: "\(results.matchesPlayed) matchs · \(results.totalPoints) points joués"))
-        lines.append(String(localized: "EAGLE — Own the court."))
+        lines.append(String(localized: "\(results.matchesPlayed) matchs · \(results.totalPoints) points joués", bundle: .appLanguage))
+        lines.append(String(localized: "EAGLE — Own the court.", bundle: .appLanguage))
         return lines.joined(separator: "\n")
     }
 }
@@ -180,7 +180,7 @@ struct PodiumView: View {
                     Text("\(first.stats.pointsFor) pts")
                         .font(Theme.display(.subheadline, weight: .black).monospacedDigit())
                         .foregroundStyle(isEagle ? AnyShapeStyle(Theme.goldGradient) : AnyShapeStyle(tier.color))
-                    Text(verbatim: "\(first.stats.wins) V – \(first.stats.losses) D")
+                    Text("\(first.stats.wins) V – \(first.stats.losses) D")
                         .font(.caption2.weight(.semibold).monospacedDigit())
                         .foregroundStyle(Theme.secondaryText)
                 }

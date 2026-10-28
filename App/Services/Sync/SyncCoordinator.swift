@@ -265,7 +265,7 @@ final class SyncCoordinator {
             case .conflict: return .conflict
             case .notFound: return .notFound
             case .mismatchedTournament: return .codeUnavailable
-            case .readOnly: return .other(String(localized: "copie en lecture seule"))
+            case .readOnly: return .other(String(localized: "copie en lecture seule", bundle: .appLanguage))
             }
         }
         if let urlError = error as? URLError, urlError.code == .notConnectedToInternet { return .offline }

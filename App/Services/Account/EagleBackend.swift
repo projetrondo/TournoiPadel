@@ -46,10 +46,10 @@ enum BackendError: Error, Equatable, Sendable {
 
     var message: String {
         switch self {
-        case .signedOut: String(localized: "Votre session a expiré. Reconnectez-vous.")
-        case .unreachable: String(localized: "Serveur injoignable. Vos données restent sur l'iPhone ; la sauvegarde reprendra au retour du réseau.")
+        case .signedOut: String(localized: "Votre session a expiré. Reconnectez-vous.", bundle: .appLanguage)
+        case .unreachable: String(localized: "Serveur injoignable. Vos données restent sur l'iPhone ; la sauvegarde reprendra au retour du réseau.", bundle: .appLanguage)
         case .refused(let message): message
-        case .cancelled: String(localized: "Connexion annulée.")
+        case .cancelled: String(localized: "Connexion annulée.", bundle: .appLanguage)
         }
     }
 }

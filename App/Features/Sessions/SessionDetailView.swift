@@ -10,9 +10,9 @@ struct SessionDetailView: View {
 
         var title: String {
             switch self {
-            case .ranking: String(localized: "Classement")
-            case .tournaments: String(localized: "Tournois")
-            case .players: String(localized: "Joueurs")
+            case .ranking: String(localized: "Classement", bundle: .appLanguage)
+            case .tournaments: String(localized: "Tournois", bundle: .appLanguage)
+            case .players: String(localized: "Joueurs", bundle: .appLanguage)
             }
         }
     }
@@ -83,7 +83,7 @@ struct SessionDetailView: View {
                         set: { value in sessions.perform { try sessions.modify(id: session.id) { $0.minimumMatches = value } } }
                     )) {
                         ForEach([1, 2, 3, 4, 5, 6, 8, 10], id: \.self) { count in
-                            Text("Classé dès \(FrenchPlural.count(count, "match", "matchs"))").tag(count)
+                            Text("Classé dès \(Plural.count(count, "match", "matchs"))").tag(count)
                         }
                     }
                     .pickerStyle(.menu)
@@ -122,9 +122,9 @@ struct SessionDetailView: View {
     private func header(_ session: PlaySession, tournamentCount: Int) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 6) {
-                BadgeView(text: String(localized: "Session"), color: Theme.gold)
-                BadgeView(text: FrenchPlural.count(session.activeMembers.count, "joueur", "joueurs"), color: Theme.secondaryText)
-                BadgeView(text: FrenchPlural.count(tournamentCount, "tournoi", "tournois"), color: Theme.secondaryText)
+                BadgeView(text: String(localized: "Session", bundle: .appLanguage), color: Theme.gold)
+                BadgeView(text: Plural.count(session.activeMembers.count, "joueur", "joueurs"), color: Theme.secondaryText)
+                BadgeView(text: Plural.count(tournamentCount, "tournoi", "tournois"), color: Theme.secondaryText)
             }
             Text(session.name)
                 .font(Theme.display(.largeTitle, weight: .black))
@@ -162,7 +162,7 @@ struct SessionRankingView: View {
 
     private static var calendar: Calendar {
         var calendar = Calendar(identifier: .iso8601)
-        calendar.locale = Locale(identifier: "fr_FR")
+        calendar.locale = .appLanguage
         calendar.timeZone = .current
         return calendar
     }
@@ -193,7 +193,7 @@ struct SessionRankingView: View {
                 .frame(maxWidth: .infinity)
                 .cardStyle()
             } else {
-                Text("\(FrenchPlural.count(ranking.tournamentCount, "tournoi", "tournois")) · \(FrenchPlural.count(ranking.matchCount, "match", "matchs")) · classé dès \(FrenchPlural.count(session.minimumMatches, "match", "matchs"))")
+                Text("\(Plural.count(ranking.tournamentCount, "tournoi", "tournois")) · \(Plural.count(ranking.matchCount, "match", "matchs")) · classé dès \(Plural.count(session.minimumMatches, "match", "matchs"))")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(Theme.secondaryText)
 
@@ -270,7 +270,7 @@ struct SessionRankingView: View {
     }
 
     private func periodTitle(_ interval: DateInterval?) -> String {
-        guard let interval else { return String(localized: "Depuis le début") }
+        guard let interval else { return String(localized: "Depuis le début", bundle: .appLanguage) }
         let calendar = Self.calendar
         switch period {
         case .week:
@@ -283,7 +283,7 @@ struct SessionRankingView: View {
         case .year:
             return interval.start.formatted(.dateTime.year().locale(calendar.locale!))
         case .all:
-            return String(localized: "Depuis le début")
+            return String(localized: "Depuis le début", bundle: .appLanguage)
         }
     }
 }
@@ -291,10 +291,10 @@ struct SessionRankingView: View {
 extension RankingPeriod {
     var title: String {
         switch self {
-        case .week: String(localized: "Semaine")
-        case .month: String(localized: "Mois")
-        case .year: String(localized: "Année")
-        case .all: String(localized: "Tout")
+        case .week: String(localized: "Semaine", bundle: .appLanguage)
+        case .month: String(localized: "Mois", bundle: .appLanguage)
+        case .year: String(localized: "Année", bundle: .appLanguage)
+        case .all: String(localized: "Tout", bundle: .appLanguage)
         }
     }
 }
@@ -302,7 +302,7 @@ extension RankingPeriod {
 extension PlayerStats {
     /// « 12,5 » points par match.
     var averageText: String {
-        (averagePoints ?? 0).formatted(.number.precision(.fractionLength(1)))
+        (averagePoints ?? 0).formatted(.number.precision(.fractionLength(1)).locale(.appLanguage))
     }
 }
 
@@ -341,7 +341,7 @@ struct SessionLeaderCard: View {
                         .textCase(.uppercase)
                         .foregroundStyle(Theme.secondaryText)
                 }
-                Text(verbatim: "\(row.stats.recordText) · \(FrenchPlural.count(row.tournaments, "tournoi", "tournois"))")
+                Text(verbatim: "\(row.stats.recordText) · \(Plural.count(row.tournaments, "tournoi", "tournois"))")
                     .font(.footnote.weight(.semibold).monospacedDigit())
                     .foregroundStyle(Theme.ink.opacity(0.8))
             }
@@ -359,15 +359,15 @@ struct SessionLeaderCard: View {
         }
         .goldGlowCard()
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(eagleTitle), \(name), \(row.stats.averageText) points par match, \(FrenchPlural.count(row.stats.wins, "victoire", "victoires")), \(FrenchPlural.count(row.stats.played, "match", "matchs"))")
+        .accessibilityLabel("\(eagleTitle), \(name), \(row.stats.averageText) points par match, \(Plural.count(row.stats.wins, "victoire", "victoires")), \(Plural.count(row.stats.played, "match", "matchs"))")
     }
 
     private var eagleTitle: String {
-        let base = row.isTied ? String(localized: "Aigle ex aequo") : String(localized: "L'Aigle")
+        let base = row.isTied ? String(localized: "Aigle ex aequo", bundle: .appLanguage) : String(localized: "L'Aigle", bundle: .appLanguage)
         switch period {
-        case .week: return String(localized: "\(base) de la semaine")
-        case .month: return String(localized: "\(base) du mois")
-        case .year: return String(localized: "\(base) de l'année")
+        case .week: return String(localized: "\(base) de la semaine", bundle: .appLanguage)
+        case .month: return String(localized: "\(base) du mois", bundle: .appLanguage)
+        case .year: return String(localized: "\(base) de l'année", bundle: .appLanguage)
         case .all: return base
         }
     }
@@ -399,7 +399,7 @@ struct SessionRankingRowView: View {
                     .font(.body.weight(tier == .standard ? .semibold : .bold))
                     .foregroundStyle(Theme.ink)
                     .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
-                Text(verbatim: "\(row.stats.recordText) · \(FrenchPlural.count(row.stats.played, "match", "matchs"))")
+                Text(verbatim: "\(row.stats.recordText) · \(Plural.count(row.stats.played, "match", "matchs"))")
                     .font(.caption.weight(.semibold).monospacedDigit())
                     .foregroundStyle(Theme.secondaryText)
                     .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
@@ -429,7 +429,7 @@ struct SessionRankingRowView: View {
     }
 
     private var accessibilityText: String {
-        let position = row.rank.map { $0 == 1 ? "1er" : "\($0)e" } ?? String(localized: "non classé")
-        return "\(position), \(name), \(row.stats.averageText) points par match, \(FrenchPlural.count(row.stats.wins, "victoire", "victoires")), \(FrenchPlural.count(row.stats.losses, "défaite", "défaites")), \(FrenchPlural.count(row.stats.played, "match", "matchs"))"
+        let position = row.rank.map(\.ordinalText) ?? String(localized: "non classé", bundle: .appLanguage)
+        return "\(position), \(name), \(row.stats.averageText) points par match, \(Plural.count(row.stats.wins, "victoire", "victoires")), \(Plural.count(row.stats.losses, "défaite", "défaites")), \(Plural.count(row.stats.played, "match", "matchs"))"
     }
 }

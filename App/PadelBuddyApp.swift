@@ -8,6 +8,8 @@ struct PadelBuddyApp: App {
     @State private var sync: SyncCoordinator
     @State private var sessions: SessionLibrary
     @State private var accounts: AccountCenter
+    /// Langue choisie avec les drapeaux de l'accueil ; changer de langue reconstruit l'interface.
+    @AppStorage(AppLanguage.storageKey) private var languageCode = AppLanguage.current.rawValue
 
     init() {
         let arguments = ProcessInfo.processInfo.arguments
@@ -15,6 +17,8 @@ struct PadelBuddyApp: App {
         let sessionStore: any SessionStore
         let service: any TournamentSyncService
         if arguments.contains("-ui-testing") {
+            // Captures d'écran : français, sauf `-demo-language en`.
+            AppLanguage.select(LaunchOptions.language ?? .fr)
             // Tests d'interface et captures d'écran : aucune donnée réelle n'est lue ni écrite,
             // et le serveur de partage est simulé en mémoire.
             store = InMemoryTournamentStore(arguments.contains("-demo-data") ? DemoData.tournaments() : [])
@@ -54,9 +58,15 @@ struct PadelBuddyApp: App {
         _sync = State(initialValue: SyncCoordinator(library: library, service: service, deviceID: DeviceIdentity.current))
     }
 
+    private var language: AppLanguage {
+        AppLanguage(rawValue: languageCode) ?? .fr
+    }
+
     var body: some Scene {
         WindowGroup {
             HomeView()
+                .environment(\.locale, language.locale)
+                .id(language)
                 .environment(library)
                 .environment(sessions)
                 .environment(accounts)

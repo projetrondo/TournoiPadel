@@ -85,7 +85,7 @@ struct ScoreEntryView: View {
                     Text("Tour \(round) · Terrain \(match.court)")
                         .font(.headline)
                     Spacer()
-                    BadgeView(text: isCorrecting ? String(localized: "Correction") : match.state.title,
+                    BadgeView(text: isCorrecting ? String(localized: "Correction", bundle: .appLanguage) : match.state.title,
                               color: isCorrecting ? Theme.warning : match.state.color)
                 }
 
@@ -307,7 +307,7 @@ struct ScoreEntryView: View {
                 .font(.footnote.weight(.semibold).monospacedDigit())
                 .foregroundStyle(.secondary)
                 .fixedSize()
-                .accessibilityLabel(String(localized: "Match \(index + 1) sur \(matches.count)"))
+                .accessibilityLabel(String(localized: "Match \(index + 1) sur \(matches.count)", bundle: .appLanguage))
         }
         Spacer()
         Button {
@@ -455,46 +455,46 @@ struct ScoreEntryView: View {
     // MARK: - Textes
 
     private func teamLabel(_ team: Team, tournament: Tournament, value: Int?) -> String {
-        let names = team.players.compactMap { tournament.player($0)?.name }.formatted(.list(type: .and))
+        let names = team.players.compactMap { tournament.player($0)?.name }.formatted(.list(type: .and).locale(.appLanguage))
         if let value {
-            return String(localized: "\(names) : \(value) points")
+            return String(localized: "\(names) : \(value) points", bundle: .appLanguage)
         }
-        return String(localized: "\(names) : pas de score")
+        return String(localized: "\(names) : pas de score", bundle: .appLanguage)
     }
 
     private func outcomeText(_ score: Score) -> String {
         switch score.outcome {
-        case .teamAWins, .teamBWins: String(localized: "Score valide.")
-        case .draw: String(localized: "Score valide : match nul.")
+        case .teamAWins, .teamBWins: String(localized: "Score valide.", bundle: .appLanguage)
+        case .draw: String(localized: "Score valide : match nul.", bundle: .appLanguage)
         }
     }
 
     private func hint(for rule: ScoringRule) -> String {
         switch rule {
         case .fixedTotal(let points):
-            String(localized: "Tapez le score d'une équipe : l'autre est calculé (total \(points)).")
+            String(localized: "Tapez le score d'une équipe : l'autre est calculé (total \(points)).", bundle: .appLanguage)
         case .raceTo(let points):
-            String(localized: "Tapez le score du perdant : le gagnant reçoit \(points).")
+            String(localized: "Tapez le score du perdant : le gagnant reçoit \(points).", bundle: .appLanguage)
         case .free:
-            String(localized: "Tapez le score de chaque équipe.")
+            String(localized: "Tapez le score de chaque équipe.", bundle: .appLanguage)
         }
     }
 
     static func message(for error: Error) -> String {
         guard let error = error as? ScoreEntryError else {
-            return String(localized: "L'enregistrement a échoué. Les scores précédents sont intacts.")
+            return String(localized: "L'enregistrement a échoué. Les scores précédents sont intacts.", bundle: .appLanguage)
         }
         switch error {
         case .alreadyValidated:
-            return String(localized: "Ce match a déjà été validé. Utilisez « Corriger le score » pour le modifier.")
+            return String(localized: "Ce match a déjà été validé. Utilisez « Corriger le score » pour le modifier.", bundle: .appLanguage)
         case .invalidScore(let scoreError):
             return scoreError.message
         case .roundLocked:
-            return String(localized: "Le tour suivant a déjà été composé avec ce résultat : corrigez le score plutôt que d'annuler la validation.")
+            return String(localized: "Le tour suivant a déjà été composé avec ce résultat : corrigez le score plutôt que d'annuler la validation.", bundle: .appLanguage)
         case .notValidated:
-            return String(localized: "Ce match n'a pas encore été validé.")
+            return String(localized: "Ce match n'a pas encore été validé.", bundle: .appLanguage)
         case .matchNotFound, .tournamentNotStarted:
-            return String(localized: "Ce match n'est plus disponible.")
+            return String(localized: "Ce match n'est plus disponible.", bundle: .appLanguage)
         }
     }
 }
@@ -503,17 +503,17 @@ extension ScoreError {
     var message: String {
         switch self {
         case .negative:
-            String(localized: "Un score ne peut pas être négatif.")
+            String(localized: "Un score ne peut pas être négatif.", bundle: .appLanguage)
         case .totalMustEqual(let points):
-            String(localized: "Les deux scores doivent totaliser \(points) points.")
+            String(localized: "Les deux scores doivent totaliser \(points) points.", bundle: .appLanguage)
         case .winnerMustReach(let points):
-            String(localized: "L'équipe gagnante doit atteindre \(points) points.")
+            String(localized: "L'équipe gagnante doit atteindre \(points) points.", bundle: .appLanguage)
         case .noDrawAllowed:
-            String(localized: "Pas de match nul avec cette règle : une seule équipe atteint le score.")
+            String(localized: "Pas de match nul avec cette règle : une seule équipe atteint le score.", bundle: .appLanguage)
         case .empty:
-            String(localized: "Saisissez au moins un point.")
+            String(localized: "Saisissez au moins un point.", bundle: .appLanguage)
         case .tooHigh(let maximum):
-            String(localized: "Score trop élevé (\(maximum) maximum).")
+            String(localized: "Score trop élevé (\(maximum) maximum).", bundle: .appLanguage)
         }
     }
 }

@@ -42,6 +42,9 @@ targets:
       properties:
         CFBundleDisplayName: EAGLE
         CFBundleDevelopmentRegion: fr
+        CFBundleLocalizations:
+          - fr
+          - en
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         LSRequiresIPhoneOS: true

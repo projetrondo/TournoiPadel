@@ -255,12 +255,12 @@ struct TournamentDetailView: View {
         let played = tournament.rounds.filter(\.isComplete).count
         if let partial = tournament.rounds.first(where: { $0.hasPlayedMatch && !$0.isComplete }) {
             let done = partial.matches.filter { $0.state == .completed }.count
-            return String(localized: "Le tour \(partial.index) est en cours (\(done) match(s) sur \(partial.matches.count) joués). Compter seulement les tours complets garantit que tout le monde a joué autant de tours ; ses scores restent conservés. Le classement final ne changera plus, mais les scores pourront encore être corrigés.")
+            return String(localized: "Le tour \(partial.index) est en cours (\(done) match(s) sur \(partial.matches.count) joués). Compter seulement les tours complets garantit que tout le monde a joué autant de tours ; ses scores restent conservés. Le classement final ne changera plus, mais les scores pourront encore être corrigés.", bundle: .appLanguage)
         }
         if !tournament.settings.isOpenEnded, played < tournament.settings.plannedRounds {
-            return String(localized: "\(played) tour(s) joué(s) sur \(tournament.settings.plannedRounds) prévus. Les tours non joués seront retirés et le classement actuel deviendra le classement final.")
+            return String(localized: "\(played) tour(s) joué(s) sur \(tournament.settings.plannedRounds) prévus. Les tours non joués seront retirés et le classement actuel deviendra le classement final.", bundle: .appLanguage)
         }
-        return String(localized: "Le classement actuel deviendra le classement final. Les scores pourront encore être corrigés.")
+        return String(localized: "Le classement actuel deviendra le classement final. Les scores pourront encore être corrigés.", bundle: .appLanguage)
     }
 
     /// Mexicano : tour suivant, ou nouveau calcul du dernier tour après une correction.
@@ -278,8 +278,8 @@ struct TournamentDetailView: View {
         } else if tournament.generatesRoundsOnDemand, tournament.status == .inProgress,
                   tournament.rounds.count < tournament.settings.maximumRounds {
             Label(tournament.format == .mexicano
-                  ? String(localized: "Le tour suivant sera composé d'après le classement dès que tous les matchs de ce tour seront terminés.")
-                  : String(localized: "Le tour suivant sera généré dès que tous les matchs de ce tour seront terminés. Vous pouvez arrêter quand vous voulez."),
+                  ? String(localized: "Le tour suivant sera composé d'après le classement dès que tous les matchs de ce tour seront terminés.", bundle: .appLanguage)
+                  : String(localized: "Le tour suivant sera généré dès que tous les matchs de ce tour seront terminés. Vous pouvez arrêter quand vous voulez.", bundle: .appLanguage),
                   systemImage: "info.circle.fill")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
@@ -314,7 +314,7 @@ struct TournamentDetailView: View {
             infoRow("Terrains", value: "\(planner.activeCourts)", systemImage: "square.split.2x1")
             infoRow(
                 "Tours",
-                value: tournament.settings.isOpenEnded ? String(localized: "Libre") : "\(tournament.settings.plannedRounds)",
+                value: tournament.settings.isOpenEnded ? String(localized: "Libre", bundle: .appLanguage) : "\(tournament.settings.plannedRounds)",
                 systemImage: "arrow.triangle.2.circlepath"
             )
             if tournament.status == .draft, !tournament.isReadOnly {
@@ -431,7 +431,7 @@ struct TournamentDetailView: View {
                 tab = .matches
             } catch {
                 library.failure = TournamentLibrary.Failure(
-                    message: String(localized: "Le tournoi n'a pas pu être lancé. Il reste inchangé.")
+                    message: String(localized: "Le tournoi n'a pas pu être lancé. Il reste inchangé.", bundle: .appLanguage)
                 )
             }
             isLaunching = false
@@ -452,10 +452,10 @@ struct TournamentDetailView: View {
 extension TournamentDetailView.Tab {
     var title: String {
         switch self {
-        case .results: String(localized: "Résultats")
-        case .matches: String(localized: "Matchs")
-        case .standings: String(localized: "Classement")
-        case .info: String(localized: "Infos")
+        case .results: String(localized: "Résultats", bundle: .appLanguage)
+        case .matches: String(localized: "Matchs", bundle: .appLanguage)
+        case .standings: String(localized: "Classement", bundle: .appLanguage)
+        case .info: String(localized: "Infos", bundle: .appLanguage)
         }
     }
 }

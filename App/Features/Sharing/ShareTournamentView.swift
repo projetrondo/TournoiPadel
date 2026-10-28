@@ -136,14 +136,14 @@ struct ShareTournamentView: View {
     /// Message d'invitation, avec solution de repli pour ceux qui n'ont pas l'app.
     private func invitation(_ tournament: Tournament, code: InviteCode) -> String {
         var lines = [
-            String(localized: "🦅 Rejoins le tournoi « \(tournament.name) » sur EAGLE. Qui sera l'Aigle ?"),
-            String(localized: "Code : \(code.formatted)"),
-            String(localized: "Ouvrir dans l'app : \(code.appURL.absoluteString)"),
+            String(localized: "🦅 Rejoins le tournoi « \(tournament.name) » sur EAGLE. Qui sera l'Aigle ?", bundle: .appLanguage),
+            String(localized: "Code : \(code.formatted)", bundle: .appLanguage),
+            String(localized: "Ouvrir dans l'app : \(code.appURL.absoluteString)", bundle: .appLanguage),
         ]
         if let download = AppLinks.download {
-            lines.append(String(localized: "Pas encore l'app ? Télécharge-la gratuitement : \(download.absoluteString)"))
+            lines.append(String(localized: "Pas encore l'app ? Télécharge-la gratuitement : \(download.absoluteString)", bundle: .appLanguage))
         } else {
-            lines.append(String(localized: "Pas encore l'app ? Demande-moi le lien pour l'installer, puis saisis le code dans « Rejoindre un tournoi »."))
+            lines.append(String(localized: "Pas encore l'app ? Demande-moi le lien pour l'installer, puis saisis le code dans « Rejoindre un tournoi ».", bundle: .appLanguage))
         }
         return lines.joined(separator: "\n")
     }
@@ -201,22 +201,22 @@ struct SyncStatusLabel: View {
     private var text: String {
         switch status {
         case .syncing:
-            return String(localized: "Synchronisation…")
+            return String(localized: "Synchronisation…", bundle: .appLanguage)
         case .pending(let failure):
             if failure == .offline {
-                return String(localized: "Hors ligne : modifications enregistrées sur cet iPhone, envoi au retour du réseau.")
+                return String(localized: "Hors ligne : modifications enregistrées sur cet iPhone, envoi au retour du réseau.", bundle: .appLanguage)
             }
-            return String(localized: "Modifications en attente d'envoi.")
+            return String(localized: "Modifications en attente d'envoi.", bundle: .appLanguage)
         case .failed(let failure):
             return failure.message
         case .unpublished:
-            return String(localized: "L'organisateur a retiré ce tournoi du partage. Dernière version conservée sur cet iPhone.")
+            return String(localized: "L'organisateur a retiré ce tournoi du partage. Dernière version conservée sur cet iPhone.", bundle: .appLanguage)
         case .idle, .upToDate:
             if let lastSync {
-                let relative = lastSync.formatted(.relative(presentation: .named))
-                return String(localized: "Mis à jour \(relative).")
+                let relative = lastSync.formatted(.relative(presentation: .named).locale(.appLanguage))
+                return String(localized: "Mis à jour \(relative).", bundle: .appLanguage)
             }
-            return String(localized: "Pas encore synchronisé.")
+            return String(localized: "Pas encore synchronisé.", bundle: .appLanguage)
         }
     }
 
