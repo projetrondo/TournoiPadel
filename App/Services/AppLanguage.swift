@@ -28,7 +28,7 @@ enum AppLanguage: String, CaseIterable, Identifiable, Sendable {
     }
 
     var locale: Locale {
-        Locale(identifier: self == .fr ? "fr_FR" : "en_GB")
+        Locale(identifier: self == .fr ? "fr_FR" : "en")
     }
 
     var flag: String {

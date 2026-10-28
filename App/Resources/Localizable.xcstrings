@@ -1,5 +1,4596 @@
 {
   "sourceLanguage" : "fr",
-  "strings" : {},
+  "strings" : {
+    "%@ %@ — %lld pts (%@), %lld V" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@ — %3$lld pts (%4$@), %5$lld W"
+          }
+        }
+      }
+    },
+    "%@ : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@: %2$@"
+          }
+        }
+      }
+    },
+    "%@ : %lld points" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@: %2$lld points"
+          }
+        }
+      }
+    },
+    "%@ : pas de score" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: no score"
+          }
+        }
+      }
+    },
+    "%@ au dernier tour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ in the last round"
+          }
+        }
+      }
+    },
+    "%@ de l'année" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ of the year"
+          }
+        }
+      }
+    },
+    "%@ de la semaine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ of the week"
+          }
+        }
+      }
+    },
+    "%@ de victoires" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ win rate"
+          }
+        }
+      }
+    },
+    "%@ du mois" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ of the month"
+          }
+        }
+      }
+    },
+    "%@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "%@ · %@ · classé dès %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$@ · ranked from %3$@"
+          }
+        }
+      }
+    },
+    "%@ · %lld matchs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$lld matches"
+          }
+        }
+      }
+    },
+    "%@, %@, %@ points par match, %@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, %2$@, %3$@ points per match, %4$@, %5$@"
+          }
+        }
+      }
+    },
+    "%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
+    },
+    "%lld D" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld L"
+          }
+        }
+      }
+    },
+    "%lld N" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld D"
+          }
+        }
+      }
+    },
+    "%lld V" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld W"
+          }
+        }
+      }
+    },
+    "%lld V – %lld D" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld W – %2$lld L"
+          }
+        }
+      }
+    },
+    "%lld duo(s) joueront ensemble jusqu'à %lld fois. Le programme limite ces répétitions au strict nécessaire." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld pair(s) will play together up to %2$lld times. The schedule keeps these repeats to the strict minimum."
+          }
+        }
+      }
+    },
+    "%lld joueur(s) en pause à chaque tour, à tour de rôle." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld player(s) sit out each round, in turn."
+          }
+        }
+      }
+    },
+    "%lld joueurs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld players"
+          }
+        }
+      }
+    },
+    "%lld joueurs maximum." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld players maximum."
+          }
+        }
+      }
+    },
+    "%lld matchs · %lld points joués" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld matches · %2$lld points played"
+          }
+        }
+      }
+    },
+    "%lld points au total" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld points in total"
+          }
+        }
+      }
+    },
+    "%lld pts" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld pts"
+          }
+        }
+      }
+    },
+    "%lld terrain(s) utilisé(s), %lld joueur(s) en pause à chaque tour, à tour de rôle." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld court(s) used, %2$lld player(s) sit out each round, in turn."
+          }
+        }
+      }
+    },
+    "%lld terrain(s) utilisé(s). Tout le monde joue à chaque tour." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld court(s) used. Everyone plays every round."
+          }
+        }
+      }
+    },
+    "%lld tour(s) joué(s) sur %lld prévus. Les tours non joués seront retirés et le classement actuel deviendra le classement final." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld round(s) played out of %2$lld planned. Unplayed rounds will be removed and the current standings will become the final standings."
+          }
+        }
+      }
+    },
+    "%lld tournoi(s) n'ont pas pu être lus. Ils sont conservés à part." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld tournament(s) could not be read. They are kept aside."
+          }
+        }
+      }
+    },
+    "%lld tours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld rounds"
+          }
+        }
+      }
+    },
+    "%lld – %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld – %2$lld"
+          }
+        }
+      }
+    },
+    "%llde place" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rank %lld"
+          }
+        }
+      }
+    },
+    "%llde place · argent" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rank %lld · silver"
+          }
+        }
+      }
+    },
+    "%llde place · bronze" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rank %lld · bronze"
+          }
+        }
+      }
+    },
+    "%lld–%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld–%2$lld"
+          }
+        }
+      }
+    },
+    "%lld–%lld sera remplacé par %lld–%lld. Le classement sera recalculé." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld–%2$lld will be replaced by %3$lld–%4$lld. The standings will be recalculated."
+          }
+        }
+      }
+    },
+    "+ %lld autres joueurs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ %lld other players"
+          }
+        }
+      }
+    },
+    "1. Points marqués (total)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Points scored (total)"
+          }
+        }
+      }
+    },
+    "1. Points marqués. 2. Victoires. 3. Différence de points. Sinon, les joueurs sont ex aequo et partagent la même place (signalée par « = »)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Points scored. 2. Wins. 3. Point difference. Otherwise, players are tied and share the same place (shown with “=”)."
+          }
+        }
+      }
+    },
+    "2. Victoires" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Wins"
+          }
+        }
+      }
+    },
+    "3. Différence de points (marqués − encaissés)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Point difference (scored − conceded)"
+          }
+        }
+      }
+    },
+    "4. Sinon ex aequo : même position, signalée par « = »" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "4. Otherwise tied: same position, shown with “=”"
+          }
+        }
+      }
+    },
+    "Abandonner" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard"
+          }
+        }
+      }
+    },
+    "Abandonner ce tournoi ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard this tournament?"
+          }
+        }
+      }
+    },
+    "Abandonner la correction" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard the correction"
+          }
+        }
+      }
+    },
+    "Actualiser" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh"
+          }
+        }
+      }
+    },
+    "Aigle actuel : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Eagle: %@"
+          }
+        }
+      }
+    },
+    "Aigle du mois : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eagle of the month: %@"
+          }
+        }
+      }
+    },
+    "Aigle du tournoi : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tournament Eagle: %@"
+          }
+        }
+      }
+    },
+    "Aigle ex aequo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joint Eagle"
+          }
+        }
+      }
+    },
+    "Aigles" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eagles"
+          }
+        }
+      }
+    },
+    "Aigles ex aequo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joint Eagles"
+          }
+        }
+      }
+    },
+    "Ajouter le joueur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add player"
+          }
+        }
+      }
+    },
+    "Ajoutez au moins %lld joueurs." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add at least %lld players."
+          }
+        }
+      }
+    },
+    "Ajoutez des joueurs pour voir la répartition." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add players to see how they are split."
+          }
+        }
+      }
+    },
+    "Ajoutez les joueurs du groupe une seule fois : ils seront proposés à chaque nouveau tournoi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add the group's players once: they will be offered for every new tournament."
+          }
+        }
+      }
+    },
+    "Aléatoire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random"
+          }
+        }
+      }
+    },
+    "Americano" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Americano"
+          }
+        }
+      }
+    },
+    "Annuler" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Annuler la validation" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo validation"
+          }
+        }
+      }
+    },
+    "Annuler la validation ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo validation?"
+          }
+        }
+      }
+    },
+    "Année" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Year"
+          }
+        }
+      }
+    },
+    "Apple n'a pas transmis votre identité. Réessayez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple did not send your identity. Please try again."
+          }
+        }
+      }
+    },
+    "Après chaque tour, les joueurs proches au classement sont regroupés pour des matchs serrés. Les partenaires changent autant que possible." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After each round, players close in the standings are grouped together for tight matches. Partners change as much as possible."
+          }
+        }
+      }
+    },
+    "Aucun compte n'est nécessaire. Une connexion est requise pour rejoindre ; ensuite le tournoi reste consultable hors ligne." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No account needed. A connection is required to join; afterwards the tournament stays available offline."
+          }
+        }
+      }
+    },
+    "Aucun joueur enregistré pour l'instant. Ajoutez-les ci-dessous : ils seront gardés pour les prochains tournois." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No saved players yet. Add them below: they will be kept for future tournaments."
+          }
+        }
+      }
+    },
+    "Aucun match validé sur cette période." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No validated match in this period."
+          }
+        }
+      }
+    },
+    "Aucun tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tournaments"
+          }
+        }
+      }
+    },
+    "Aucun tournoi ne correspond à ce code. Vérifiez-le auprès de l'organisateur : le tournoi a peut-être été retiré." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tournament matches this code. Check it with the organiser: the tournament may have been removed."
+          }
+        }
+      }
+    },
+    "Aucun tournoi pour l'instant. Créez-en un : les joueurs de la session seront proposés, il suffira de cocher les présents." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tournaments yet. Create one: the session's players will be offered, just tick who is here."
+          }
+        }
+      }
+    },
+    "Autres joueurs (%lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other players (%lld)"
+          }
+        }
+      }
+    },
+    "Avec ce nombre de joueurs, seuls %lld terrain(s) seront utilisés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With this number of players, only %lld court(s) will be used."
+          }
+        }
+      }
+    },
+    "Ce joueur n'existe plus." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This player no longer exists."
+          }
+        }
+      }
+    },
+    "Ce match a déjà été validé. Utilisez « Corriger le score » pour le modifier." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This match has already been validated. Use “Correct the score” to change it."
+          }
+        }
+      }
+    },
+    "Ce match n'a pas encore été validé." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This match has not been validated yet."
+          }
+        }
+      }
+    },
+    "Ce match n'est plus disponible." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This match is no longer available."
+          }
+        }
+      }
+    },
+    "Ce tournoi a été modifié en ligne depuis un autre appareil. Rien n'a été remplacé." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This tournament was changed online from another device. Nothing was replaced."
+          }
+        }
+      }
+    },
+    "Chacun joue le même nombre de matchs. Vous pourrez aussi arrêter plus tôt." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everyone plays the same number of matches. You can also stop earlier."
+          }
+        }
+      }
+    },
+    "Chaque joueur reçoit les points marqués par son équipe." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each player gets the points scored by their team."
+          }
+        }
+      }
+    },
+    "Chaque joueur voit son retard en points sur l'Aigle et les places gagnées ou perdues au dernier tour." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each player sees how many points they trail the Eagle by, and the places gained or lost in the last round."
+          }
+        }
+      }
+    },
+    "Chaque tour est généré quand le précédent est terminé ; arrêtez quand vous voulez. Pour que chacun ait joué autant, arrêtez après un multiple de %lld tours." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each round is generated when the previous one is finished; stop whenever you like. For everyone to have played the same amount, stop after a multiple of %lld rounds."
+          }
+        }
+      }
+    },
+    "Chaque tour est généré quand le précédent est terminé ; arrêtez quand vous voulez. Tout le monde joue à chaque tour : le classement reste équitable à la fin de chaque tour." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each round is generated when the previous one is finished; stop whenever you like. Everyone plays every round: the standings stay fair at the end of each round."
+          }
+        }
+      }
+    },
+    "Chargement…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading…"
+          }
+        }
+      }
+    },
+    "Classement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standings"
+          }
+        }
+      }
+    },
+    "Classement à la moyenne de points par match, puis au % de victoires, puis à la différence moyenne. Chaque tournoi compte dans la période où il a été joué." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ranked by average points per match, then win rate, then average difference. Each tournament counts in the period when it was played."
+          }
+        }
+      }
+    },
+    "Classé dès %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ranked from %@"
+          }
+        }
+      }
+    },
+    "Code : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code: %@"
+          }
+        }
+      }
+    },
+    "Code d'invitation" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invite code"
+          }
+        }
+      }
+    },
+    "Comment ça marche ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How does it work?"
+          }
+        }
+      }
+    },
+    "Compte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account"
+          }
+        }
+      }
+    },
+    "Compter seulement les tours complets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Count complete rounds only"
+          }
+        }
+      }
+    },
+    "Compter tous les matchs joués" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Count every match played"
+          }
+        }
+      }
+    },
+    "Confidentialité" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy"
+          }
+        }
+      }
+    },
+    "Connectez-vous à iCloud (Réglages › votre nom) pour publier un tournoi. Suivre un tournoi ne nécessite pas de compte." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in to iCloud (Settings › your name) to publish a tournament. Following a tournament needs no account."
+          }
+        }
+      }
+    },
+    "Connecté avec Apple" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signed in with Apple"
+          }
+        }
+      }
+    },
+    "Connecté avec Google" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signed in with Google"
+          }
+        }
+      }
+    },
+    "Connexion annulée." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign-in cancelled."
+          }
+        }
+      }
+    },
+    "Continuer avec Google" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue with Google"
+          }
+        }
+      }
+    },
+    "Continuer la saisie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep editing"
+          }
+        }
+      }
+    },
+    "Continuer à jouer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep playing"
+          }
+        }
+      }
+    },
+    "Correction" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correction"
+          }
+        }
+      }
+    },
+    "Corriger le score" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct the score"
+          }
+        }
+      }
+    },
+    "Corriger le score ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct the score?"
+          }
+        }
+      }
+    },
+    "Corriger une erreur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fix a mistake"
+          }
+        }
+      }
+    },
+    "Créer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create"
+          }
+        }
+      }
+    },
+    "Créer le tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create tournament"
+          }
+        }
+      }
+    },
+    "Créer un tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a tournament"
+          }
+        }
+      }
+    },
+    "Créez une session pour garder vos joueurs et suivre le classement par semaine, mois et année." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a session to keep your players and follow the standings by week, month and year."
+          }
+        }
+      }
+    },
+    "Créez votre premier tournoi en quelques secondes, ou rejoignez celui d'un ami. Le premier score validé désignera l'Aigle." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create your first tournament in seconds, or join a friend's. The first validated score will crown the Eagle."
+          }
+        }
+      }
+    },
+    "Defend your crown" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defend your crown"
+          }
+        }
+      }
+    },
+    "Defend your crown · %lld tours en tête" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defend your crown · %lld rounds on top"
+          }
+        }
+      }
+    },
+    "Defend your crown · en tête depuis %lld tours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defend your crown · on top for %lld rounds"
+          }
+        }
+      }
+    },
+    "Depuis le début" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All time"
+          }
+        }
+      }
+    },
+    "Dernière sauvegarde %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last backup %@"
+          }
+        }
+      }
+    },
+    "Différence" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difference"
+          }
+        }
+      }
+    },
+    "Donnez un nom au tournoi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Give the tournament a name."
+          }
+        }
+      }
+    },
+    "Durée estimée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estimated duration"
+          }
+        }
+      }
+    },
+    "Défaites" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Losses"
+          }
+        }
+      }
+    },
+    "EAGLE — Own the court." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EAGLE — Own the court."
+          }
+        }
+      }
+    },
+    "EAGLE — Own the court. Gratuit, sans publicité ni abonnement." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EAGLE — Own the court. Free, no ads, no subscription."
+          }
+        }
+      }
+    },
+    "EAGLE, Own the court" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EAGLE, Own the court"
+          }
+        }
+      }
+    },
+    "Eagle Profile" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eagle Profile"
+          }
+        }
+      }
+    },
+    "En cours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In progress"
+          }
+        }
+      }
+    },
+    "En pause : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sitting out: %@"
+          }
+        }
+      }
+    },
+    "En pause par tour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sitting out per round"
+          }
+        }
+      }
+    },
+    "Enregistrer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "Enregistrer la correction" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save correction"
+          }
+        }
+      }
+    },
+    "Envoyer l'invitation" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send the invitation"
+          }
+        }
+      }
+    },
+    "Envoyer maintenant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send now"
+          }
+        }
+      }
+    },
+    "Erreur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
+    },
+    "Ex. : K7M2QP" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E.g. K7M2QP"
+          }
+        }
+      }
+    },
+    "Ex. : Padel du jeudi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E.g. Thursday padel"
+          }
+        }
+      }
+    },
+    "Fermer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "Format" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Format"
+          }
+        }
+      }
+    },
+    "Garde tes tournois en sécurité" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep your tournaments safe"
+          }
+        }
+      }
+    },
+    "Garder le score" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep the score"
+          }
+        }
+      }
+    },
+    "Garder les matchs actuels" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep the current matches"
+          }
+        }
+      }
+    },
+    "Générer le tour %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generate round %lld"
+          }
+        }
+      }
+    },
+    "Hall of Eagles" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hall of Eagles"
+          }
+        }
+      }
+    },
+    "Historique classement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ranking history"
+          }
+        }
+      }
+    },
+    "Hors ligne : modifications enregistrées sur cet iPhone, envoi au retour du réseau." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Offline: changes saved on this iPhone, sent when the network is back."
+          }
+        }
+      }
+    },
+    "Hunt the Eagle : %@ de retard" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hunt the Eagle: %@ behind"
+          }
+        }
+      }
+    },
+    "Hunt the Eagle · Rise above" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hunt the Eagle · Rise above"
+          }
+        }
+      }
+    },
+    "Impossible d'obtenir un code d'invitation. Réessayez dans un instant." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not get an invite code. Try again in a moment."
+          }
+        }
+      }
+    },
+    "Impossible de lire les sessions enregistrées." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not read the saved sessions."
+          }
+        }
+      }
+    },
+    "Impossible de lire les tournois enregistrés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not read the saved tournaments."
+          }
+        }
+      }
+    },
+    "Indiquez le niveau de chaque joueur, ou choisissez un premier tour aléatoire." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter each player's level, or choose a random first round."
+          }
+        }
+      }
+    },
+    "Infos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Info"
+          }
+        }
+      }
+    },
+    "Invités ou nouveaux joueurs : ils rejoindront la liste de la session." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guests or new players: they will join the session's list."
+          }
+        }
+      }
+    },
+    "Joueur EAGLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EAGLE player"
+          }
+        }
+      }
+    },
+    "Joueurs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Players"
+          }
+        }
+      }
+    },
+    "Joueurs (%lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Players (%lld)"
+          }
+        }
+      }
+    },
+    "Joueurs retirés (%lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Removed players (%lld)"
+          }
+        }
+      }
+    },
+    "L'Aigle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Eagle"
+          }
+        }
+      }
+    },
+    "L'Aigle : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Eagle: %@"
+          }
+        }
+      }
+    },
+    "L'Aigle · Champion actuel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Eagle · Current champion"
+          }
+        }
+      }
+    },
+    "L'Aigle, champion actuel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Eagle, current champion"
+          }
+        }
+      }
+    },
+    "L'enregistrement a échoué. Les scores précédents sont intacts." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saving failed. The previous scores are intact."
+          }
+        }
+      }
+    },
+    "L'enregistrement a échoué. Vos données précédentes sont intactes." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saving failed. Your previous data is intact."
+          }
+        }
+      }
+    },
+    "L'organisateur a retiré ce tournoi du partage. Dernière version conservée sur cet iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The organiser removed this tournament from sharing. The last version is kept on this iPhone."
+          }
+        }
+      }
+    },
+    "L'organisateur n'a pas encore lancé le tournoi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The organiser has not started the tournament yet."
+          }
+        }
+      }
+    },
+    "L'organisateur partage un code à 6 caractères. Les amis le saisissent dans « Rejoindre un tournoi » et suivent les scores et le classement. Seul l'organisateur saisit les scores." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The organiser shares a 6-character code. Friends enter it in “Join a tournament” and follow the scores and standings. Only the organiser enters scores."
+          }
+        }
+      }
+    },
+    "L'univers EAGLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The EAGLE world"
+          }
+        }
+      }
+    },
+    "L'équipe gagnante doit atteindre %lld points." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The winning team must reach %lld points."
+          }
+        }
+      }
+    },
+    "La carte de l'Aigle indique depuis combien de tours il tient la première place." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Eagle's card shows how many rounds they have held first place."
+          }
+        }
+      }
+    },
+    "La connexion avec Apple a échoué. Réessayez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in with Apple failed. Please try again."
+          }
+        }
+      }
+    },
+    "La copie de ce tournoi sera retirée de cet iPhone. Le tournoi de l'organisateur n'est pas modifié." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The copy of this tournament will be removed from this iPhone. The organiser's tournament is not changed."
+          }
+        }
+      }
+    },
+    "La courbe apparaît après deux tours joués." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The chart appears after two rounds played."
+          }
+        }
+      }
+    },
+    "La liste des joueurs et les classements de la session seront supprimés. Les tournois restent enregistrés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The session's player list and standings will be deleted. The tournaments stay saved."
+          }
+        }
+      }
+    },
+    "La modification n'a pas pu être enregistrée." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The change could not be saved."
+          }
+        }
+      }
+    },
+    "La première équipe à %lld points gagne. Chaque joueur reçoit les points de son équipe." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The first team to %lld points wins. Each player gets their team's points."
+          }
+        }
+      }
+    },
+    "La première équipe à atteindre N points gagne. Saisissez le score du perdant." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The first team to reach N points wins. Enter the loser's score."
+          }
+        }
+      }
+    },
+    "La version en ligne n'a pas pu être retirée : %@ Si vous supprimez seulement sur cet iPhone, le code restera lisible en ligne." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The online version could not be removed: %@ If you delete only on this iPhone, the code will stay readable online."
+          }
+        }
+      }
+    },
+    "La version en ligne sera supprimée et le code ne fonctionnera plus. Le tournoi reste sur cet iPhone ; les copies déjà ouvertes par vos amis ne seront plus mises à jour." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The online version will be deleted and the code will stop working. The tournament stays on this iPhone; copies your friends already opened will no longer update."
+          }
+        }
+      }
+    },
+    "Lancer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        }
+      }
+    },
+    "Lancer le tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start the tournament"
+          }
+        }
+      }
+    },
+    "Lancer le tournoi ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start the tournament?"
+          }
+        }
+      }
+    },
+    "Le classement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The standings"
+          }
+        }
+      }
+    },
+    "Le classement actuel deviendra le classement final. Les scores pourront encore être corrigés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The current standings will become the final standings. Scores can still be corrected."
+          }
+        }
+      }
+    },
+    "Le compte et toute la sauvegarde en ligne sont effacés définitivement. Les sessions et tournois présents sur cet iPhone sont conservés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The account and the whole online backup are permanently erased. The sessions and tournaments on this iPhone are kept."
+          }
+        }
+      }
+    },
+    "Le match repassera « en cours » et son score sera retiré du classement." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The match will go back to “in progress” and its score will be removed from the standings."
+          }
+        }
+      }
+    },
+    "Le niveau sert au premier tour Mexicano « selon le niveau »." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The level is used for the Mexicano first round “by level”."
+          }
+        }
+      }
+    },
+    "Le nom du tournoi ne doit pas dépasser %lld caractères." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The tournament name must not exceed %lld characters."
+          }
+        }
+      }
+    },
+    "Le nom ne doit pas dépasser %lld caractères." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The name must not exceed %lld characters."
+          }
+        }
+      }
+    },
+    "Le nom ne peut pas être vide." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The name cannot be empty."
+          }
+        }
+      }
+    },
+    "Le nombre de points doit être compris entre %lld et %lld." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The number of points must be between %1$lld and %2$lld."
+          }
+        }
+      }
+    },
+    "Le nombre de terrains doit être compris entre %lld et %lld." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The number of courts must be between %1$lld and %2$lld."
+          }
+        }
+      }
+    },
+    "Le nombre de tours doit être compris entre %lld et %lld." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The number of rounds must be between %1$lld and %2$lld."
+          }
+        }
+      }
+    },
+    "Le nombre de tours sera proposé dès 4 joueurs." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The number of rounds will be suggested from 4 players."
+          }
+        }
+      }
+    },
+    "Le numéro 1 du classement est l'Aigle. Le statut change automatiquement dès qu'un autre joueur passe devant." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The number 1 in the standings is the Eagle. The status changes automatically as soon as another player moves ahead."
+          }
+        }
+      }
+    },
+    "Le numéro 1 du classement est l'Aigle. Le statut est calculé automatiquement : dès qu'un joueur passe devant, il devient le nouvel Aigle." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The number 1 in the standings is the Eagle. The status is computed automatically: as soon as a player moves ahead, they become the new Eagle."
+          }
+        }
+      }
+    },
+    "Le n°1 du classement est %@. Gagne tes matchs, grimpe au classement, prends sa place." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The no. 1 in the standings is %@. Win your matches, climb the standings, take their place."
+          }
+        }
+      }
+    },
+    "Le partage a échoué (%@). Les données de cet iPhone sont intactes." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sharing failed (%@). The data on this iPhone is intact."
+          }
+        }
+      }
+    },
+    "Le partage entre iPhone n'est pas encore activé dans cette version de l'app." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sharing between iPhones is not enabled yet in this version of the app."
+          }
+        }
+      }
+    },
+    "Le partage entre iPhone n'est pas encore activé dans cette version de l'app. Il le sera dans la version publiée." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sharing between iPhones is not enabled yet in this version of the app. It will be in the released version."
+          }
+        }
+      }
+    },
+    "Le premier score validé désigne l'Aigle. Gagnez des points pour prendre sa place." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The first validated score crowns the Eagle. Score points to take their place."
+          }
+        }
+      }
+    },
+    "Le premier tour est tiré au sort (ou selon le niveau). Ensuite, après chaque tour, les joueurs proches au classement sont regroupés : le 1er joue avec le 4e contre le 2e et le 3e, et ainsi de suite. Les matchs restent serrés du début à la fin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The first round is drawn at random (or by level). Then, after each round, players close in the standings are grouped: 1st plays with 4th against 2nd and 3rd, and so on. Matches stay tight from start to finish."
+          }
+        }
+      }
+    },
+    "Le premier tour sera généré. Les suivants dépendront des scores." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The first round will be generated. The next ones will depend on the scores."
+          }
+        }
+      }
+    },
+    "Le service de partage est très sollicité. Nouvel essai automatique dans un instant." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The sharing service is very busy. Retrying automatically in a moment."
+          }
+        }
+      }
+    },
+    "Le tour %lld est en cours (%lld match(s) sur %lld joués). Compter seulement les tours complets garantit que tout le monde a joué autant de tours ; ses scores restent conservés. Le classement final ne changera plus, mais les scores pourront encore être corrigés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Round %1$lld is in progress (%2$lld of %3$lld match(es) played). Counting complete rounds only ensures everyone has played the same number of rounds; its scores are kept. The final standings will no longer change, but scores can still be corrected."
+          }
+        }
+      }
+    },
+    "Le tour suivant a déjà été composé avec ce résultat : corrigez le score plutôt que d'annuler la validation." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The next round has already been built from this result: correct the score rather than undoing the validation."
+          }
+        }
+      }
+    },
+    "Le tour suivant sera composé d'après le classement dès que tous les matchs de ce tour seront terminés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The next round will be built from the standings as soon as all matches of this round are finished."
+          }
+        }
+      }
+    },
+    "Le tour suivant sera généré dès que tous les matchs de ce tour seront terminés. Vous pouvez arrêter quand vous voulez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The next round will be generated as soon as all matches of this round are finished. You can stop whenever you like."
+          }
+        }
+      }
+    },
+    "Le tournoi a déjà commencé : les points ne peuvent plus être modifiés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The tournament has already started: the points can no longer be changed."
+          }
+        }
+      }
+    },
+    "Le tournoi est publié en ligne avec un code à 6 caractères. Toute personne qui a le code peut le consulter (noms des joueurs et scores)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The tournament is published online with a 6-character code. Anyone with the code can view it (player names and scores)."
+          }
+        }
+      }
+    },
+    "Le tournoi n'a pas pu être enregistré. Réessayez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The tournament could not be saved. Please try again."
+          }
+        }
+      }
+    },
+    "Le tournoi n'a pas pu être lancé. Il reste inchangé." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The tournament could not be started. It is unchanged."
+          }
+        }
+      }
+    },
+    "Les deux scores doivent totaliser %lld points." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Both scores must add up to %lld points."
+          }
+        }
+      }
+    },
+    "Les deux scores totalisent %lld points (ex. %lld–%lld). Chaque joueur reçoit les points de son équipe." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Both scores add up to %1$lld points (e.g. %2$lld–%3$lld). Each player gets their team's points."
+          }
+        }
+      }
+    },
+    "Les formats" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The formats"
+          }
+        }
+      }
+    },
+    "Les informations saisies seront perdues." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What you entered will be lost."
+          }
+        }
+      }
+    },
+    "Les joueurs et les réglages ne pourront plus être modifiés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Players and settings can no longer be changed."
+          }
+        }
+      }
+    },
+    "Les matchs et scores de ce tournoi seront définitivement effacés de cet iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This tournament's matches and scores will be permanently erased from this iPhone."
+          }
+        }
+      }
+    },
+    "Les matchs et scores seront effacés de cet iPhone, et le tournoi retiré du partage." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The matches and scores will be erased from this iPhone, and the tournament removed from sharing."
+          }
+        }
+      }
+    },
+    "Les mises à jour arrivent en général en quelques secondes, sans garantie de temps réel. Sans réseau, vos scores restent sur cet iPhone et partent au retour de la connexion." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updates usually arrive within seconds, without a real-time guarantee. Without a network, your scores stay on this iPhone and are sent when the connection is back."
+          }
+        }
+      }
+    },
+    "Les partenaires changent à chaque tour. Chaque joueur marque les points de son équipe. Tout le programme est connu dès le départ." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partners change every round. Each player scores their team's points. The whole schedule is known from the start."
+          }
+        }
+      }
+    },
+    "Les points" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Points"
+          }
+        }
+      }
+    },
+    "Les tournois terminés gardent la trace de leur Aigle, sur l'écran d'accueil." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finished tournaments keep a record of their Eagle on the home screen."
+          }
+        }
+      }
+    },
+    "Libre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free"
+          }
+        }
+      }
+    },
+    "Libre (au temps)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free (timed)"
+          }
+        }
+      }
+    },
+    "Match %lld sur %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Match %1$lld of %2$lld"
+          }
+        }
+      }
+    },
+    "Match introuvable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Match not found"
+          }
+        }
+      }
+    },
+    "Match précédent" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous match"
+          }
+        }
+      }
+    },
+    "Match suivant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next match"
+          }
+        }
+      }
+    },
+    "Matchs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matches"
+          }
+        }
+      }
+    },
+    "Matchs en double, 2 contre 2. Les partenaires changent à chaque tour pour que chacun joue avec le plus de monde possible. Chaque joueur marque les points de son équipe : en 24 points, si votre équipe gagne 15–9, vous marquez 15 points et vos adversaires 9 chacun." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doubles matches, 2 against 2. Partners change every round so everyone plays with as many people as possible. Each player scores their team's points: in 24 points, if your team wins 15–9, you score 15 points and your opponents 9 each."
+          }
+        }
+      }
+    },
+    "Matchs joués" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matches played"
+          }
+        }
+      }
+    },
+    "Matchs minimum pour être classé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minimum matches to be ranked"
+          }
+        }
+      }
+    },
+    "Matchs nuls" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Draws"
+          }
+        }
+      }
+    },
+    "Mes sessions" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My sessions"
+          }
+        }
+      }
+    },
+    "Mexicano" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mexicano"
+          }
+        }
+      }
+    },
+    "Minimum %lld joueurs au total." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minimum %lld players in total."
+          }
+        }
+      }
+    },
+    "Minimum %lld joueurs. Balayez une ligne vers la gauche pour la supprimer." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minimum %lld players. Swipe a row to the left to delete it."
+          }
+        }
+      }
+    },
+    "Mis à jour %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updated %@."
+          }
+        }
+      }
+    },
+    "Modifications en attente d'envoi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changes waiting to be sent."
+          }
+        }
+      }
+    },
+    "Modifier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "Modifier le joueur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit player"
+          }
+        }
+      }
+    },
+    "Modifier le nombre de points par match" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the number of points per match"
+          }
+        }
+      }
+    },
+    "Moins un" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minus one"
+          }
+        }
+      }
+    },
+    "Mois" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Month"
+          }
+        }
+      }
+    },
+    "Mon compte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My account"
+          }
+        }
+      }
+    },
+    "Ne plus suivre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop following"
+          }
+        }
+      }
+    },
+    "Ne plus suivre « %@ » ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop following “%@”?"
+          }
+        }
+      }
+    },
+    "Niveau" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level"
+          }
+        }
+      }
+    },
+    "Niveau %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level %lld"
+          }
+        }
+      }
+    },
+    "Niveau ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level?"
+          }
+        }
+      }
+    },
+    "Nom" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "Nom du joueur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Player name"
+          }
+        }
+      }
+    },
+    "Nom du tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tournament name"
+          }
+        }
+      }
+    },
+    "Noms en double : %@. Ajoutez une initiale pour les distinguer." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duplicate names: %@. Add an initial to tell them apart."
+          }
+        }
+      }
+    },
+    "Non compté" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not counted"
+          }
+        }
+      }
+    },
+    "Non renseigné" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not set"
+          }
+        }
+      }
+    },
+    "Nous enregistrons ton identifiant de connexion, ton prénom et ton adresse (si Google ou Apple la transmettent), et le contenu de tes sessions et tournois. Rien d'autre, pas de publicité." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We store your sign-in identifier, your first name and your email address (if Google or Apple share it), and the content of your sessions and tournaments. Nothing else, no ads."
+          }
+        }
+      }
+    },
+    "Nouveau tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New tournament"
+          }
+        }
+      }
+    },
+    "Nouvel Aigle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Eagle"
+          }
+        }
+      }
+    },
+    "Nouvelle session" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New session"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "On joue jusqu'à la fin du créneau, sans nombre de tours fixé." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play until the end of your slot, with no set number of rounds."
+          }
+        }
+      }
+    },
+    "On joue un nombre de points fixe, peu importe qui les gagne. En 21 points, un match se termine par exemple 12–9. Saisissez le score d'une équipe : l'autre est calculé." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A fixed number of points is played, no matter who wins them. In 21 points, a match ends for example 12–9. Enter one team's score: the other is calculated."
+          }
+        }
+      }
+    },
+    "Options" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Options"
+          }
+        }
+      }
+    },
+    "Options pour %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Options for %@"
+          }
+        }
+      }
+    },
+    "Ordre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Order"
+          }
+        }
+      }
+    },
+    "Ordre du classement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ranking order"
+          }
+        }
+      }
+    },
+    "Ouvrir dans l'app : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open in the app: %@"
+          }
+        }
+      }
+    },
+    "Partage entre amis" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sharing with friends"
+          }
+        }
+      }
+    },
+    "Partager en texte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share as text"
+          }
+        }
+      }
+    },
+    "Partager le tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share the tournament"
+          }
+        }
+      }
+    },
+    "Partager les résultats" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share the results"
+          }
+        }
+      }
+    },
+    "Partagé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared"
+          }
+        }
+      }
+    },
+    "Pas de compte, pas de publicité, aucun suivi. Les tournois sont enregistrés sur votre iPhone. Un tournoi n'est envoyé en ligne que si vous le partagez, et vous pouvez le retirer à tout moment." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No account, no ads, no tracking. Tournaments are saved on your iPhone. A tournament is only sent online if you share it, and you can remove it at any time."
+          }
+        }
+      }
+    },
+    "Pas de connexion. Les scores sont enregistrés sur cet iPhone et seront envoyés dès le retour du réseau." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No connection. Scores are saved on this iPhone and will be sent as soon as the network is back."
+          }
+        }
+      }
+    },
+    "Pas de match nul avec cette règle : une seule équipe atteint le score." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No draws with this rule: only one team reaches the score."
+          }
+        }
+      }
+    },
+    "Pas encore classé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not ranked yet"
+          }
+        }
+      }
+    },
+    "Pas encore classés" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not ranked yet"
+          }
+        }
+      }
+    },
+    "Pas encore d'Aigle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Eagle yet"
+          }
+        }
+      }
+    },
+    "Pas encore l'app ? Demande-moi le lien pour l'installer, puis saisis le code dans « Rejoindre un tournoi »." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't have the app yet? Ask me for the link to install it, then enter the code in “Join a tournament”."
+          }
+        }
+      }
+    },
+    "Pas encore l'app ? Télécharge-la gratuitement : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't have the app yet? Download it for free: %@"
+          }
+        }
+      }
+    },
+    "Pas encore synchronisé." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not synced yet."
+          }
+        }
+      }
+    },
+    "Pauses" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sit-outs"
+          }
+        }
+      }
+    },
+    "Pendant le tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "During the tournament"
+          }
+        }
+      }
+    },
+    "Perso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        }
+      }
+    },
+    "Plus un" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus one"
+          }
+        }
+      }
+    },
+    "Podium final" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Final podium"
+          }
+        }
+      }
+    },
+    "Points" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Points"
+          }
+        }
+      }
+    },
+    "Points encaissés" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Points conceded"
+          }
+        }
+      }
+    },
+    "Points individuels" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Individual points"
+          }
+        }
+      }
+    },
+    "Points par match" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Points per match"
+          }
+        }
+      }
+    },
+    "Points personnalisés" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom points"
+          }
+        }
+      }
+    },
+    "Politique de confidentialité" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy policy"
+          }
+        }
+      }
+    },
+    "Position" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Position"
+          }
+        }
+      }
+    },
+    "Pour les matchs au temps : saisissez les points marqués par chaque équipe à la fin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For timed matches: enter the points scored by each team at the end."
+          }
+        }
+      }
+    },
+    "Pour les matchs joués sur une durée : saisissez les points de chaque équipe à la fin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For matches played over a set time: enter each team's points at the end."
+          }
+        }
+      }
+    },
+    "Premier tour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First round"
+          }
+        }
+      }
+    },
+    "Premier à" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First to"
+          }
+        }
+      }
+    },
+    "Premier à %lld points" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First to %lld points"
+          }
+        }
+      }
+    },
+    "Premier à N" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First to N"
+          }
+        }
+      }
+    },
+    "Première sauvegarde à la prochaine modification." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First backup at the next change."
+          }
+        }
+      }
+    },
+    "Prénom ou surnom" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First name or nickname"
+          }
+        }
+      }
+    },
+    "Présents (%lld sur %lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Present (%1$lld of %2$lld)"
+          }
+        }
+      }
+    },
+    "Prêt à lancer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready to start"
+          }
+        }
+      }
+    },
+    "Publier et obtenir un code" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publish and get a code"
+          }
+        }
+      }
+    },
+    "Publier nécessite d'être connecté à iCloud. Suivre un tournoi ne nécessite aucun compte." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publishing requires being signed in to iCloud. Following a tournament needs no account."
+          }
+        }
+      }
+    },
+    "Période précédente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous period"
+          }
+        }
+      }
+    },
+    "Période suivante" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next period"
+          }
+        }
+      }
+    },
+    "Recomposer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rebuild"
+          }
+        }
+      }
+    },
+    "Recomposer le tour %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rebuild round %lld"
+          }
+        }
+      }
+    },
+    "Recomposer le tour %lld ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rebuild round %lld?"
+          }
+        }
+      }
+    },
+    "Rejoindre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join"
+          }
+        }
+      }
+    },
+    "Rejoindre un tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join a tournament"
+          }
+        }
+      }
+    },
+    "Remplacer le score" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replace the score"
+          }
+        }
+      }
+    },
+    "Renommer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename"
+          }
+        }
+      }
+    },
+    "Renommer la session" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename the session"
+          }
+        }
+      }
+    },
+    "Retirer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        }
+      }
+    },
+    "Retirer de la liste" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from the list"
+          }
+        }
+      }
+    },
+    "Retirer du partage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop sharing"
+          }
+        }
+      }
+    },
+    "Retirer du partage ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop sharing?"
+          }
+        }
+      }
+    },
+    "Retirer un joueur ne supprime pas ses résultats : il reste dans les classements des périodes où il a joué." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Removing a player does not delete their results: they stay in the standings of the periods they played."
+          }
+        }
+      }
+    },
+    "Revenir à la recommandation (%lld tours)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back to the recommendation (%lld rounds)"
+          }
+        }
+      }
+    },
+    "Rise above : %@ au dernier tour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rise above: %@ in the last round"
+          }
+        }
+      }
+    },
+    "Rythme estimé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estimated pace"
+          }
+        }
+      }
+    },
+    "Règle de score" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scoring rule"
+          }
+        }
+      }
+    },
+    "Règles de départage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tie-break rules"
+          }
+        }
+      }
+    },
+    "Règles du classement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ranking rules"
+          }
+        }
+      }
+    },
+    "Réactiver" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reactivate"
+          }
+        }
+      }
+    },
+    "Résultats" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Results"
+          }
+        }
+      }
+    },
+    "Saisir le score" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the score"
+          }
+        }
+      }
+    },
+    "Saisissez au moins un point." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter at least one point."
+          }
+        }
+      }
+    },
+    "Saisissez le code reçu de l'organisateur." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the code you received from the organiser."
+          }
+        }
+      }
+    },
+    "Sans compte ou sans réseau, l'app fonctionne exactement pareil." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without an account or a network, the app works exactly the same."
+          }
+        }
+      }
+    },
+    "Sauvegarde automatique" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatic backup"
+          }
+        }
+      }
+    },
+    "Sauvegarde en cours…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backing up…"
+          }
+        }
+      }
+    },
+    "Sauvegarder maintenant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back up now"
+          }
+        }
+      }
+    },
+    "Score libre (au temps)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free score (timed)"
+          }
+        }
+      }
+    },
+    "Score non enregistré" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Score not saved"
+          }
+        }
+      }
+    },
+    "Score trop élevé (%lld maximum)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Score too high (%lld maximum)."
+          }
+        }
+      }
+    },
+    "Score valide : match nul." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valid score: draw."
+          }
+        }
+      }
+    },
+    "Score valide." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valid score."
+          }
+        }
+      }
+    },
+    "Score validé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Score validated"
+          }
+        }
+      }
+    },
+    "Se connecter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in"
+          }
+        }
+      }
+    },
+    "Se déconnecter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign out"
+          }
+        }
+      }
+    },
+    "Se déconnecter ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign out?"
+          }
+        }
+      }
+    },
+    "Selon le niveau" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By level"
+          }
+        }
+      }
+    },
+    "Selon les joueurs, %lld ou %lld matchs joués : le classement au total des points avantage ceux qui ont joué un match de plus." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depending on the player, %1$lld or %2$lld matches played: ranking by total points favours those who played one more match."
+          }
+        }
+      }
+    },
+    "Semaine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Week"
+          }
+        }
+      }
+    },
+    "Serveur injoignable. Vos données restent sur l'iPhone ; la sauvegarde reprendra au retour du réseau." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server unreachable. Your data stays on the iPhone; the backup will resume when the network is back."
+          }
+        }
+      }
+    },
+    "Session" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session"
+          }
+        }
+      }
+    },
+    "Session introuvable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session not found"
+          }
+        }
+      }
+    },
+    "Sessions, joueurs et tournois sauvegardés automatiquement." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sessions, players and tournaments backed up automatically."
+          }
+        }
+      }
+    },
+    "Seuls les matchs validés comptent. Une correction de score met le classement à jour immédiatement." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only validated matches count. A score correction updates the standings immediately."
+          }
+        }
+      }
+    },
+    "Si le nombre de joueurs n'est pas un multiple de 4, certains font une pause à chaque tour, à tour de rôle. L'app répartit les pauses équitablement." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If the number of players is not a multiple of 4, some sit out each round, in turn. The app spreads sit-outs fairly."
+          }
+        }
+      }
+    },
+    "Statistiques" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics"
+          }
+        }
+      }
+    },
+    "Suivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Following"
+          }
+        }
+      }
+    },
+    "Suivi en lecture seule : l'organisateur saisit les scores." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read-only: the organiser enters the scores."
+          }
+        }
+      }
+    },
+    "Suivre un tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow a tournament"
+          }
+        }
+      }
+    },
+    "Suppression impossible" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deletion impossible"
+          }
+        }
+      }
+    },
+    "Supprimer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "Supprimer la session" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete the session"
+          }
+        }
+      }
+    },
+    "Supprimer le compte et la sauvegarde" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete the account and the backup"
+          }
+        }
+      }
+    },
+    "Supprimer le tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete the tournament"
+          }
+        }
+      }
+    },
+    "Supprimer mon compte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete my account"
+          }
+        }
+      }
+    },
+    "Supprimer seulement de cet iPhone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete only from this iPhone"
+          }
+        }
+      }
+    },
+    "Supprimer ton compte ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete your account?"
+          }
+        }
+      }
+    },
+    "Supprimer « %@ » ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete “%@”?"
+          }
+        }
+      }
+    },
+    "Synchronisation…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Syncing…"
+          }
+        }
+      }
+    },
+    "T%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "R%lld"
+          }
+        }
+      }
+    },
+    "Tapez le score d'une équipe : l'autre est calculé (total %lld)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type one team's score: the other is calculated (total %lld)."
+          }
+        }
+      }
+    },
+    "Tapez le score de chaque équipe." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type each team's score."
+          }
+        }
+      }
+    },
+    "Tapez le score du perdant : le gagnant reçoit %lld." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type the loser's score: the winner gets %lld."
+          }
+        }
+      }
+    },
+    "Terminer et voir les résultats" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish and see the results"
+          }
+        }
+      }
+    },
+    "Terminer le tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish the tournament"
+          }
+        }
+      }
+    },
+    "Terminer le tournoi ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish the tournament?"
+          }
+        }
+      }
+    },
+    "Terminé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finished"
+          }
+        }
+      }
+    },
+    "Terrain %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Court %lld"
+          }
+        }
+      }
+    },
+    "Terrains" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Courts"
+          }
+        }
+      }
+    },
+    "Terrains disponibles" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Available courts"
+          }
+        }
+      }
+    },
+    "Tes sessions et tournois restent sur cet iPhone. La sauvegarde s'arrête jusqu'à la prochaine connexion." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your sessions and tournaments stay on this iPhone. Backups stop until you sign in again."
+          }
+        }
+      }
+    },
+    "Total fixe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fixed total"
+          }
+        }
+      }
+    },
+    "Total fixe (16, 21, 24, 32…)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fixed total (16, 21, 24, 32…)"
+          }
+        }
+      }
+    },
+    "Touchez le match, puis « Corriger le score ». L'ancien score est conservé dans l'historique et le classement se met à jour." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the match, then “Correct the score”. The old score is kept in the history and the standings update."
+          }
+        }
+      }
+    },
+    "Tour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Round"
+          }
+        }
+      }
+    },
+    "Tour %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Round %lld"
+          }
+        }
+      }
+    },
+    "Tour %lld sur %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Round %1$lld of %2$lld"
+          }
+        }
+      }
+    },
+    "Tour %lld · Terrain %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Round %1$lld · Court %2$lld"
+          }
+        }
+      }
+    },
+    "Tour %lld · avec %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Round %1$lld · with %2$@"
+          }
+        }
+      }
+    },
+    "Tournoi introuvable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tournament not found"
+          }
+        }
+      }
+    },
+    "Tournois" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tournaments"
+          }
+        }
+      }
+    },
+    "Tours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rounds"
+          }
+        }
+      }
+    },
+    "Tours libres" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open-ended rounds"
+          }
+        }
+      }
+    },
+    "Tout" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        }
+      }
+    },
+    "Tout cocher" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select all"
+          }
+        }
+      }
+    },
+    "Tout décocher" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deselect all"
+          }
+        }
+      }
+    },
+    "Tout est retrouvé sur un nouvel iPhone, en te connectant." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everything comes back on a new iPhone when you sign in."
+          }
+        }
+      }
+    },
+    "Tout le monde ne jouera pas le même nombre de matchs." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not everyone will play the same number of matches."
+          }
+        }
+      }
+    },
+    "Tout le monde ne jouera pas le même nombre de matchs. Valeurs équitables proches : %@ tours." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not everyone will play the same number of matches. Nearby fair values: %@ rounds."
+          }
+        }
+      }
+    },
+    "Tout le programme sera généré d'un coup." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The whole schedule will be generated at once."
+          }
+        }
+      }
+    },
+    "Un groupe qui joue régulièrement : ses joueurs sont gardés et ses tournois forment un classement par semaine, mois et année." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A group that plays regularly: its players are kept and its tournaments build standings by week, month and year."
+          }
+        }
+      }
+    },
+    "Un joueur n'a pas de nom." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A player has no name."
+          }
+        }
+      }
+    },
+    "Un score ne peut pas être négatif." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A score cannot be negative."
+          }
+        }
+      }
+    },
+    "Utile après la correction d'un score : les équipes de ce tour seront recalculées avec le classement à jour. Aucun score n'y a encore été saisi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Useful after correcting a score: this round's teams will be recalculated with the updated standings. No score has been entered in it yet."
+          }
+        }
+      }
+    },
+    "Valider le résultat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validate the result"
+          }
+        }
+      }
+    },
+    "Version" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        }
+      }
+    },
+    "Victoires" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wins"
+          }
+        }
+      }
+    },
+    "Voir le profil du joueur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See the player's profile"
+          }
+        }
+      }
+    },
+    "Voir les %lld tournois terminés" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See the %lld finished tournaments"
+          }
+        }
+      }
+    },
+    "Voir ou corriger le score" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See or correct the score"
+          }
+        }
+      }
+    },
+    "Vos amis ouvrent le lien, ou saisissent le code dans « Rejoindre un tournoi ». S'ils n'ont pas encore l'app, le message leur indique comment l'obtenir." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your friends open the link, or enter the code in “Join a tournament”. If they don't have the app yet, the message tells them how to get it."
+          }
+        }
+      }
+    },
+    "Vos amis suivent les matchs, les scores et le classement sur leur iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your friends follow the matches, scores and standings on their iPhone."
+          }
+        }
+      }
+    },
+    "Vos données" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your data"
+          }
+        }
+      }
+    },
+    "Votre session a expiré. Reconnectez-vous." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your session has expired. Please sign in again."
+          }
+        }
+      }
+    },
+    "Vous ne savez pas combien de tours vous aurez le temps de jouer ? Activez « Tours libres » : chaque tour est généré quand le précédent est terminé, et vous arrêtez quand vous voulez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't know how many rounds you will have time to play? Turn on “Open-ended rounds”: each round is generated when the previous one is finished, and you stop whenever you like."
+          }
+        }
+      }
+    },
+    "Vous pouvez retirer le tournoi du partage à tout moment." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can remove the tournament from sharing at any time."
+          }
+        }
+      }
+    },
+    "Vous restez seul à saisir et valider les scores. Les autres consultent en lecture seule." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only you enter and validate scores. The others view in read-only mode."
+          }
+        }
+      }
+    },
+    "Vous suivrez les matchs, les scores et le classement en lecture seule. C'est l'organisateur qui valide les scores. Mise à jour toutes les 20 secondes environ, sans garantie de temps réel." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will follow the matches, scores and standings in read-only mode. The organiser validates the scores. Updated about every 20 seconds, without a real-time guarantee."
+          }
+        }
+      }
+    },
+    "Win rate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Win rate"
+          }
+        }
+      }
+    },
+    "contre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vs"
+          }
+        }
+      }
+    },
+    "contre %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vs %@"
+          }
+        }
+      }
+    },
+    "copie en lecture seule" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "read-only copy"
+          }
+        }
+      }
+    },
+    "différence %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "difference %@"
+          }
+        }
+      }
+    },
+    "données en ligne incomplètes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "incomplete online data"
+          }
+        }
+      }
+    },
+    "défaite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "loss"
+          }
+        }
+      }
+    },
+    "défaites" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "losses"
+          }
+        }
+      }
+    },
+    "environ %lld min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "about %lld min"
+          }
+        }
+      }
+    },
+    "gagne %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gains %@"
+          }
+        }
+      }
+    },
+    "joueur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "player"
+          }
+        }
+      }
+    },
+    "joueurs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "players"
+          }
+        }
+      }
+    },
+    "l'Aigle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the Eagle"
+          }
+        }
+      }
+    },
+    "match" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "match"
+          }
+        }
+      }
+    },
+    "matchs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "matches"
+          }
+        }
+      }
+    },
+    "non classé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "not ranked"
+          }
+        }
+      }
+    },
+    "perd %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "loses %@"
+          }
+        }
+      }
+    },
+    "place" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "place"
+          }
+        }
+      }
+    },
+    "place gagnée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "place gained"
+          }
+        }
+      }
+    },
+    "place perdue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "place lost"
+          }
+        }
+      }
+    },
+    "places" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "places"
+          }
+        }
+      }
+    },
+    "places gagnées" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "places gained"
+          }
+        }
+      }
+    },
+    "places perdues" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "places lost"
+          }
+        }
+      }
+    },
+    "point" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "point"
+          }
+        }
+      }
+    },
+    "points" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "points"
+          }
+        }
+      }
+    },
+    "points joués" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "points played"
+          }
+        }
+      }
+    },
+    "pt" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pt"
+          }
+        }
+      }
+    },
+    "pts" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pts"
+          }
+        }
+      }
+    },
+    "pts / match" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pts / match"
+          }
+        }
+      }
+    },
+    "pts/m" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pts/m"
+          }
+        }
+      }
+    },
+    "tour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "round"
+          }
+        }
+      }
+    },
+    "tour %lld : %llde" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "round %1$lld: rank %2$lld"
+          }
+        }
+      }
+    },
+    "tournoi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tournament"
+          }
+        }
+      }
+    },
+    "tournois" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tournaments"
+          }
+        }
+      }
+    },
+    "tours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "rounds"
+          }
+        }
+      }
+    },
+    "victoire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "win"
+          }
+        }
+      }
+    },
+    "victoires" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "wins"
+          }
+        }
+      }
+    },
+    "« %@ » est déjà dans la liste." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” is already in the list."
+          }
+        }
+      }
+    },
+    "À %@ de l'Aigle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ behind the Eagle"
+          }
+        }
+      }
+    },
+    "À jouer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To play"
+          }
+        }
+      }
+    },
+    "À vérifier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To check"
+          }
+        }
+      }
+    },
+    "À égalité de points avec l'Aigle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level on points with the Eagle"
+          }
+        }
+      }
+    },
+    "–" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "–"
+          }
+        }
+      }
+    },
+    "≈ %@ matchs par joueur · environ %lld min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "≈ %1$@ matches per player · about %2$lld min"
+          }
+        }
+      }
+    },
+    "≈ %lld tours par heure (%lld min par tour)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "≈ %1$lld rounds per hour (%2$lld min per round)"
+          }
+        }
+      }
+    },
+    "🦅 Rejoins le tournoi « %@ » sur EAGLE. Qui sera l'Aigle ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🦅 Join the tournament “%@” on EAGLE. Who will be the Eagle?"
+          }
+        }
+      }
+    }
+  },
   "version" : "1.0"
 }
