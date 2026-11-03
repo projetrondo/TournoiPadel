@@ -26,7 +26,7 @@ final class CreateTournamentModel {
     init(session: PlaySession? = nil, now: Date = Date()) {
         self.session = session
         if let session {
-            name = "\(session.name) · \(now.formatted(.dateTime.day().month(.abbreviated)))"
+            name = "\(session.name) · \(now.formatted(.dateTime.day().month(.abbreviated).locale(.appLanguage)))"
         }
     }
 

@@ -174,17 +174,17 @@ struct RankMedal: View {
 extension TournamentFormat {
     var title: String {
         switch self {
-        case .americano: String(localized: "Americano")
-        case .mexicano: String(localized: "Mexicano")
+        case .americano: String(localized: "Americano", bundle: .appLanguage)
+        case .mexicano: String(localized: "Mexicano", bundle: .appLanguage)
         }
     }
 
     var explanation: String {
         switch self {
         case .americano:
-            String(localized: "Les partenaires changent à chaque tour. Chaque joueur marque les points de son équipe. Tout le programme est connu dès le départ.")
+            String(localized: "Les partenaires changent à chaque tour. Chaque joueur marque les points de son équipe. Tout le programme est connu dès le départ.", bundle: .appLanguage)
         case .mexicano:
-            String(localized: "Après chaque tour, les joueurs proches au classement sont regroupés pour des matchs serrés. Les partenaires changent autant que possible.")
+            String(localized: "Après chaque tour, les joueurs proches au classement sont regroupés pour des matchs serrés. Les partenaires changent autant que possible.", bundle: .appLanguage)
         }
     }
 }
@@ -193,13 +193,13 @@ extension Tournament {
     var statusText: String {
         switch status {
         case .draft:
-            String(localized: "Prêt à lancer")
+            String(localized: "Prêt à lancer", bundle: .appLanguage)
         case .inProgress:
             settings.isOpenEnded
-                ? String(localized: "Tour \(currentRound?.index ?? rounds.count)")
-                : String(localized: "Tour \(currentRound?.index ?? rounds.count) sur \(settings.plannedRounds)")
+                ? String(localized: "Tour \(currentRound?.index ?? rounds.count)", bundle: .appLanguage)
+                : String(localized: "Tour \(currentRound?.index ?? rounds.count) sur \(settings.plannedRounds)", bundle: .appLanguage)
         case .finished:
-            String(localized: "Terminé")
+            String(localized: "Terminé", bundle: .appLanguage)
         }
     }
 
@@ -215,9 +215,9 @@ extension Tournament {
 extension ScoringRule {
     var summary: String {
         switch self {
-        case .fixedTotal(let points): String(localized: "\(points) points au total")
-        case .raceTo(let points): String(localized: "Premier à \(points) points")
-        case .free: String(localized: "Score libre (au temps)")
+        case .fixedTotal(let points): String(localized: "\(points) points au total", bundle: .appLanguage)
+        case .raceTo(let points): String(localized: "Premier à \(points) points", bundle: .appLanguage)
+        case .free: String(localized: "Score libre (au temps)", bundle: .appLanguage)
         }
     }
 }

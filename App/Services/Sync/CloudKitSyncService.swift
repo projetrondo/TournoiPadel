@@ -100,7 +100,7 @@ final class CloudKitSyncService: TournamentSyncService, @unchecked Sendable {
     private func snapshot(from record: CKRecord, code: InviteCode) throws -> PublishedSnapshot {
         guard let payload = record[Field.payload] as? Data,
               let revision = record[Field.revision] as? Int64 else {
-            throw SyncFailure.other(String(localized: "données en ligne incomplètes"))
+            throw SyncFailure.other(String(localized: "données en ligne incomplètes", bundle: .appLanguage))
         }
         return PublishedSnapshot(
             code: code,

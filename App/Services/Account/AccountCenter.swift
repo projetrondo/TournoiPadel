@@ -121,7 +121,7 @@ final class AccountCenter {
     func completeAppleSignIn(identityToken: Data?, givenName: String?) async {
         guard let backend, let nonce = appleNonce, let identityToken,
               let token = String(data: identityToken, encoding: .utf8) else {
-            errorMessage = String(localized: "Apple n'a pas transmis votre identité. Réessayez.")
+            errorMessage = String(localized: "Apple n'a pas transmis votre identité. Réessayez.", bundle: .appLanguage)
             return
         }
         appleNonce = nil

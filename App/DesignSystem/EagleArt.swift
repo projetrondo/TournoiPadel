@@ -233,15 +233,50 @@ extension View {
 extension PlayerStats {
     /// « 75 % » ou « – » sans match joué.
     var winRateText: String {
-        winRate.map { $0.formatted(.percent.precision(.fractionLength(0))) } ?? "–"
+        winRate.map { $0.formatted(.percent.precision(.fractionLength(0)).locale(.appLanguage)) } ?? "–"
     }
 
     /// « 3 V · 1 N · 2 D · 50 % » (nuls affichés seulement s'il y en a).
     var recordText: String {
-        var parts = ["\(wins) V"]
-        if draws > 0 { parts.append("\(draws) N") }
-        parts.append("\(losses) D")
+        // V(ictoires), N(uls), D(éfaites) ; en anglais W, D, L.
+        var parts = [String(localized: "\(wins) V", bundle: .appLanguage)]
+        if draws > 0 { parts.append(String(localized: "\(draws) N", bundle: .appLanguage)) }
+        parts.append(String(localized: "\(losses) D", bundle: .appLanguage))
         parts.append(winRateText)
         return parts.joined(separator: " · ")
+    }
+}
+
+/// Drapeaux 🇫🇷 / 🇬🇧 : change la langue de toute l'app, immédiatement.
+struct LanguageSwitcher: View {
+    @AppStorage(AppLanguage.storageKey) private var stored = AppLanguage.current.rawValue
+
+    var body: some View {
+        HStack(spacing: 4) {
+            ForEach(AppLanguage.allCases) { language in
+                let isSelected = language.rawValue == stored
+                Button {
+                    AppLanguage.select(language)
+                    stored = language.rawValue
+                } label: {
+                    Text(verbatim: language.flag)
+                        .font(.system(size: 20))
+                        .frame(width: 34, height: 30)
+                        .background(Capsule().fill(isSelected ? Theme.gold.opacity(0.16) : .clear))
+                        .overlay(
+                            Capsule().strokeBorder(
+                                isSelected ? AnyShapeStyle(Theme.goldGradient) : AnyShapeStyle(Theme.stroke),
+                                lineWidth: isSelected ? 1.5 : 1
+                            )
+                        )
+                        .opacity(isSelected ? 1 : 0.55)
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(Text(verbatim: language.name))
+                .accessibilityAddTraits(isSelected ? [.isSelected] : [])
+            }
+        }
     }
 }

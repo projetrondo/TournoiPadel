@@ -287,7 +287,7 @@ struct CreateTournamentView: View {
     private func paceDetail(_ draft: TournamentDraft) -> String {
         let minutes = RoundPlanner.estimatedMatchMinutes(for: draft.scoring)
         let perHour = max(1, Int((60 / minutes).rounded(.down)))
-        return String(localized: "≈ \(perHour) tours par heure (\(Int(minutes.rounded())) min par tour)")
+        return String(localized: "≈ \(perHour) tours par heure (\(Int(minutes.rounded())) min par tour)", bundle: .appLanguage)
     }
 
     @ViewBuilder
@@ -330,7 +330,7 @@ struct CreateTournamentView: View {
             dismiss()
             onCreated(tournament)
         } catch {
-            errorMessage = String(localized: "Le tournoi n'a pas pu être enregistré. Réessayez.")
+            errorMessage = String(localized: "Le tournoi n'a pas pu être enregistré. Réessayez.", bundle: .appLanguage)
         }
     }
 
@@ -338,9 +338,9 @@ struct CreateTournamentView: View {
 
     private func roundsDetail(_ draft: TournamentDraft) -> String {
         let matches = draft.planner.matchesPerPlayer(rounds: draft.rounds)
-            .formatted(.number.precision(.fractionLength(0...1)))
+            .formatted(.number.precision(.fractionLength(0...1)).locale(.appLanguage))
         let minutes = draft.planner.estimatedDurationMinutes(rounds: draft.rounds, scoring: draft.scoring)
-        return String(localized: "≈ \(matches) matchs par joueur · environ \(minutes) min")
+        return String(localized: "≈ \(matches) matchs par joueur · environ \(minutes) min", bundle: .appLanguage)
     }
 }
 

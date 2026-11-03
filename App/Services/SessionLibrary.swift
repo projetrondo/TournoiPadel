@@ -34,7 +34,7 @@ final class SessionLibrary {
         do {
             sessions = try store.loadAll()
         } catch {
-            failure = .init(message: String(localized: "Impossible de lire les sessions enregistrées."))
+            failure = .init(message: String(localized: "Impossible de lire les sessions enregistrées.", bundle: .appLanguage))
         }
         hasLoaded = true
     }
@@ -98,7 +98,7 @@ final class SessionLibrary {
         } catch let error as SessionError {
             failure = .init(message: error.message)
         } catch {
-            failure = .init(message: String(localized: "L'enregistrement a échoué. Vos données précédentes sont intactes."))
+            failure = .init(message: String(localized: "L'enregistrement a échoué. Vos données précédentes sont intactes.", bundle: .appLanguage))
         }
     }
 }
@@ -106,10 +106,10 @@ final class SessionLibrary {
 extension SessionError {
     var message: String {
         switch self {
-        case .emptyName: String(localized: "Le nom ne peut pas être vide.")
-        case .nameTooLong(let max): String(localized: "Le nom ne doit pas dépasser \(max) caractères.")
-        case .duplicateName(let name): String(localized: "« \(name) » est déjà dans la liste.")
-        case .unknownMember: String(localized: "Ce joueur n'existe plus.")
+        case .emptyName: String(localized: "Le nom ne peut pas être vide.", bundle: .appLanguage)
+        case .nameTooLong(let max): String(localized: "Le nom ne doit pas dépasser \(max) caractères.", bundle: .appLanguage)
+        case .duplicateName(let name): String(localized: "« \(name) » est déjà dans la liste.", bundle: .appLanguage)
+        case .unknownMember: String(localized: "Ce joueur n'existe plus.", bundle: .appLanguage)
         }
     }
 }

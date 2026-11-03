@@ -142,7 +142,7 @@ struct AccountView: View {
             }
         case .failure(let error):
             if (error as? ASAuthorizationError)?.code != .canceled {
-                accounts.errorMessage = String(localized: "La connexion avec Apple a échoué. Réessayez.")
+                accounts.errorMessage = String(localized: "La connexion avec Apple a échoué. Réessayez.", bundle: .appLanguage)
             }
         }
     }
@@ -150,7 +150,7 @@ struct AccountView: View {
     // MARK: - Connecté
 
     private func signedIn(_ account: AccountInfo) -> some View {
-        let name = account.displayName ?? account.email ?? String(localized: "Joueur EAGLE")
+        let name = account.displayName ?? account.email ?? String(localized: "Joueur EAGLE", bundle: .appLanguage)
         return VStack(spacing: 20) {
             VStack(spacing: 8) {
                 PlayerAvatar(name: name, tier: .eagle, size: 88)
@@ -163,7 +163,7 @@ struct AccountView: View {
                         .foregroundStyle(Theme.secondaryText)
                 }
                 if let provider = account.providers.first {
-                    BadgeView(text: provider == "apple" ? String(localized: "Connecté avec Apple") : String(localized: "Connecté avec Google"), color: Theme.secondaryText)
+                    BadgeView(text: provider == "apple" ? String(localized: "Connecté avec Apple", bundle: .appLanguage) : String(localized: "Connecté avec Google", bundle: .appLanguage), color: Theme.secondaryText)
                 }
             }
             .padding(.top, 8)
@@ -227,8 +227,8 @@ struct AccountView: View {
     }
 
     private var backupStatus: String {
-        if accounts.isBackingUp { return String(localized: "Sauvegarde en cours…") }
-        guard let date = accounts.lastBackupAt else { return String(localized: "Première sauvegarde à la prochaine modification.") }
-        return String(localized: "Dernière sauvegarde \(date.formatted(.relative(presentation: .named)))")
+        if accounts.isBackingUp { return String(localized: "Sauvegarde en cours…", bundle: .appLanguage) }
+        guard let date = accounts.lastBackupAt else { return String(localized: "Première sauvegarde à la prochaine modification.", bundle: .appLanguage) }
+        return String(localized: "Dernière sauvegarde \(date.formatted(.relative(presentation: .named).locale(.appLanguage)))", bundle: .appLanguage)
     }
 }

@@ -23,7 +23,7 @@ struct EditScoringView: View {
                     let planner = RoundPlanner(playerCount: tournament.players.count, declaredCourts: tournament.settings.courts)
                     LabeledContent(
                         "Durée estimée",
-                        value: String(localized: "environ \(planner.estimatedDurationMinutes(rounds: tournament.settings.plannedRounds, scoring: selection.rule)) min")
+                        value: String(localized: "environ \(planner.estimatedDurationMinutes(rounds: tournament.settings.plannedRounds, scoring: selection.rule)) min", bundle: .appLanguage)
                     )
                 }
             }
@@ -56,9 +56,9 @@ struct EditScoringView: View {
             try library.modify(id: tournament.id) { t, date in try t.updateScoring(selection.rule, now: date) }
             dismiss()
         } catch LifecycleError.alreadyStarted {
-            errorMessage = String(localized: "Le tournoi a déjà commencé : les points ne peuvent plus être modifiés.")
+            errorMessage = String(localized: "Le tournoi a déjà commencé : les points ne peuvent plus être modifiés.", bundle: .appLanguage)
         } catch {
-            errorMessage = String(localized: "La modification n'a pas pu être enregistrée.")
+            errorMessage = String(localized: "La modification n'a pas pu être enregistrée.", bundle: .appLanguage)
         }
     }
 }

@@ -22,21 +22,21 @@ enum SyncFailure: Error, Equatable {
     var message: String {
         switch self {
         case .offline:
-            String(localized: "Pas de connexion. Les scores sont enregistrés sur cet iPhone et seront envoyés dès le retour du réseau.")
+            String(localized: "Pas de connexion. Les scores sont enregistrés sur cet iPhone et seront envoyés dès le retour du réseau.", bundle: .appLanguage)
         case .notConfigured:
-            String(localized: "Le partage entre iPhone n'est pas encore activé dans cette version de l'app.")
+            String(localized: "Le partage entre iPhone n'est pas encore activé dans cette version de l'app.", bundle: .appLanguage)
         case .noAccount:
-            String(localized: "Connectez-vous à iCloud (Réglages › votre nom) pour publier un tournoi. Suivre un tournoi ne nécessite pas de compte.")
+            String(localized: "Connectez-vous à iCloud (Réglages › votre nom) pour publier un tournoi. Suivre un tournoi ne nécessite pas de compte.", bundle: .appLanguage)
         case .notFound:
-            String(localized: "Aucun tournoi ne correspond à ce code. Vérifiez-le auprès de l'organisateur : le tournoi a peut-être été retiré.")
+            String(localized: "Aucun tournoi ne correspond à ce code. Vérifiez-le auprès de l'organisateur : le tournoi a peut-être été retiré.", bundle: .appLanguage)
         case .codeUnavailable:
-            String(localized: "Impossible d'obtenir un code d'invitation. Réessayez dans un instant.")
+            String(localized: "Impossible d'obtenir un code d'invitation. Réessayez dans un instant.", bundle: .appLanguage)
         case .conflict:
-            String(localized: "Ce tournoi a été modifié en ligne depuis un autre appareil. Rien n'a été remplacé.")
+            String(localized: "Ce tournoi a été modifié en ligne depuis un autre appareil. Rien n'a été remplacé.", bundle: .appLanguage)
         case .rateLimited:
-            String(localized: "Le service de partage est très sollicité. Nouvel essai automatique dans un instant.")
+            String(localized: "Le service de partage est très sollicité. Nouvel essai automatique dans un instant.", bundle: .appLanguage)
         case .other(let detail):
-            String(localized: "Le partage a échoué (\(detail)). Les données de cet iPhone sont intactes.")
+            String(localized: "Le partage a échoué (\(detail)). Les données de cet iPhone sont intactes.", bundle: .appLanguage)
         }
     }
 }

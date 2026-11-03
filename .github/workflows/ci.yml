@@ -138,10 +138,29 @@ jobs:
           shot 11-session-joueurs -demo-session -demo-session-tab players
           shot 12-compte-connexion -demo-open-account
           shot 13-compte-connecte -demo-account -demo-open-account
+          shot 14-accueil-en -demo-language en
+          shot 15-classement-en -demo-language en -demo-open inProgress -demo-tab standings
+          shot 16-session-en -demo-language en -demo-session
+          shot 17-saisie-en -demo-language en -demo-open inProgress -demo-score
           xcrun simctl ui "$UDID" content_size accessibility-extra-large
           shot 8-classement-grand-texte -demo-open inProgress -demo-tab standings
           shot 9-accueil-grand-texte
           xcrun simctl ui "$UDID" content_size large
+
+      # Textes à traduire, extraits du code par Xcode (fichier XLIFF publié avec le rapport).
+      - name: Exporter les textes à traduire
+        if: success()
+        continue-on-error: true
+        run: |
+          xcodebuild -exportLocalizations \
+            -project PadelBuddy.xcodeproj \
+            -localizationPath l10n-export \
+            -exportLanguage en \
+            -sdk iphonesimulator \
+            CODE_SIGNING_ALLOWED=NO > l10n-export.log 2>&1 || tail -30 l10n-export.log
+          mkdir -p l10n
+          find l10n-export -name "*.xliff" -exec cp {} l10n/ \;
+          ls -la l10n
 
       - name: Rapport
         if: always()
@@ -173,6 +192,7 @@ jobs:
           RESULT_DIR=$(mktemp -d)
           cp report.md "$RESULT_DIR/"
           cp -R screenshots "$RESULT_DIR/" 2>/dev/null || true
+          cp -R l10n "$RESULT_DIR/" 2>/dev/null || true
           echo "${{ github.sha }} ${{ job.status }}" > "$RESULT_DIR/STATUS"
           cd "$RESULT_DIR"
           git init -q -b ci-results

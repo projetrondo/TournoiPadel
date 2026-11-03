@@ -155,6 +155,9 @@ enum LaunchOptions {
     /// `-demo-account` : compte simulé connecté ; `-demo-open-account` ouvre l'écran du compte.
     static var opensAccount: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-open-account") }
 
+    /// `-demo-language fr|en` : langue des captures d'écran.
+    static var language: AppLanguage? { value(after: "-demo-language").flatMap(AppLanguage.init(rawValue:)) }
+
     /// `-demo-player` : ouvre le profil de l'Aigle depuis le classement.
     static var opensPlayerProfile: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-player") }
 

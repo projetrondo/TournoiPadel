@@ -196,20 +196,20 @@ struct EagleChampionCard: View {
     private var crownText: String? {
         guard hasHistory else { return nil }
         if streak >= 2 {
-            return String(localized: "Defend your crown · en tête depuis \(streak) tours")
+            return String(localized: "Defend your crown · en tête depuis \(streak) tours", bundle: .appLanguage)
         }
-        return String(localized: "Nouvel Aigle")
+        return String(localized: "Nouvel Aigle", bundle: .appLanguage)
     }
 
     private var accessibilityText: String {
-        let title = isShared ? String(localized: "Aigle ex aequo") : String(localized: "L'Aigle, champion actuel")
-        var parts = [title, name, FrenchPlural.count(row.stats.pointsFor, "point", "points"),
-                     FrenchPlural.count(row.stats.wins, "victoire", "victoires"),
-                     FrenchPlural.count(row.stats.losses, "défaite", "défaites")]
+        let title = isShared ? String(localized: "Aigle ex aequo", bundle: .appLanguage) : String(localized: "L'Aigle, champion actuel", bundle: .appLanguage)
+        var parts = [title, name, Plural.count(row.stats.pointsFor, "point", "points"),
+                     Plural.count(row.stats.wins, "victoire", "victoires"),
+                     Plural.count(row.stats.losses, "défaite", "défaites")]
         if row.stats.winRate != nil {
-            parts.append(String(localized: "\(row.stats.winRateText) de victoires"))
+            parts.append(String(localized: "\(row.stats.winRateText) de victoires", bundle: .appLanguage))
         }
-        parts.append(FrenchPlural.count(row.stats.played, "match", "matchs"))
+        parts.append(Plural.count(row.stats.played, "match", "matchs"))
         if let crownText { parts.append(crownText) }
         return parts.joined(separator: ", ")
     }
@@ -240,7 +240,7 @@ struct StandingRowView: View {
             Text(verbatim: "\(row.isTied ? "\(row.rank)=" : "\(row.rank)") \(name)")
                 .font(.headline)
                 .foregroundStyle(tier == .standard ? Theme.ink : tier.color)
-            Text(verbatim: "\(FrenchPlural.count(row.stats.pointsFor, "point", "points")) · \(row.stats.recordText)")
+            Text(verbatim: "\(Plural.count(row.stats.pointsFor, "point", "points")) · \(row.stats.recordText)")
                 .font(.subheadline)
                 .foregroundStyle(Theme.secondaryText)
             if let huntText {
@@ -258,12 +258,12 @@ struct StandingRowView: View {
     }
 
     private var accessibilityText: String {
-        let rank = row.rank == 1 ? "1er" : "\(row.rank)e"
-        var parts = [rank, name, FrenchPlural.count(row.stats.pointsFor, "point", "points"),
-                     FrenchPlural.count(row.stats.wins, "victoire", "victoires"),
-                     FrenchPlural.count(row.stats.losses, "défaite", "défaites"),
-                     "différence \(row.stats.pointDifference.signedText)",
-                     FrenchPlural.count(row.stats.played, "match", "matchs")]
+        let rank = row.rank.ordinalText
+        var parts = [rank, name, Plural.count(row.stats.pointsFor, "point", "points"),
+                     Plural.count(row.stats.wins, "victoire", "victoires"),
+                     Plural.count(row.stats.losses, "défaite", "défaites"),
+                     String(localized: "différence \(row.stats.pointDifference.signedText)", bundle: .appLanguage),
+                     Plural.count(row.stats.played, "match", "matchs")]
         if let movementText { parts.append(movementText) }
         if let huntText { parts.append(huntText) }
         return parts.joined(separator: ", ")
@@ -272,15 +272,15 @@ struct StandingRowView: View {
     /// « Hunt the Eagle » : retard sur le numéro 1.
     private var huntText: String? {
         guard let pointsBehind else { return nil }
-        if pointsBehind <= 0 { return String(localized: "À égalité de points avec l'Aigle") }
-        return String(localized: "À \(FrenchPlural.count(pointsBehind, "pt", "pts")) de l'Aigle")
+        if pointsBehind <= 0 { return String(localized: "À égalité de points avec l'Aigle", bundle: .appLanguage) }
+        return String(localized: "À \(Plural.count(pointsBehind, "pt", "pts")) de l'Aigle", bundle: .appLanguage)
     }
 
     private var movementText: String? {
         guard let movement, movement != 0 else { return nil }
         return movement > 0
-            ? String(localized: "gagne \(FrenchPlural.count(movement, "place", "places"))")
-            : String(localized: "perd \(FrenchPlural.count(-movement, "place", "places"))")
+            ? String(localized: "gagne \(Plural.count(movement, "place", "places"))", bundle: .appLanguage)
+            : String(localized: "perd \(Plural.count(-movement, "place", "places"))", bundle: .appLanguage)
     }
 
     /// Médaille, avatar, nom et bilan, points à droite, chevron.
@@ -388,7 +388,7 @@ struct PlayerDetailView: View {
                     statRow("Différence", value: stats.pointDifference.signedText)
                     statRow("Matchs nuls", value: "\(stats.draws)")
                     if let average = stats.averagePoints {
-                        statRow("Points par match", value: average.formatted(.number.precision(.fractionLength(1))))
+                        statRow("Points par match", value: average.formatted(.number.precision(.fractionLength(1)).locale(.appLanguage)))
                     }
                     statRow("Pauses", value: "\(stats.rests)")
                 }
@@ -461,8 +461,8 @@ struct PlayerDetailView: View {
                 if movement != 0 {
                     Label(
                         movement > 0
-                            ? String(localized: "Rise above : \(FrenchPlural.count(movement, "place gagnée", "places gagnées")) au dernier tour")
-                            : String(localized: "\(FrenchPlural.count(-movement, "place perdue", "places perdues")) au dernier tour"),
+                            ? String(localized: "Rise above : \(Plural.count(movement, "place gagnée", "places gagnées")) au dernier tour", bundle: .appLanguage)
+                            : String(localized: "\(Plural.count(-movement, "place perdue", "places perdues")) au dernier tour", bundle: .appLanguage),
                         systemImage: movement > 0 ? "arrow.up.right" : "arrow.down.right"
                     )
                     .font(.caption.weight(.semibold))
@@ -481,35 +481,35 @@ struct PlayerDetailView: View {
         if tier == .eagle {
             let streak = insights.crownStreak[row.id] ?? 0
             return streak >= 2
-                ? String(localized: "Defend your crown · \(streak) tours en tête")
-                : String(localized: "Defend your crown")
+                ? String(localized: "Defend your crown · \(streak) tours en tête", bundle: .appLanguage)
+                : String(localized: "Defend your crown", bundle: .appLanguage)
         }
         if let behind = insights.pointsBehindEagle(row) {
             return behind > 0
-                ? String(localized: "Hunt the Eagle : \(FrenchPlural.count(behind, "point", "points")) de retard")
-                : String(localized: "À égalité de points avec l'Aigle")
+                ? String(localized: "Hunt the Eagle : \(Plural.count(behind, "point", "points")) de retard", bundle: .appLanguage)
+                : String(localized: "À égalité de points avec l'Aigle", bundle: .appLanguage)
         }
-        return String(localized: "Pas encore classé")
+        return String(localized: "Pas encore classé", bundle: .appLanguage)
     }
 
     private func statTiles(_ stats: PlayerStats) -> some View {
         LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
-            StatTile(value: "\(stats.pointsFor)", label: String(localized: "Points"), systemImage: "star.fill", color: Theme.gold)
-            StatTile(value: "\(stats.wins)", label: String(localized: "Victoires"), systemImage: "checkmark.circle.fill", color: Theme.accent)
-            StatTile(value: "\(stats.losses)", label: String(localized: "Défaites"), systemImage: "xmark.circle.fill", color: Theme.error)
-            StatTile(value: stats.winRateText, label: String(localized: "Win rate"), systemImage: "percent", color: Theme.silver)
+            StatTile(value: "\(stats.pointsFor)", label: String(localized: "Points", bundle: .appLanguage), systemImage: "star.fill", color: Theme.gold)
+            StatTile(value: "\(stats.wins)", label: String(localized: "Victoires", bundle: .appLanguage), systemImage: "checkmark.circle.fill", color: Theme.accent)
+            StatTile(value: "\(stats.losses)", label: String(localized: "Défaites", bundle: .appLanguage), systemImage: "xmark.circle.fill", color: Theme.error)
+            StatTile(value: stats.winRateText, label: String(localized: "Win rate", bundle: .appLanguage), systemImage: "percent", color: Theme.silver)
         }
     }
 
     private func tierTitle(_ tier: RankTier, row: StandingRow, insights: EagleInsights) -> String {
         switch tier {
-        case .eagle: return String(localized: "L'Aigle")
-        case .silver: return String(localized: "\(row.rank)e place · argent")
-        case .bronze: return String(localized: "\(row.rank)e place · bronze")
+        case .eagle: return String(localized: "L'Aigle", bundle: .appLanguage)
+        case .silver: return String(localized: "\(row.rank)e place · argent", bundle: .appLanguage)
+        case .bronze: return String(localized: "\(row.rank)e place · bronze", bundle: .appLanguage)
         case .standard:
             return insights.hasResults
-                ? String(localized: "\(row.rank)e place")
-                : String(localized: "Pas encore classé")
+                ? String(localized: "\(row.rank)e place", bundle: .appLanguage)
+                : String(localized: "Pas encore classé", bundle: .appLanguage)
         }
     }
 
@@ -531,7 +531,7 @@ struct PlayerDetailView: View {
         let ownTeam = match.teamA.contains(playerID) ? match.teamA : match.teamB
         let otherTeam = match.teamA.contains(playerID) ? match.teamB : match.teamA
         let partner = ownTeam.players.first { $0 != playerID }.flatMap { tournament.player($0)?.name } ?? "?"
-        let opponents = otherTeam.players.compactMap { tournament.player($0)?.name }.formatted(.list(type: .and))
+        let opponents = otherTeam.players.compactMap { tournament.player($0)?.name }.formatted(.list(type: .and).locale(.appLanguage))
         let own = match.score.map { match.teamA.contains(playerID) ? $0.teamA : $0.teamB }
         let other = match.score.map { match.teamA.contains(playerID) ? $0.teamB : $0.teamA }
         return HStack {
@@ -646,7 +646,7 @@ struct RankHistoryChart: View {
     }
 
     private var accessibilityText: String {
-        history.map { String(localized: "tour \($0.round) : \($0.rank)e") }.joined(separator: ", ")
+        history.map { String(localized: "tour \($0.round) : \($0.rank)e", bundle: .appLanguage) }.joined(separator: ", ")
     }
 }
 
@@ -682,16 +682,24 @@ struct RankingRulesView: View {
     }
 }
 
-/// Accord en nombre pour les textes français construits à l'exécution
-/// (en français, 0 et 1 sont au singulier). À remplacer par les variantes de pluriel du
-/// String Catalog lors de l'ajout de l'anglais.
-enum FrenchPlural {
-    static func count(_ value: Int, _ singular: String, _ plural: String) -> String {
-        "\(value) \(abs(value) <= 1 ? singular : plural)"
+/// Nombre et nom accordé, dans la langue de l'app : « 1 victoire », « 0 point » (en français,
+/// 0 et 1 sont au singulier), « 2 wins », « 0 points ».
+enum Plural {
+    static func count(_ value: Int, _ singular: String.LocalizationValue, _ plural: String.LocalizationValue) -> String {
+        let isSingular = AppLanguage.current == .fr ? abs(value) <= 1 : abs(value) == 1
+        return "\(value) \(String(localized: isSingular ? singular : plural, bundle: .appLanguage))"
     }
 }
 
 extension Int {
+    /// « 1er », « 2e » ; « 1st », « 2nd ».
+    var ordinalText: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .ordinal
+        formatter.locale = .appLanguage
+        return formatter.string(from: NSNumber(value: self)) ?? "\(self)"
+    }
+
     /// « +5 », « 0 », « −3 ».
     var signedText: String {
         self > 0 ? "+\(self)" : "\(self)"

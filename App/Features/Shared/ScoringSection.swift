@@ -61,7 +61,7 @@ struct ScoringSection: View {
             if selection.kind != .free {
                 Picker("Points par match", selection: $selection.preset) {
                     ForEach(ScoringSelection.pointsPresets, id: \.self) { preset in
-                        Text(preset.map { "\($0)" } ?? String(localized: "Perso")).tag(preset)
+                        Text(preset.map { "\($0)" } ?? String(localized: "Perso", bundle: .appLanguage)).tag(preset)
                     }
                 }
                 .pickerStyle(.segmented)
@@ -90,11 +90,11 @@ extension ScoringRule {
     var explanation: String {
         switch self {
         case .fixedTotal(let points):
-            String(localized: "Les deux scores totalisent \(points) points (ex. \(points / 2 + 3)–\(points / 2 - 3)). Chaque joueur reçoit les points de son équipe.")
+            String(localized: "Les deux scores totalisent \(points) points (ex. \(points / 2 + 3)–\(points / 2 - 3)). Chaque joueur reçoit les points de son équipe.", bundle: .appLanguage)
         case .raceTo(let points):
-            String(localized: "La première équipe à \(points) points gagne. Chaque joueur reçoit les points de son équipe.")
+            String(localized: "La première équipe à \(points) points gagne. Chaque joueur reçoit les points de son équipe.", bundle: .appLanguage)
         case .free:
-            String(localized: "Pour les matchs au temps : saisissez les points marqués par chaque équipe à la fin.")
+            String(localized: "Pour les matchs au temps : saisissez les points marqués par chaque équipe à la fin.", bundle: .appLanguage)
         }
     }
 }
