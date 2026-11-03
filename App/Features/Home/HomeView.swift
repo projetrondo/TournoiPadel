@@ -252,10 +252,7 @@ struct HomeView: View {
                 .buttonStyle(.plain)
             } else {
                 ForEach(sessions.sessions) { session in
-                    NavigationLink(value: HomeRoute.session(session.id)) {
-                        SessionRow(session: session, tournaments: library.tournaments(in: session.id))
-                    }
-                    .buttonStyle(.plain)
+                    SessionLink(session: session, tournaments: library.tournaments(in: session.id))
                 }
             }
         }
@@ -266,10 +263,7 @@ struct HomeView: View {
             Text(title)
                 .eagleSectionTitle()
             ForEach(tournaments) { tournament in
-                NavigationLink(value: HomeRoute.tournament(tournament.id)) {
-                    TournamentRow(tournament: tournament)
-                }
-                .buttonStyle(.plain)
+                TournamentLink(tournament: tournament)
             }
         }
     }
@@ -506,10 +500,7 @@ struct TournamentListView: View {
         ScrollView {
             LazyVStack(spacing: 10) {
                 ForEach(tournaments) { tournament in
-                    NavigationLink(value: HomeRoute.tournament(tournament.id)) {
-                        TournamentRow(tournament: tournament)
-                    }
-                    .buttonStyle(.plain)
+                    TournamentLink(tournament: tournament)
                 }
             }
             .padding(16)

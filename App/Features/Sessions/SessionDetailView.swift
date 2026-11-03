@@ -142,10 +142,7 @@ struct SessionDetailView: View {
         } else {
             VStack(spacing: 10) {
                 ForEach(tournaments) { tournament in
-                    NavigationLink(value: HomeRoute.tournament(tournament.id)) {
-                        TournamentRow(tournament: tournament)
-                    }
-                    .buttonStyle(.plain)
+                    TournamentLink(tournament: tournament)
                 }
             }
         }

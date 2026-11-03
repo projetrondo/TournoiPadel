@@ -3791,6 +3791,16 @@
         }
       }
     },
+    "Touchez le score du match : il est enregistré aussitôt." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the match score: it is saved straight away."
+          }
+        }
+      }
+    },
     "Tour" : {
       "localizations" : {
         "en" : {
