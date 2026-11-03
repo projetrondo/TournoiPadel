@@ -1,7 +1,7 @@
 import PadelCore
 import SwiftUI
 
-/// Carte d'un tournoi qui ouvre le tournoi, avec suppression par le bouton « … » de la carte
+/// Carte d'un tournoi qui ouvre le tournoi, avec suppression par la corbeille de la carte
 /// ou par un appui long. Un tournoi partagé se supprime depuis son écran (il faut aussi le
 /// retirer du partage en ligne).
 struct TournamentLink: View {
@@ -22,16 +22,8 @@ struct TournamentLink: View {
         }
         .overlay(alignment: .bottomTrailing) {
             if canDeleteHere {
-                Menu {
-                    deleteButton
-                } label: {
-                    Image(systemName: "ellipsis.circle")
-                        .font(.title3)
-                        .foregroundStyle(Theme.secondaryText)
-                        .frame(minWidth: 44, minHeight: 44)
-                }
-                .padding(4)
-                .accessibilityLabel(String(localized: "Options pour \(tournament.name)", bundle: .appLanguage))
+                TrashButton { isConfirmingDelete = true }
+                    .accessibilityLabel(String(localized: "Supprimer le tournoi", bundle: .appLanguage))
             }
         }
         .confirmationDialog("Supprimer « \(tournament.name) » ?", isPresented: $isConfirmingDelete, titleVisibility: .visible) {
@@ -51,7 +43,7 @@ struct TournamentLink: View {
     }
 }
 
-/// Carte d'une session, avec suppression par le bouton « … » ou un appui long.
+/// Carte d'une session, avec suppression par la corbeille ou un appui long.
 /// Les tournois de la session restent enregistrés.
 struct SessionLink: View {
     let session: PlaySession
@@ -67,16 +59,8 @@ struct SessionLink: View {
         .buttonStyle(.plain)
         .contextMenu { deleteButton }
         .overlay(alignment: .bottomTrailing) {
-            Menu {
-                deleteButton
-            } label: {
-                Image(systemName: "ellipsis.circle")
-                    .font(.title3)
-                    .foregroundStyle(Theme.secondaryText)
-                    .frame(minWidth: 44, minHeight: 44)
-            }
-            .padding(4)
-            .accessibilityLabel(String(localized: "Options pour \(session.name)", bundle: .appLanguage))
+            TrashButton { isConfirmingDelete = true }
+                .accessibilityLabel(String(localized: "Supprimer la session", bundle: .appLanguage))
         }
         .confirmationDialog("Supprimer « \(session.name) » ?", isPresented: $isConfirmingDelete, titleVisibility: .visible) {
             Button("Supprimer la session", role: .destructive) {
@@ -92,5 +76,21 @@ struct SessionLink: View {
         Button("Supprimer la session", systemImage: "trash", role: .destructive) {
             isConfirmingDelete = true
         }
+    }
+}
+
+/// Petite corbeille en bas à droite d'une carte : demande confirmation avant de supprimer.
+private struct TrashButton: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: "trash")
+                .font(.body.weight(.semibold))
+                .foregroundStyle(Theme.error.opacity(0.85))
+                .frame(minWidth: 44, minHeight: 44)
+        }
+        .buttonStyle(.plain)
+        .padding(4)
     }
 }
