@@ -336,6 +336,9 @@ struct TournamentDetailView: View {
             } else {
                 infoRow("Points par match", value: tournament.settings.scoring.summary, systemImage: "number")
             }
+            if tournament.settings.winBonusPoints > 0 {
+                infoRow("Bonus de victoire", value: String(localized: "+\(tournament.settings.winBonusPoints) pts par victoire", bundle: .appLanguage), systemImage: "plus.circle")
+            }
             if planner.restingPerRound > 0 {
                 infoRow("En pause par tour", value: "\(planner.restingPerRound)", systemImage: "cup.and.saucer")
             }

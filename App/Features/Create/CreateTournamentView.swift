@@ -24,6 +24,7 @@ struct CreateTournamentView: View {
                 nameSection
                 formatSection
                 ScoringSection(selection: $model.scoringSelection)
+                WinBonusSection(bonus: $model.winBonus)
                 if let session = model.session {
                     membersSection(session)
                 }

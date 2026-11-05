@@ -10,15 +10,21 @@ public struct PlayerStats: Hashable, Sendable {
     public var draws = 0
     public var losses = 0
     public var rests = 0
+    /// Points de bonus gagnés par les victoires (réglage « bonus de victoire » du tournoi).
+    public var bonus = 0
 
     public init(playerID: Player.ID) {
         self.playerID = playerID
     }
 
+    /// Points du classement : points marqués + bonus de victoire.
+    public var points: Int { pointsFor + bonus }
+
     public var pointDifference: Int { pointsFor - pointsAgainst }
 
+    /// Points du classement par match joué (bonus compris).
     public var averagePoints: Double? {
-        played > 0 ? Double(pointsFor) / Double(played) : nil
+        played > 0 ? Double(points) / Double(played) : nil
     }
 
     public var averageDifference: Double? {
@@ -58,6 +64,10 @@ public enum Standings {
             // Les pauses d'un tour comptent dès qu'il est généré.
             for player in round.resting { stats[player]?.rests += 1 }
         }
+        let bonus = tournament.settings.winBonusPoints
+        if bonus > 0 {
+            for (id, entry) in stats { stats[id]?.bonus = entry.wins * bonus }
+        }
         return stats
     }
 
@@ -82,7 +92,7 @@ public enum Standings {
 
     /// `true` si `a` est strictement devant `b` selon les règles de départage.
     static func ranksAhead(_ a: PlayerStats, _ b: PlayerStats) -> Bool {
-        if a.pointsFor != b.pointsFor { return a.pointsFor > b.pointsFor }
+        if a.points != b.points { return a.points > b.points }
         if a.wins != b.wins { return a.wins > b.wins }
         return a.pointDifference > b.pointDifference
     }

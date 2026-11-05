@@ -28,6 +28,8 @@ public struct TournamentDraft: Hashable, Sendable {
     public var isOpenEnded: Bool
     /// Session d'origine : le tournoi y sera rattaché.
     public var sessionID: UUID?
+    /// Points de bonus par victoire (0 à 3).
+    public var winBonus: Int
 
     public init(
         name: String = "",
@@ -38,7 +40,8 @@ public struct TournamentDraft: Hashable, Sendable {
         rounds: Int = 3,
         mexicanoFirstRound: FirstRoundMode = .random,
         isOpenEnded: Bool = false,
-        sessionID: UUID? = nil
+        sessionID: UUID? = nil,
+        winBonus: Int = 0
     ) {
         self.name = name
         self.format = format
@@ -49,6 +52,7 @@ public struct TournamentDraft: Hashable, Sendable {
         self.mexicanoFirstRound = mexicanoFirstRound
         self.isOpenEnded = isOpenEnded
         self.sessionID = sessionID
+        self.winBonus = winBonus
     }
 
     public var planner: RoundPlanner {
@@ -152,7 +156,8 @@ public struct TournamentDraft: Hashable, Sendable {
             scoring: scoring,
             plannedRounds: isOpenEnded ? RoundPlanner.roundsRange.upperBound : rounds,
             mexicanoFirstRound: mexicanoFirstRound,
-            isOpenEnded: isOpenEnded
+            isOpenEnded: isOpenEnded,
+            winBonus: min(max(winBonus, TournamentSettings.winBonusRange.lowerBound), TournamentSettings.winBonusRange.upperBound)
         )
         return Tournament(
             name: trimmedName,

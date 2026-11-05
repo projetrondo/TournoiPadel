@@ -371,12 +371,22 @@
         }
       }
     },
-    "1. Points marqués (total)" : {
+    "+%lld pts par victoire" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "1. Points scored (total)"
+            "value" : "+%lld pts per win"
+          }
+        }
+      }
+    },
+    "1. Points : marqués, plus le bonus de victoire s'il est activé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Points: scored, plus the win bonus if enabled"
           }
         }
       }
@@ -641,6 +651,16 @@
         }
       }
     },
+    "Aucun" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
+    },
     "Aucun compte n'est nécessaire. Une connexion est requise pour rejoindre ; ensuite le tournoi reste consultable hors ligne." : {
       "localizations" : {
         "en" : {
@@ -717,6 +737,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "With this number of players, only %lld court(s) will be used."
+          }
+        }
+      }
+    },
+    "Bonus de victoire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Win bonus"
           }
         }
       }
@@ -817,6 +847,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Each round is generated when the previous one is finished; stop whenever you like. Everyone plays every round: the standings stay fair at the end of each round."
+          }
+        }
+      }
+    },
+    "Chaque victoire rapporte %lld point(s) de plus au classement. Les scores des matchs ne changent pas ; en Mexicano, le bonus compte aussi pour composer les tours." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each win adds %lld point(s) to the standings. Match scores do not change; in Mexicano, the bonus also counts when building the rounds."
           }
         }
       }
@@ -1787,6 +1827,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The current standings will become the final standings. Scores can still be corrected."
+          }
+        }
+      }
+    },
+    "Le classement compte seulement les points marqués." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The standings count points scored only."
           }
         }
       }
@@ -2811,6 +2861,16 @@
         }
       }
     },
+    "Plus de %lld points" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More than %lld points"
+          }
+        }
+      }
+    },
     "Plus un" : {
       "localizations" : {
         "en" : {
@@ -2857,6 +2917,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Individual points"
+          }
+        }
+      }
+    },
+    "Points marqués" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Points scored"
           }
         }
       }
@@ -3317,6 +3387,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Back up now"
+          }
+        }
+      }
+    },
+    "Score de %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Score for %@"
           }
         }
       }
@@ -3791,12 +3871,12 @@
         }
       }
     },
-    "Touchez le score du match : il est enregistré aussitôt." : {
+    "Touchez une équipe, puis son score." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap the match score: it is saved straight away."
+            "value" : "Tap a team, then its score."
           }
         }
       }
