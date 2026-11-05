@@ -15,6 +15,7 @@ final class CreateTournamentModel {
     var scoringSelection = ScoringSelection()
     var mexicanoFirstRound: FirstRoundMode = .random
     var isOpenEnded = false
+    var winBonus = 0
     var courtsOverride: Int?
     var roundsOverride: Int?
     /// Session d'origine : ses joueurs sont proposés, il suffit de cocher les présents.
@@ -62,7 +63,8 @@ final class CreateTournamentModel {
             rounds: 1,
             mexicanoFirstRound: mexicanoFirstRound,
             isOpenEnded: isOpenEnded,
-            sessionID: session?.id
+            sessionID: session?.id,
+            winBonus: winBonus
         )
         draft.rounds = roundsOverride ?? draft.planner.recommendedRounds(scoring: scoring) ?? 1
         return draft

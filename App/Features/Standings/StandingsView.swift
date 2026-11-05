@@ -156,7 +156,7 @@ struct EagleChampionCard: View {
                     .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
                     .minimumScaleFactor(0.7)
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text("\(row.stats.pointsFor)")
+                    Text("\(row.stats.points)")
                         .font(.system(size: 30, weight: .black).width(.condensed).monospacedDigit())
                         .foregroundStyle(Theme.goldGradient)
                     Text("pts")
@@ -203,7 +203,7 @@ struct EagleChampionCard: View {
 
     private var accessibilityText: String {
         let title = isShared ? String(localized: "Aigle ex aequo", bundle: .appLanguage) : String(localized: "L'Aigle, champion actuel", bundle: .appLanguage)
-        var parts = [title, name, Plural.count(row.stats.pointsFor, "point", "points"),
+        var parts = [title, name, Plural.count(row.stats.points, "point", "points"),
                      Plural.count(row.stats.wins, "victoire", "victoires"),
                      Plural.count(row.stats.losses, "défaite", "défaites")]
         if row.stats.winRate != nil {
@@ -240,7 +240,7 @@ struct StandingRowView: View {
             Text(verbatim: "\(row.isTied ? "\(row.rank)=" : "\(row.rank)") \(name)")
                 .font(.headline)
                 .foregroundStyle(tier == .standard ? Theme.ink : tier.color)
-            Text(verbatim: "\(Plural.count(row.stats.pointsFor, "point", "points")) · \(row.stats.recordText)")
+            Text(verbatim: "\(Plural.count(row.stats.points, "point", "points")) · \(row.stats.recordText)")
                 .font(.subheadline)
                 .foregroundStyle(Theme.secondaryText)
             if let huntText {
@@ -259,7 +259,7 @@ struct StandingRowView: View {
 
     private var accessibilityText: String {
         let rank = row.rank.ordinalText
-        var parts = [rank, name, Plural.count(row.stats.pointsFor, "point", "points"),
+        var parts = [rank, name, Plural.count(row.stats.points, "point", "points"),
                      Plural.count(row.stats.wins, "victoire", "victoires"),
                      Plural.count(row.stats.losses, "défaite", "défaites"),
                      String(localized: "différence \(row.stats.pointDifference.signedText)", bundle: .appLanguage),
@@ -311,7 +311,7 @@ struct StandingRowView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             VStack(alignment: .trailing, spacing: 0) {
-                Text("\(row.stats.pointsFor)")
+                Text("\(row.stats.points)")
                     .font(Theme.display(.title3, weight: .black).monospacedDigit())
                     .foregroundStyle(tier == .standard ? Theme.ink : tier.color)
                 Text("pts")
@@ -384,6 +384,10 @@ struct PlayerDetailView: View {
 
                 Section("Statistiques") {
                     statRow("Matchs joués", value: "\(stats.played)")
+                    if stats.bonus > 0 {
+                        statRow("Points marqués", value: "\(stats.pointsFor)")
+                        statRow("Bonus de victoire", value: "+\(stats.bonus)")
+                    }
                     statRow("Points encaissés", value: "\(stats.pointsAgainst)")
                     statRow("Différence", value: stats.pointDifference.signedText)
                     statRow("Matchs nuls", value: "\(stats.draws)")
@@ -494,7 +498,7 @@ struct PlayerDetailView: View {
 
     private func statTiles(_ stats: PlayerStats) -> some View {
         LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
-            StatTile(value: "\(stats.pointsFor)", label: String(localized: "Points", bundle: .appLanguage), systemImage: "star.fill", color: Theme.gold)
+            StatTile(value: "\(stats.points)", label: String(localized: "Points", bundle: .appLanguage), systemImage: "star.fill", color: Theme.gold)
             StatTile(value: "\(stats.wins)", label: String(localized: "Victoires", bundle: .appLanguage), systemImage: "checkmark.circle.fill", color: Theme.accent)
             StatTile(value: "\(stats.losses)", label: String(localized: "Défaites", bundle: .appLanguage), systemImage: "xmark.circle.fill", color: Theme.error)
             StatTile(value: stats.winRateText, label: String(localized: "Win rate", bundle: .appLanguage), systemImage: "percent", color: Theme.silver)
@@ -665,7 +669,7 @@ struct RankingRulesView: View {
                     Text("L'Aigle")
                 }
                 Section {
-                    Text("1. Points marqués (total)")
+                    Text("1. Points : marqués, plus le bonus de victoire s'il est activé")
                     Text("2. Victoires")
                     Text("3. Différence de points (marqués − encaissés)")
                     Text("4. Sinon ex aequo : même position, signalée par « = »")

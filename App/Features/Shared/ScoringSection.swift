@@ -98,3 +98,31 @@ extension ScoringRule {
         }
     }
 }
+
+/// Bonus de victoire : points ajoutés au classement pour chaque match gagné.
+struct WinBonusSection: View {
+    @Binding var bonus: Int
+
+    var body: some View {
+        Section {
+            Picker("Bonus de victoire", selection: $bonus) {
+                ForEach(Array(TournamentSettings.winBonusRange), id: \.self) { value in
+                    if value == 0 {
+                        Text("Aucun").tag(value)
+                    } else {
+                        Text(verbatim: "+\(value)").tag(value)
+                    }
+                }
+            }
+            .pickerStyle(.segmented)
+        } header: {
+            Text("Bonus de victoire")
+        } footer: {
+            if bonus == 0 {
+                Text("Le classement compte seulement les points marqués.")
+            } else {
+                Text("Chaque victoire rapporte \(bonus) point(s) de plus au classement. Les scores des matchs ne changent pas ; en Mexicano, le bonus compte aussi pour composer les tours.")
+            }
+        }
+    }
+}

@@ -99,20 +99,29 @@ public struct TournamentSettings: Codable, Hashable, Sendable {
     /// Mode libre : pas de nombre de tours fixé, chaque tour est généré à la demande et on
     /// s'arrête quand on veut. Absent des fichiers antérieurs : `nil` = nombre fixe.
     public var openEnded: Bool?
+    /// Points ajoutés au classement pour chaque victoire (absent = 0). Les scores des matchs
+    /// ne changent pas ; seul le classement (et donc la composition des tours Mexicano) en tient compte.
+    public var winBonus: Int?
+
+    public static let winBonusRange = 0...3
 
     public init(
         courts: Int,
         scoring: ScoringRule,
         plannedRounds: Int,
         mexicanoFirstRound: FirstRoundMode = .random,
-        isOpenEnded: Bool = false
+        isOpenEnded: Bool = false,
+        winBonus: Int = 0
     ) {
         self.courts = courts
         self.scoring = scoring
         self.plannedRounds = plannedRounds
         self.mexicanoFirstRound = mexicanoFirstRound
         self.openEnded = isOpenEnded ? true : nil
+        self.winBonus = winBonus > 0 ? winBonus : nil
     }
+
+    public var winBonusPoints: Int { max(0, winBonus ?? 0) }
 
     public var isOpenEnded: Bool { openEnded ?? false }
 

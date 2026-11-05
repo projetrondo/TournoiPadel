@@ -52,6 +52,16 @@ extension Tournament {
         touch(at: now)
     }
 
+    /// Change le bonus de victoire. Possible uniquement avant le lancement : le classement et
+    /// la composition des tours Mexicano ne changent pas en cours de route.
+    public mutating func updateWinBonus(_ bonus: Int, now: Date) throws {
+        guard status == .draft, rounds.isEmpty else { throw LifecycleError.alreadyStarted }
+        guard TournamentSettings.winBonusRange.contains(bonus) else { throw LifecycleError.invalidScoring }
+        guard bonus != settings.winBonusPoints else { return }
+        settings.winBonus = bonus > 0 ? bonus : nil
+        touch(at: now)
+    }
+
     /// Tours générés à la demande : Mexicano, ou Americano en mode libre.
     public var generatesRoundsOnDemand: Bool {
         format == .mexicano || settings.isOpenEnded

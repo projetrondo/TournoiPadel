@@ -3,14 +3,16 @@ import SwiftUI
 
 /// Saisie du score d'un match, pensée pour le bord du terrain.
 ///
-/// Points fixes ou « premier à N » : tous les scores possibles sont proposés en cases
-/// (15–9, 16–8…) ; un seul appui enregistre le score et ramène à la liste des matchs.
-/// Score libre (au temps) : pavé numérique pour chaque équipe, puis « Valider ».
-/// Après chaque enregistrement, retour à la liste des matchs.
+/// On touche une équipe, puis son score parmi les cases 0, 1, 2… jusqu'au maximum possible.
+/// Quand la règle permet de déduire l'autre score (total fixe, ou perdant en « premier à N »),
+/// le match est enregistré aussitôt ; sinon on choisit ensuite le score de l'autre équipe.
+/// Après l'enregistrement, retour à la liste des matchs.
 struct ScoreEntryView: View {
     enum Side: Hashable {
         case teamA
         case teamB
+
+        var other: Side { self == .teamA ? .teamB : .teamA }
     }
 
     let tournamentID: Tournament.ID
@@ -22,14 +24,18 @@ struct ScoreEntryView: View {
     @State private var scoreA: Int?
     @State private var scoreB: Int?
     @State private var selected: Side = .teamA
-    /// Le prochain chiffre tapé remplace la valeur au lieu de la compléter.
-    @State private var replaceOnNextDigit = true
+    /// Équipes dont le score a été choisi pendant cette saisie (score libre : il faut les deux).
+    @State private var picked: Set<Side> = []
+    /// Score libre : cases jusqu'à 99 au lieu de 40.
+    @State private var showsHighScores = false
     @State private var isCorrecting = false
     @State private var isSaving = false
-    @State private var isConfirmingCorrection = false
     @State private var isConfirmingReopen = false
     @State private var validationCount = 0
     @State private var errorMessage: String?
+
+    /// Score libre : cases affichées d'emblée (les matchs au temps dépassent rarement 40).
+    private static let usualFreeMaximum = 40
 
     init(tournamentID: Tournament.ID, initialMatchID: Match.ID) {
         self.tournamentID = tournamentID
@@ -57,7 +63,6 @@ struct ScoreEntryView: View {
             }
             .sensoryFeedback(.success, trigger: validationCount)
             .onAppear { loadFields() }
-            .onChange(of: matchID) { _, _ in loadFields() }
             .alert(
                 "Score non enregistré",
                 isPresented: Binding(get: { errorMessage != nil }, set: { if !$0 { errorMessage = nil } }),
@@ -74,8 +79,6 @@ struct ScoreEntryView: View {
 
     private func content(_ tournament: Tournament, _ match: Match) -> some View {
         let editable = match.state != .completed || isCorrecting
-        // Avec les cases de score, les panneaux d'équipe servent seulement à afficher.
-        let usesKeypad = quickScores(tournament) == nil
         let round = tournament.location(of: match.id).map { $0.round + 1 } ?? 0
         return ScrollView {
             VStack(spacing: 16) {
@@ -88,31 +91,18 @@ struct ScoreEntryView: View {
                 }
 
                 HStack(spacing: 12) {
-                    teamPanel(.teamA, team: match.teamA, value: scoreA, tournament: tournament, editable: editable && usesKeypad)
+                    teamPanel(.teamA, team: match.teamA, value: scoreA, tournament: tournament, editable: editable)
                     Text("–")
                         .font(.largeTitle.weight(.bold))
                         .foregroundStyle(.secondary)
-                    teamPanel(.teamB, team: match.teamB, value: scoreB, tournament: tournament, editable: editable && usesKeypad)
+                    teamPanel(.teamB, team: match.teamB, value: scoreB, tournament: tournament, editable: editable)
                 }
 
-                if editable, let choices = quickScores(tournament) {
-                    quickPicker(choices, match: match, tournament: tournament)
-                    if isCorrecting {
-                        Button("Abandonner la correction") {
-                            isCorrecting = false
-                            loadFields()
-                        }
-                        .buttonStyle(SecondaryButtonStyle())
-                    }
-                } else {
-                    feedbackLine(tournament)
-
-                    if editable {
-                        keypad(maximum: maximumScore(tournament))
-                    }
-
-                    actions(tournament, match)
+                if editable {
+                    numberPicker(tournament, match)
                 }
+
+                actions(tournament, match)
             }
             .padding(16)
         }
@@ -122,9 +112,8 @@ struct ScoreEntryView: View {
         let isSelected = editable && selected == side
         return Button {
             selected = side
-            replaceOnNextDigit = true
         } label: {
-            VStack(spacing: 8) {
+            VStack(spacing: 6) {
                 VStack(spacing: 2) {
                     ForEach(team.players, id: \.self) { id in
                         Text(tournament.player(id)?.name ?? "?")
@@ -134,21 +123,15 @@ struct ScoreEntryView: View {
                     }
                 }
                 Text(value.map { "\($0)" } ?? "–")
-                    .font(.system(size: 60, weight: .black).width(.condensed).monospacedDigit())
+                    .font(.system(size: 52, weight: .black).width(.condensed).monospacedDigit())
                     .foregroundStyle(value == nil ? .secondary : .primary)
                     .contentTransition(.numericText())
-                if editable {
-                    HStack(spacing: 16) {
-                        stepButton("minus", side: side, delta: -1, tournament: tournament)
-                        stepButton("plus", side: side, delta: 1, tournament: tournament)
-                    }
-                }
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 14)
+            .padding(.vertical, 12)
             .background(
                 RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
-                    .fill(Theme.card)
+                    .fill(isSelected ? Theme.accent.opacity(0.10) : Theme.card)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
@@ -162,112 +145,72 @@ struct ScoreEntryView: View {
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 
-    private func stepButton(_ symbol: String, side: Side, delta: Int, tournament: Tournament) -> some View {
-        Button {
-            selected = side
-            let current = (side == .teamA ? scoreA : scoreB) ?? 0
-            setScore(max(0, min(maximumScore(tournament), current + delta)), for: side, tournament: tournament)
-            replaceOnNextDigit = true
-        } label: {
-            Image(systemName: "\(symbol).circle.fill")
-                .font(.system(size: 34))
-                .foregroundStyle(Theme.accent)
-        }
-        .buttonStyle(.borderless)
-        .accessibilityLabel(delta > 0 ? "Plus un" : "Moins un")
-    }
-
-    @ViewBuilder
-    private func feedbackLine(_ tournament: Tournament) -> some View {
-        if let score = currentScore {
-            if case .invalid(let error) = tournament.validation(of: score) {
+    /// Cases 0, 1, 2… jusqu'au score maximum, pour l'équipe sélectionnée.
+    private func numberPicker(_ tournament: Tournament, _ match: Match) -> some View {
+        let team = selected == .teamA ? match.teamA : match.teamB
+        let names = team.players.compactMap { tournament.player($0)?.name }.formatted(.list(type: .and).locale(.appLanguage))
+        let current = selected == .teamA ? scoreA : scoreB
+        let isFree = tournament.settings.scoring.points == nil
+        let maximum = isFree && !showsHighScores ? Self.usualFreeMaximum : maximumScore(tournament)
+        return VStack(spacing: 10) {
+            VStack(spacing: 2) {
+                Text("Score de \(names)")
+                    .font(Theme.display(.headline, weight: .heavy))
+                    .foregroundStyle(Theme.accent)
+                    .multilineTextAlignment(.center)
+                Text("Touchez une équipe, puis son score.")
+                    .font(.footnote)
+                    .foregroundStyle(Theme.secondaryText)
+            }
+            if let score = currentScore, case .invalid(let error) = tournament.validation(of: score) {
                 Label(error.message, systemImage: "exclamationmark.triangle.fill")
                     .foregroundStyle(Theme.warning)
                     .font(.subheadline)
-            } else {
-                Label(outcomeText(score), systemImage: "checkmark.circle.fill")
-                    .foregroundStyle(Theme.accent)
-                    .font(.subheadline)
             }
-        } else {
-            Text(hint(for: tournament.settings.scoring))
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-        }
-    }
-
-    private func keypad(maximum: Int) -> some View {
-        let keys: [[String]] = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["", "0", "⌫"]]
-        return VStack(spacing: 8) {
-            ForEach(keys, id: \.self) { row in
-                HStack(spacing: 8) {
-                    ForEach(row, id: \.self) { key in
-                        if key.isEmpty {
-                            Color.clear.frame(maxWidth: .infinity, minHeight: 52)
-                        } else {
-                            Button {
-                                press(key, maximum: maximum)
-                            } label: {
-                                Group {
-                                    if key == "⌫" {
-                                        Image(systemName: "delete.left")
-                                    } else {
-                                        Text(key)
-                                    }
-                                }
-                                .font(.title2.weight(.semibold))
-                                .frame(maxWidth: .infinity, minHeight: 52)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                        .fill(Theme.card)
-                                )
-                            }
-                            .buttonStyle(.plain)
-                            .accessibilityLabel(key == "⌫" ? "Effacer" : key)
-                        }
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 5), spacing: 8) {
+                ForEach(0...maximum, id: \.self) { value in
+                    let isCurrent = current == value
+                    Button {
+                        pick(value)
+                    } label: {
+                        Text(verbatim: "\(value)")
+                            .font(.system(size: 24, weight: .heavy).width(.condensed).monospacedDigit())
+                            .foregroundStyle(isCurrent ? Theme.onAccent : Theme.ink)
+                            .frame(maxWidth: .infinity, minHeight: 54)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                    .fill(isCurrent ? Theme.accent : Theme.card)
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                    .strokeBorder(Theme.stroke, lineWidth: 1)
+                            )
                     }
+                    .buttonStyle(.plain)
+                    .disabled(isSaving)
+                    .accessibilityLabel(String(localized: "\(names) : \(value) points", bundle: .appLanguage))
                 }
+            }
+            if isFree, !showsHighScores {
+                Button("Plus de \(Self.usualFreeMaximum) points") { showsHighScores = true }
+                    .font(.subheadline.weight(.semibold))
             }
         }
     }
 
     @ViewBuilder
     private func actions(_ tournament: Tournament, _ match: Match) -> some View {
-        let isValid = currentScore.map { tournament.validation(of: $0).isValid } ?? false
-        if match.state != .completed {
-            Button(action: validate) {
-                Label("Valider le résultat", systemImage: "checkmark.seal.fill")
-            }
-            .buttonStyle(PrimaryButtonStyle())
-            .disabled(!isValid || isSaving)
-        } else if isCorrecting {
-            Button {
-                isConfirmingCorrection = true
-            } label: {
-                Label("Enregistrer la correction", systemImage: "checkmark.seal.fill")
-            }
-            .buttonStyle(PrimaryButtonStyle())
-            .disabled(!isValid || isSaving || currentScore == match.score)
-            .confirmationDialog("Corriger le score ?", isPresented: $isConfirmingCorrection, titleVisibility: .visible) {
-                Button("Remplacer le score") { saveCorrection() }
-                Button("Annuler", role: .cancel) {}
-            } message: {
-                if let old = match.score, let new = currentScore {
-                    Text("\(old.teamA)–\(old.teamB) sera remplacé par \(new.teamA)–\(new.teamB). Le classement sera recalculé.")
-                }
-            }
-
+        if isCorrecting {
             Button("Abandonner la correction") {
                 isCorrecting = false
                 loadFields()
             }
             .buttonStyle(SecondaryButtonStyle())
-        } else {
+        } else if match.state == .completed {
             Button {
                 isCorrecting = true
+                picked = []
                 selected = .teamA
-                replaceOnNextDigit = true
             } label: {
                 Label("Corriger le score", systemImage: "pencil")
             }
@@ -287,86 +230,6 @@ struct ScoreEntryView: View {
         }
     }
 
-    // MARK: - Saisie en un appui
-
-    /// Tous les scores valides pour la règle du tournoi, ou nil pour le score libre (pavé).
-    private func quickScores(_ tournament: Tournament) -> [Score]? {
-        switch tournament.settings.scoring {
-        case .fixedTotal(let points):
-            return (0...points).reversed().map { Score($0, points - $0) }
-                .filter { tournament.validation(of: $0).isValid }
-        case .raceTo(let points):
-            let teamAWins = (0..<points).reversed().map { Score(points, $0) }
-            let teamBWins = (0..<points).map { Score($0, points) }
-            return (teamAWins + teamBWins).filter { tournament.validation(of: $0).isValid }
-        case .free:
-            return nil
-        }
-    }
-
-    /// Cases de score : le chiffre de gauche est celui de l'équipe de gauche.
-    private func quickPicker(_ choices: [Score], match: Match, tournament: Tournament) -> some View {
-        VStack(spacing: 10) {
-            Text("Touchez le score du match : il est enregistré aussitôt.")
-                .font(.subheadline)
-                .foregroundStyle(Theme.secondaryText)
-                .multilineTextAlignment(.center)
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 4), spacing: 8) {
-                ForEach(choices, id: \.self) { score in
-                    let isCurrent = match.score == score
-                    Button {
-                        choose(score, match: match)
-                    } label: {
-                        HStack(spacing: 2) {
-                            Text(verbatim: "\(score.teamA)")
-                                .foregroundStyle(score.teamA > score.teamB ? Theme.accent : Theme.ink)
-                            Text(verbatim: "–")
-                                .foregroundStyle(Theme.secondaryText)
-                            Text(verbatim: "\(score.teamB)")
-                                .foregroundStyle(score.teamB > score.teamA ? Theme.accent : Theme.ink)
-                        }
-                        .font(.system(size: 24, weight: .heavy).width(.condensed).monospacedDigit())
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.7)
-                        .frame(maxWidth: .infinity, minHeight: 56)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .fill(isCurrent ? Theme.gold.opacity(0.18) : Theme.card)
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .strokeBorder(isCurrent ? Theme.gold : Theme.stroke, lineWidth: isCurrent ? 2 : 1)
-                        )
-                    }
-                    .buttonStyle(.plain)
-                    .disabled(isSaving)
-                    .accessibilityLabel(teamScoreLabel(score, match: match, tournament: tournament))
-                }
-            }
-        }
-    }
-
-    /// Un appui : validation (ou correction) puis retour à la liste des matchs.
-    private func choose(_ score: Score, match: Match) {
-        guard !isSaving else { return }
-        if match.state == .completed {
-            guard isCorrecting, score != match.score else { return }
-            scoreA = score.teamA
-            scoreB = score.teamB
-            saveCorrection()
-        } else {
-            scoreA = score.teamA
-            scoreB = score.teamB
-            validate()
-        }
-    }
-
-    private func teamScoreLabel(_ score: Score, match: Match, tournament: Tournament) -> String {
-        let a = match.teamA.players.compactMap { tournament.player($0)?.name }.formatted(.list(type: .and).locale(.appLanguage))
-        let b = match.teamB.players.compactMap { tournament.player($0)?.name }.formatted(.list(type: .and).locale(.appLanguage))
-        return "\(a) \(score.teamA), \(b) \(score.teamB)"
-    }
-
     // MARK: - Saisie
 
     private var currentScore: Score? {
@@ -378,41 +241,55 @@ struct ScoreEntryView: View {
         tournament.settings.scoring.points ?? ScoringRule.maxFreeScore
     }
 
-    private func press(_ key: String, maximum: Int) {
-        guard let tournament else { return }
-        let current = selected == .teamA ? scoreA : scoreB
-        if key == "⌫" {
-            let shortened = (current ?? 0) / 10
-            setScore(current == nil || current! < 10 ? nil : shortened, for: selected, tournament: tournament)
-            replaceOnNextDigit = false
-            return
-        }
-        guard let digit = Int(key) else { return }
-        var value = replaceOnNextDigit ? digit : (current ?? 0) * 10 + digit
-        if value > maximum { value = digit }
-        setScore(value, for: selected, tournament: tournament)
-        replaceOnNextDigit = false
-    }
-
-    /// Met à jour un score et déduit l'autre quand la règle le permet.
-    private func setScore(_ value: Int?, for side: Side, tournament: Tournament) {
+    /// Score choisi pour l'équipe sélectionnée : l'autre est déduit quand la règle le permet,
+    /// puis le match est enregistré s'il est complet ; sinon on passe à l'autre équipe.
+    private func pick(_ value: Int) {
+        guard let tournament, let match, !isSaving else { return }
         markInProgressIfNeeded()
+        let side = selected
+        var deducedOther = false
         withAnimation(.snappy(duration: 0.15)) {
-            if side == .teamA { scoreA = value } else { scoreB = value }
-            guard let value else { return }
-            let other: Int?
+            set(value, for: side)
             switch tournament.settings.scoring {
             case .fixedTotal(let points):
-                other = points - value
+                set(points - value, for: side.other)
+                deducedOther = true
             case .raceTo(let points):
-                other = value < points ? points : nil
+                if value < points {
+                    set(points, for: side.other)
+                    deducedOther = true
+                } else if self.value(for: side.other) == points {
+                    // Les deux équipes ne peuvent pas atteindre N : il reste à choisir le perdant.
+                    set(nil, for: side.other)
+                }
             case .free:
-                other = nil
-            }
-            if let other {
-                if side == .teamA { scoreB = other } else { scoreA = other }
+                break
             }
         }
+        picked.insert(side)
+        if deducedOther { picked.insert(side.other) }
+
+        guard picked.count == 2, let score = currentScore, tournament.validation(of: score).isValid else {
+            selected = side.other
+            return
+        }
+        if match.state == .completed {
+            guard score != match.score else {
+                isCorrecting = false
+                return
+            }
+            saveCorrection(score)
+        } else {
+            validate(score)
+        }
+    }
+
+    private func value(for side: Side) -> Int? {
+        side == .teamA ? scoreA : scoreB
+    }
+
+    private func set(_ value: Int?, for side: Side) {
+        if side == .teamA { scoreA = value } else { scoreB = value }
     }
 
     private func loadFields() {
@@ -420,7 +297,7 @@ struct ScoreEntryView: View {
         scoreA = score?.teamA
         scoreB = score?.teamB
         selected = .teamA
-        replaceOnNextDigit = true
+        picked = []
         isCorrecting = false
     }
 
@@ -431,13 +308,12 @@ struct ScoreEntryView: View {
 
     // MARK: - Actions
 
-    private func validate() {
-        guard !isSaving, let score = currentScore else { return }
+    private func validate(_ score: Score) {
         isSaving = true
         defer { isSaving = false }
-        let validatedID = matchID
+        let id = matchID
         do {
-            try library.modify(id: tournamentID) { t, date in try t.validateScore(validatedID, score: score, now: date) }
+            try library.modify(id: tournamentID) { t, date in try t.validateScore(id, score: score, now: date) }
             validationCount += 1
             // Retour à la liste des matchs pour saisir les suivants.
             dismiss()
@@ -446,12 +322,12 @@ struct ScoreEntryView: View {
         }
     }
 
-    private func saveCorrection() {
-        guard !isSaving, let score = currentScore else { return }
+    private func saveCorrection(_ score: Score) {
         isSaving = true
         defer { isSaving = false }
+        let id = matchID
         do {
-            try library.modify(id: tournamentID) { t, date in try t.correctScore(matchID, score: score, now: date) }
+            try library.modify(id: tournamentID) { t, date in try t.correctScore(id, score: score, now: date) }
             validationCount += 1
             isCorrecting = false
             dismiss()
@@ -477,24 +353,6 @@ struct ScoreEntryView: View {
             return String(localized: "\(names) : \(value) points", bundle: .appLanguage)
         }
         return String(localized: "\(names) : pas de score", bundle: .appLanguage)
-    }
-
-    private func outcomeText(_ score: Score) -> String {
-        switch score.outcome {
-        case .teamAWins, .teamBWins: String(localized: "Score valide.", bundle: .appLanguage)
-        case .draw: String(localized: "Score valide : match nul.", bundle: .appLanguage)
-        }
-    }
-
-    private func hint(for rule: ScoringRule) -> String {
-        switch rule {
-        case .fixedTotal(let points):
-            String(localized: "Tapez le score d'une équipe : l'autre est calculé (total \(points)).", bundle: .appLanguage)
-        case .raceTo(let points):
-            String(localized: "Tapez le score du perdant : le gagnant reçoit \(points).", bundle: .appLanguage)
-        case .free:
-            String(localized: "Tapez le score de chaque équipe.", bundle: .appLanguage)
-        }
     }
 
     static func message(for error: Error) -> String {

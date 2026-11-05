@@ -101,7 +101,7 @@ public struct EagleInsights: Hashable, Sendable {
     /// Points de retard sur l'Aigle (nil pour l'Aigle lui-même ou sans résultat).
     public func pointsBehindEagle(_ row: StandingRow) -> Int? {
         guard let leader = eagles.first, row.rank != 1 else { return nil }
-        return leader.stats.pointsFor - row.stats.pointsFor
+        return leader.stats.points - row.stats.points
     }
 }
 

@@ -1,24 +1,27 @@
 import PadelCore
 import SwiftUI
 
-/// Modification du nombre de points par match d'un tournoi pas encore lancé.
+/// Modification du nombre de points par match et du bonus de victoire d'un tournoi pas encore lancé.
 struct EditScoringView: View {
     let tournament: Tournament
 
     @Environment(TournamentLibrary.self) private var library
     @Environment(\.dismiss) private var dismiss
     @State private var selection: ScoringSelection
+    @State private var winBonus: Int
     @State private var errorMessage: String?
 
     init(tournament: Tournament) {
         self.tournament = tournament
         _selection = State(initialValue: ScoringSelection(rule: tournament.settings.scoring))
+        _winBonus = State(initialValue: tournament.settings.winBonusPoints)
     }
 
     var body: some View {
         NavigationStack {
             Form {
                 ScoringSection(selection: $selection)
+                WinBonusSection(bonus: $winBonus)
                 Section {
                     let planner = RoundPlanner(playerCount: tournament.players.count, declaredCourts: tournament.settings.courts)
                     LabeledContent(
@@ -53,7 +56,10 @@ struct EditScoringView: View {
 
     private func save() {
         do {
-            try library.modify(id: tournament.id) { t, date in try t.updateScoring(selection.rule, now: date) }
+            try library.modify(id: tournament.id) { t, date in
+                try t.updateScoring(selection.rule, now: date)
+                try t.updateWinBonus(winBonus, now: date)
+            }
             dismiss()
         } catch LifecycleError.alreadyStarted {
             errorMessage = String(localized: "Le tournoi a déjà commencé : les points ne peuvent plus être modifiés.", bundle: .appLanguage)

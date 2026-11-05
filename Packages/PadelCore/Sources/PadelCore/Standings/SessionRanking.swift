@@ -156,6 +156,7 @@ extension PlayerStats {
     mutating func add(_ other: PlayerStats) {
         played += other.played
         pointsFor += other.pointsFor
+        bonus += other.bonus
         pointsAgainst += other.pointsAgainst
         wins += other.wins
         draws += other.draws

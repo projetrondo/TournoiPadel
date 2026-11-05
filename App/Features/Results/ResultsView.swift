@@ -98,7 +98,7 @@ struct ResultsView: View {
         for row in results.standings {
             let prefix = row.rank <= 3 ? medals[row.rank - 1] : "\(row.rank)."
             let name = tournament.player(row.id)?.name ?? "?"
-            lines.append(String(localized: "\(prefix) \(name) — \(row.stats.pointsFor) pts (\(row.stats.pointDifference.signedText)), \(row.stats.wins) V", bundle: .appLanguage))
+            lines.append(String(localized: "\(prefix) \(name) — \(row.stats.points) pts (\(row.stats.pointDifference.signedText)), \(row.stats.wins) V", bundle: .appLanguage))
         }
         lines.append("")
         lines.append(String(localized: "\(results.matchesPlayed) matchs · \(results.totalPoints) points joués", bundle: .appLanguage))
@@ -177,7 +177,7 @@ struct PodiumView: View {
             }
             if let first = rows.first {
                 VStack(spacing: 0) {
-                    Text("\(first.stats.pointsFor) pts")
+                    Text("\(first.stats.points) pts")
                         .font(Theme.display(.subheadline, weight: .black).monospacedDigit())
                         .foregroundStyle(isEagle ? AnyShapeStyle(Theme.goldGradient) : AnyShapeStyle(tier.color))
                     Text("\(first.stats.wins) V – \(first.stats.losses) D")
@@ -258,7 +258,7 @@ struct ResultsShareCard: View {
                                 .foregroundStyle(Theme.gold)
                         }
                         Spacer()
-                        Text("\(row.stats.pointsFor) pts")
+                        Text("\(row.stats.points) pts")
                             .font(.headline.monospacedDigit())
                             .foregroundStyle(tier == .standard ? Theme.ink : tier.color)
                         Text(row.stats.pointDifference.signedText)
