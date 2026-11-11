@@ -126,3 +126,50 @@ struct WinBonusSection: View {
         }
     }
 }
+
+/// Mexicano : bonus de terrain. À partir du tour choisi, les gagnants reçoivent des points selon
+/// leur terrain : sur N terrains, le terrain 1 rapporte N points, le dernier 1 point.
+struct CourtBonusSection: View {
+    @Binding var startRound: Int?
+    /// Terrains réellement utilisés (selon le nombre de joueurs).
+    let courts: Int
+
+    var body: some View {
+        Section {
+            Toggle(isOn: Binding(
+                get: { startRound != nil },
+                set: { startRound = $0 ? (startRound ?? 1) : nil }
+            )) {
+                Text("Bonus de terrain")
+            }
+            .tint(Theme.accent)
+            if let start = startRound {
+                Picker("À partir du tour", selection: Binding(get: { start }, set: { startRound = $0 })) {
+                    ForEach(Array(TournamentSettings.courtBonusStartRange), id: \.self) { round in
+                        Text(verbatim: "\(round)").tag(round)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .accessibilityLabel("À partir du tour")
+            }
+        } header: {
+            Text("Bonus de terrain")
+        } footer: {
+            if startRound != nil {
+                Text(scale)
+            } else {
+                Text("Les gagnants de chaque match reçoivent des points selon le terrain : plus le terrain est haut, plus il rapporte.")
+            }
+        }
+    }
+
+    /// « Tour 2 et suivants : terrain 1 +4 pts, terrain 2 +3 pts… »
+    private var scale: String {
+        let count = max(1, courts)
+        let points = (1...count).map { court in
+            String(localized: "terrain \(court) : +\(count - court + 1)", bundle: .appLanguage)
+        }.formatted(.list(type: .and).locale(.appLanguage))
+        let start = startRound ?? 1
+        return String(localized: "À partir du tour \(start), les gagnants reçoivent : \(points) points. Rien en cas de défaite ou de match nul. Le bonus compte au classement et pour composer les tours suivants.", bundle: .appLanguage)
+    }
+}

@@ -19,6 +19,7 @@ struct PadelBuddyApp: App {
         if arguments.contains("-ui-testing") {
             // Captures d'écran : français, sauf `-demo-language en`.
             AppLanguage.select(LaunchOptions.language ?? .fr)
+            UserDefaults.standard.set((LaunchOptions.background ?? .carbon).rawValue, forKey: AppBackground.storageKey)
             // Tests d'interface et captures d'écran : aucune donnée réelle n'est lue ni écrite,
             // et le serveur de partage est simulé en mémoire.
             store = InMemoryTournamentStore(arguments.contains("-demo-data") ? DemoData.tournaments() : [])

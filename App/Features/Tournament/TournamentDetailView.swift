@@ -39,7 +39,7 @@ struct TournamentDetailView: View {
                 ContentUnavailableView("Tournoi introuvable", systemImage: "questionmark.circle")
             }
         }
-        .background(Theme.background)
+        .eagleBackground()
         .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: applyLaunchOptions)
     }
@@ -338,6 +338,9 @@ struct TournamentDetailView: View {
             }
             if tournament.settings.winBonusPoints > 0 {
                 infoRow("Bonus de victoire", value: String(localized: "+\(tournament.settings.winBonusPoints) pts par victoire", bundle: .appLanguage), systemImage: "plus.circle")
+            }
+            if tournament.format == .mexicano, let start = tournament.settings.courtBonusFromRound {
+                infoRow("Bonus de terrain", value: String(localized: "dès le tour \(start) · terrain 1 : +\(planner.activeCourts) pts", bundle: .appLanguage), systemImage: "sportscourt")
             }
             if planner.restingPerRound > 0 {
                 infoRow("En pause par tour", value: "\(planner.restingPerRound)", systemImage: "cup.and.saucer")

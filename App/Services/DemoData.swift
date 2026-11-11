@@ -158,6 +158,13 @@ enum LaunchOptions {
     /// `-demo-language fr|en` : langue des captures d'écran.
     static var language: AppLanguage? { value(after: "-demo-language").flatMap(AppLanguage.init(rawValue:)) }
 
+    /// `-demo-open-settings` : ouvre les réglages ; `-demo-background court|night|…` : fond d'écran.
+    static var opensSettings: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-open-settings") }
+    static var background: AppBackground? { value(after: "-demo-background").flatMap(AppBackground.init(rawValue:)) }
+
+    /// `-demo-create-mexicano` : création d'un Mexicano à 16 joueurs, bonus de terrain activé.
+    static var opensCreateMexicano: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-create-mexicano") }
+
     /// `-demo-player` : ouvre le profil de l'Aigle depuis le classement.
     static var opensPlayerProfile: Bool { arguments.contains("-ui-testing") && arguments.contains("-demo-player") }
 

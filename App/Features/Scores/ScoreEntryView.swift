@@ -54,7 +54,7 @@ struct ScoreEntryView: View {
                     ContentUnavailableView("Match introuvable", systemImage: "questionmark.circle")
                 }
             }
-            .background(Theme.background)
+            .eagleBackground()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

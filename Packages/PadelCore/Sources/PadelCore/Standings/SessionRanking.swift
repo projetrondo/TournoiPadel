@@ -157,6 +157,7 @@ extension PlayerStats {
         played += other.played
         pointsFor += other.pointsFor
         bonus += other.bonus
+        courtBonus += other.courtBonus
         pointsAgainst += other.pointsAgainst
         wins += other.wins
         draws += other.draws

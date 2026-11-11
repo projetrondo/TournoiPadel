@@ -10,8 +10,10 @@ public struct PlayerStats: Hashable, Sendable {
     public var draws = 0
     public var losses = 0
     public var rests = 0
-    /// Points de bonus gagnés par les victoires (réglage « bonus de victoire » du tournoi).
+    /// Points de bonus : victoires (« bonus de victoire ») et terrains (« bonus de terrain »).
     public var bonus = 0
+    /// Part du bonus venant des terrains joués (Mexicano).
+    public var courtBonus = 0
 
     public init(playerID: Player.ID) {
         self.playerID = playerID
@@ -52,21 +54,42 @@ public struct StandingRow: Hashable, Sendable, Identifiable {
 ///    d'inscription.
 /// Seuls les matchs terminés avec un score comptent, hors tours exclus à la clôture. Le classement n'est jamais stocké :
 /// il est recalculé à chaque fois, donc toujours à jour après une validation ou une correction.
+extension Tournament {
+    /// Le bonus de terrain compte-t-il pour ce tour ? (Mexicano seulement.)
+    public func courtBonusApplies(toRound index: Int) -> Bool {
+        guard format == .mexicano, let start = settings.courtBonusFromRound else { return false }
+        return index >= start
+    }
+
+    /// Points du bonus de terrain : sur N terrains utilisés, le terrain 1 vaut N, le dernier 1.
+    public func courtBonus(forCourt court: Int) -> Int {
+        let courts = RoundPlanner(playerCount: players.count, declaredCourts: settings.courts).activeCourts
+        return max(1, courts - court + 1)
+    }
+}
+
 public enum Standings {
     public static func stats(for tournament: Tournament) -> [Player.ID: PlayerStats] {
         var stats = Dictionary(uniqueKeysWithValues: tournament.players.map { ($0.id, PlayerStats(playerID: $0.id)) })
         for round in tournament.rounds where !round.isExcluded {
+            let courtBonusApplies = tournament.courtBonusApplies(toRound: round.index)
             for match in round.matches {
                 guard match.state == .completed, let score = match.score else { continue }
                 record(team: match.teamA, scored: score.teamA, conceded: score.teamB, into: &stats)
                 record(team: match.teamB, scored: score.teamB, conceded: score.teamA, into: &stats)
+                // Bonus de terrain : seulement pour l'équipe gagnante (rien sur un match nul).
+                if courtBonusApplies, score.teamA != score.teamB {
+                    let winners = score.teamA > score.teamB ? match.teamA : match.teamB
+                    let points = tournament.courtBonus(forCourt: match.court)
+                    for player in winners.players { stats[player]?.courtBonus += points }
+                }
             }
             // Les pauses d'un tour comptent dès qu'il est généré.
             for player in round.resting { stats[player]?.rests += 1 }
         }
         let bonus = tournament.settings.winBonusPoints
-        if bonus > 0 {
-            for (id, entry) in stats { stats[id]?.bonus = entry.wins * bonus }
+        for (id, entry) in stats {
+            stats[id]?.bonus = entry.wins * bonus + entry.courtBonus
         }
         return stats
     }

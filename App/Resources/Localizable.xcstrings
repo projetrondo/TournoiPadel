@@ -381,12 +381,12 @@
         }
       }
     },
-    "1. Points : marqués, plus le bonus de victoire s'il est activé" : {
+    "1. Points : marqués, plus les bonus (victoire, terrain) s'ils sont activés" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "1. Points: scored, plus the win bonus if enabled"
+            "value" : "1. Points: scored, plus the bonuses (win, court) if enabled"
           }
         }
       }
@@ -467,6 +467,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Refresh"
+          }
+        }
+      }
+    },
+    "Aide" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help"
           }
         }
       }
@@ -741,12 +751,42 @@
         }
       }
     },
+    "Bonus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonus"
+          }
+        }
+      }
+    },
+    "Bonus de terrain" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Court bonus"
+          }
+        }
+      }
+    },
     "Bonus de victoire" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Win bonus"
+          }
+        }
+      }
+    },
+    "Carbone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carbon"
           }
         }
       }
@@ -797,6 +837,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This tournament was changed online from another device. Nothing was replaced."
+          }
+        }
+      }
+    },
+    "Cette photo n'a pas pu être utilisée. Essayez-en une autre." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This photo could not be used. Try another one."
           }
         }
       }
@@ -1077,6 +1127,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fix a mistake"
+          }
+        }
+      }
+    },
+    "Court" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Court"
           }
         }
       }
@@ -1367,6 +1427,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Close"
+          }
+        }
+      }
+    },
+    "Fond d'écran" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background"
           }
         }
       }
@@ -2151,6 +2221,16 @@
         }
       }
     },
+    "Les gagnants de chaque match reçoivent des points selon le terrain : plus le terrain est haut, plus il rapporte." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The winners of each match get points according to the court: the higher the court, the more it pays."
+          }
+        }
+      }
+    },
     "Les informations saisies seront perdues." : {
       "localizations" : {
         "en" : {
@@ -2247,6 +2327,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Free (timed)"
+          }
+        }
+      }
+    },
+    "Ma photo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My photo"
           }
         }
       }
@@ -2611,6 +2701,16 @@
         }
       }
     },
+    "Nuit" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Night"
+          }
+        }
+      }
+    },
     "OK" : {
       "localizations" : {
         "en" : {
@@ -2657,6 +2757,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Options for %@"
+          }
+        }
+      }
+    },
+    "Or" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gold"
           }
         }
       }
@@ -3311,6 +3421,16 @@
         }
       }
     },
+    "Réglages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
     "Résultats" : {
       "localizations" : {
         "en" : {
@@ -3831,6 +3951,16 @@
         }
       }
     },
+    "Terre battue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clay"
+          }
+        }
+      }
+    },
     "Tes sessions et tournois restent sur cet iPhone. La sauvegarde s'arrête jusqu'à la prochaine connexion." : {
       "localizations" : {
         "en" : {
@@ -4281,6 +4411,16 @@
         }
       }
     },
+    "dès le tour %lld · terrain 1 : +%lld pts" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "from round %1$lld · court 1: +%2$lld pts"
+          }
+        }
+      }
+    },
     "défaite" : {
       "localizations" : {
         "en" : {
@@ -4521,6 +4661,16 @@
         }
       }
     },
+    "terrain %lld : +%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "court %1$lld: +%2$lld"
+          }
+        }
+      }
+    },
     "tour" : {
       "localizations" : {
         "en" : {
@@ -4601,6 +4751,16 @@
         }
       }
     },
+    "« Ma photo » : choisissez une image de votre photothèque. Elle est assombrie pour que le texte reste lisible, et reste sur cet iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“My photo”: pick an image from your library. It is darkened so text stays readable, and it stays on this iPhone."
+          }
+        }
+      }
+    },
     "À %@ de l'Aigle" : {
       "localizations" : {
         "en" : {
@@ -4617,6 +4777,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "To play"
+          }
+        }
+      }
+    },
+    "À partir du tour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From round"
+          }
+        }
+      }
+    },
+    "À partir du tour %lld, les gagnants reçoivent : %@ points. Rien en cas de défaite ou de match nul. Le bonus compte au classement et pour composer les tours suivants." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From round %1$lld, the winners get: %2$@ points. Nothing for a loss or a draw. The bonus counts in the standings and when building the next rounds."
           }
         }
       }

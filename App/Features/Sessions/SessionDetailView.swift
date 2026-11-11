@@ -38,7 +38,7 @@ struct SessionDetailView: View {
                 ContentUnavailableView("Session introuvable", systemImage: "questionmark.circle")
             }
         }
-        .background(Theme.background)
+        .eagleBackground()
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -69,7 +69,7 @@ struct SessionDetailView: View {
             .padding(.horizontal, 16)
             .padding(.top, 12)
             .padding(.bottom, 8)
-            .background(Theme.background.opacity(0.94))
+            .background(.ultraThinMaterial)
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
