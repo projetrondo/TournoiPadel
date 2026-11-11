@@ -751,6 +751,16 @@
         }
       }
     },
+    "Bleu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blue"
+          }
+        }
+      }
+    },
     "Bonus" : {
       "localizations" : {
         "en" : {
@@ -777,16 +787,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Win bonus"
-          }
-        }
-      }
-    },
-    "Carbone" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Carbon"
           }
         }
       }
@@ -837,16 +837,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This tournament was changed online from another device. Nothing was replaced."
-          }
-        }
-      }
-    },
-    "Cette photo n'a pas pu être utilisée. Essayez-en une autre." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This photo could not be used. Try another one."
           }
         }
       }
@@ -1127,16 +1117,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fix a mistake"
-          }
-        }
-      }
-    },
-    "Court" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Court"
           }
         }
       }
@@ -1481,6 +1461,16 @@
         }
       }
     },
+    "Gris" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grey"
+          }
+        }
+      }
+    },
     "Générer le tour %lld" : {
       "localizations" : {
         "en" : {
@@ -1597,6 +1587,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Guests or new players: they will join the session's list."
+          }
+        }
+      }
+    },
+    "Jaune" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yellow"
           }
         }
       }
@@ -2331,16 +2331,6 @@
         }
       }
     },
-    "Ma photo" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "My photo"
-          }
-        }
-      }
-    },
     "Match %lld sur %lld" : {
       "localizations" : {
         "en" : {
@@ -2601,6 +2591,16 @@
         }
       }
     },
+    "Noir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Black"
+          }
+        }
+      }
+    },
     "Nom" : {
       "localizations" : {
         "en" : {
@@ -2701,16 +2701,6 @@
         }
       }
     },
-    "Nuit" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Night"
-          }
-        }
-      }
-    },
     "OK" : {
       "localizations" : {
         "en" : {
@@ -2761,12 +2751,12 @@
         }
       }
     },
-    "Or" : {
+    "Orange" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gold"
+            "value" : "Orange"
           }
         }
       }
@@ -3371,6 +3361,26 @@
         }
       }
     },
+    "Rose" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pink"
+          }
+        }
+      }
+    },
+    "Rouge" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red"
+          }
+        }
+      }
+    },
     "Rythme estimé" : {
       "localizations" : {
         "en" : {
@@ -3951,16 +3961,6 @@
         }
       }
     },
-    "Terre battue" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Clay"
-          }
-        }
-      }
-    },
     "Tes sessions et tournois restent sur cet iPhone. La sauvegarde s'arrête jusqu'à la prochaine connexion." : {
       "localizations" : {
         "en" : {
@@ -4231,12 +4231,32 @@
         }
       }
     },
+    "Vert" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green"
+          }
+        }
+      }
+    },
     "Victoires" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wins"
+          }
+        }
+      }
+    },
+    "Violet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purple"
           }
         }
       }
@@ -4747,16 +4767,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "“%@” is already in the list."
-          }
-        }
-      }
-    },
-    "« Ma photo » : choisissez une image de votre photothèque. Elle est assombrie pour que le texte reste lisible, et reste sur cet iPhone." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“My photo”: pick an image from your library. It is darkened so text stays readable, and it stays on this iPhone."
           }
         }
       }

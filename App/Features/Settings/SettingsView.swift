@@ -1,15 +1,10 @@
-import PhotosUI
 import SwiftUI
 
 /// Réglages de l'app : fond d'écran, aide.
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @AppStorage(AppBackground.storageKey) private var background = AppBackground.carbon.rawValue
-    @AppStorage(AppBackground.photoVersionKey) private var photoVersion = 0
-    @State private var photoItem: PhotosPickerItem?
-    @State private var isLoadingPhoto = false
     @State private var isShowingHelp = false
-    @State private var errorMessage: String?
 
     private let columns = [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)]
 
@@ -21,7 +16,7 @@ struct SettingsView: View {
                         Text("Fond d'écran")
                             .eagleSectionTitle()
                         LazyVGrid(columns: columns, spacing: 12) {
-                            ForEach(AppBackground.presets) { option in
+                            ForEach(AppBackground.allCases) { option in
                                 Button {
                                     background = option.rawValue
                                 } label: {
@@ -31,20 +26,7 @@ struct SettingsView: View {
                                 .accessibilityLabel(option.title)
                                 .accessibilityAddTraits(background == option.rawValue ? [.isSelected] : [])
                             }
-                            PhotosPicker(selection: $photoItem, matching: .images) {
-                                BackgroundTile(
-                                    option: .photo,
-                                    isSelected: background == AppBackground.photo.rawValue,
-                                    isLoading: isLoadingPhoto
-                                )
-                            }
-                            .buttonStyle(.plain)
-                            .accessibilityLabel(AppBackground.photo.title)
-                            .accessibilityAddTraits(background == AppBackground.photo.rawValue ? [.isSelected] : [])
                         }
-                        Text("« Ma photo » : choisissez une image de votre photothèque. Elle est assombrie pour que le texte reste lisible, et reste sur cet iPhone.")
-                            .font(.footnote)
-                            .foregroundStyle(Theme.secondaryText)
                     }
 
                     VStack(alignment: .leading, spacing: 12) {
@@ -79,37 +61,6 @@ struct SettingsView: View {
             .sheet(isPresented: $isShowingHelp) {
                 HelpView()
             }
-            .onChange(of: photoItem) { _, item in
-                guard let item else { return }
-                loadPhoto(item)
-            }
-            .alert(
-                "Erreur",
-                isPresented: Binding(get: { errorMessage != nil }, set: { if !$0 { errorMessage = nil } }),
-                presenting: errorMessage
-            ) { _ in
-                Button("OK", role: .cancel) {}
-            } message: { message in
-                Text(message)
-            }
-        }
-    }
-
-    private func loadPhoto(_ item: PhotosPickerItem) {
-        isLoadingPhoto = true
-        Task {
-            defer {
-                isLoadingPhoto = false
-                photoItem = nil
-            }
-            do {
-                guard let data = try await item.loadTransferable(type: Data.self) else { throw CocoaError(.fileReadNoSuchFile) }
-                try AppBackground.savePhoto(data)
-                photoVersion += 1
-                background = AppBackground.photo.rawValue
-            } catch {
-                errorMessage = String(localized: "Cette photo n'a pas pu être utilisée. Essayez-en une autre.", bundle: .appLanguage)
-            }
         }
     }
 }
@@ -118,35 +69,23 @@ struct SettingsView: View {
 private struct BackgroundTile: View {
     let option: AppBackground
     let isSelected: Bool
-    var isLoading = false
 
     var body: some View {
-        let hasPhoto = FileManager.default.fileExists(atPath: AppBackground.photoURL.path)
         VStack(spacing: 6) {
-            ZStack {
-                if option == .photo, !hasPhoto {
-                    Theme.card
-                    Image(systemName: "photo.badge.plus")
-                        .font(.title2)
-                        .foregroundStyle(Theme.accent)
-                } else {
-                    EagleBackgroundView(preview: option)
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(option.color)
+                .frame(height: 76)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .strokeBorder(isSelected ? AnyShapeStyle(Theme.goldGradient) : AnyShapeStyle(Color.white.opacity(0.18)), lineWidth: isSelected ? 2.5 : 1)
+                )
+                .overlay(alignment: .topTrailing) {
+                    if isSelected {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(Theme.gold)
+                            .padding(6)
+                    }
                 }
-                if isLoading { ProgressView().tint(Theme.accent) }
-            }
-            .frame(height: 110)
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .strokeBorder(isSelected ? AnyShapeStyle(Theme.goldGradient) : AnyShapeStyle(Theme.stroke), lineWidth: isSelected ? 2.5 : 1)
-            )
-            .overlay(alignment: .topTrailing) {
-                if isSelected {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundStyle(Theme.gold)
-                        .padding(6)
-                }
-            }
             Text(option.title)
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(isSelected ? Theme.gold : Theme.ink)
