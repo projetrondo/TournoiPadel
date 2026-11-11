@@ -62,6 +62,16 @@ extension Tournament {
         touch(at: now)
     }
 
+    /// Change le bonus de terrain (Mexicano). Possible uniquement avant le lancement.
+    public mutating func updateCourtBonus(fromRound start: Int?, now: Date) throws {
+        guard status == .draft, rounds.isEmpty else { throw LifecycleError.alreadyStarted }
+        if let start, !TournamentSettings.courtBonusStartRange.contains(start) { throw LifecycleError.invalidScoring }
+        let value = format == .mexicano ? start : nil
+        guard value != settings.courtBonusFromRound else { return }
+        settings.courtBonusFromRound = value
+        touch(at: now)
+    }
+
     /// Tours générés à la demande : Mexicano, ou Americano en mode libre.
     public var generatesRoundsOnDemand: Bool {
         format == .mexicano || settings.isOpenEnded

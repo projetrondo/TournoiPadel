@@ -142,6 +142,10 @@ jobs:
           shot 15-classement-en -demo-language en -demo-open inProgress -demo-tab standings
           shot 16-session-en -demo-language en -demo-session
           shot 17-saisie-en -demo-language en -demo-open inProgress -demo-score
+          shot 18-reglages -demo-open-settings -demo-background court
+          shot 19-accueil-fond-court -demo-background court
+          shot 20-classement-fond-or -demo-background gold -demo-open inProgress -demo-tab standings
+          shot 21-creation-mexicano -demo-create-mexicano
           xcrun simctl ui "$UDID" content_size accessibility-extra-large
           shot 8-classement-grand-texte -demo-open inProgress -demo-tab standings
           shot 9-accueil-grand-texte

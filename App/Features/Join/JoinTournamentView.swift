@@ -67,7 +67,7 @@ struct JoinTournamentView: View {
                 }
                 .padding(16)
             }
-            .background(Theme.background)
+            .eagleBackground()
             .navigationTitle("Rejoindre un tournoi")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

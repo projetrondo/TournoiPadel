@@ -9,12 +9,14 @@ struct EditScoringView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var selection: ScoringSelection
     @State private var winBonus: Int
+    @State private var courtBonusFromRound: Int?
     @State private var errorMessage: String?
 
     init(tournament: Tournament) {
         self.tournament = tournament
         _selection = State(initialValue: ScoringSelection(rule: tournament.settings.scoring))
         _winBonus = State(initialValue: tournament.settings.winBonusPoints)
+        _courtBonusFromRound = State(initialValue: tournament.settings.courtBonusFromRound)
     }
 
     var body: some View {
@@ -22,6 +24,12 @@ struct EditScoringView: View {
             Form {
                 ScoringSection(selection: $selection)
                 WinBonusSection(bonus: $winBonus)
+                if tournament.format == .mexicano {
+                    CourtBonusSection(
+                        startRound: $courtBonusFromRound,
+                        courts: RoundPlanner(playerCount: tournament.players.count, declaredCourts: tournament.settings.courts).activeCourts
+                    )
+                }
                 Section {
                     let planner = RoundPlanner(playerCount: tournament.players.count, declaredCourts: tournament.settings.courts)
                     LabeledContent(
@@ -59,6 +67,7 @@ struct EditScoringView: View {
             try library.modify(id: tournament.id) { t, date in
                 try t.updateScoring(selection.rule, now: date)
                 try t.updateWinBonus(winBonus, now: date)
+                try t.updateCourtBonus(fromRound: courtBonusFromRound, now: date)
             }
             dismiss()
         } catch LifecycleError.alreadyStarted {

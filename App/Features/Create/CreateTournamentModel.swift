@@ -16,6 +16,8 @@ final class CreateTournamentModel {
     var mexicanoFirstRound: FirstRoundMode = .random
     var isOpenEnded = false
     var winBonus = 0
+    /// Mexicano : bonus de terrain à partir de ce tour (nil = désactivé).
+    var courtBonusFromRound: Int?
     var courtsOverride: Int?
     var roundsOverride: Int?
     /// Session d'origine : ses joueurs sont proposés, il suffit de cocher les présents.
@@ -26,6 +28,12 @@ final class CreateTournamentModel {
 
     init(session: PlaySession? = nil, now: Date = Date()) {
         self.session = session
+        if session == nil, LaunchOptions.opensCreateMexicano {
+            name = "Mexicano du jeudi"
+            format = .mexicano
+            courtBonusFromRound = 2
+            players = (1...16).map { .init(name: "Joueur \($0)") }
+        }
         if let session {
             name = "\(session.name) · \(now.formatted(.dateTime.day().month(.abbreviated).locale(.appLanguage)))"
         }
@@ -64,7 +72,8 @@ final class CreateTournamentModel {
             mexicanoFirstRound: mexicanoFirstRound,
             isOpenEnded: isOpenEnded,
             sessionID: session?.id,
-            winBonus: winBonus
+            winBonus: winBonus,
+            courtBonusFromRound: courtBonusFromRound
         )
         draft.rounds = roundsOverride ?? draft.planner.recommendedRounds(scoring: scoring) ?? 1
         return draft

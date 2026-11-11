@@ -105,13 +105,20 @@ public struct TournamentSettings: Codable, Hashable, Sendable {
 
     public static let winBonusRange = 0...3
 
+    /// Mexicano : bonus de terrain à partir de ce tour (absent = désactivé). Sur N terrains,
+    /// chaque joueur du terrain 1 reçoit N points, du terrain 2 N − 1 points… du dernier 1 point.
+    public var courtBonusFromRound: Int?
+
+    public static let courtBonusStartRange = 1...4
+
     public init(
         courts: Int,
         scoring: ScoringRule,
         plannedRounds: Int,
         mexicanoFirstRound: FirstRoundMode = .random,
         isOpenEnded: Bool = false,
-        winBonus: Int = 0
+        winBonus: Int = 0,
+        courtBonusFromRound: Int? = nil
     ) {
         self.courts = courts
         self.scoring = scoring
@@ -119,6 +126,7 @@ public struct TournamentSettings: Codable, Hashable, Sendable {
         self.mexicanoFirstRound = mexicanoFirstRound
         self.openEnded = isOpenEnded ? true : nil
         self.winBonus = winBonus > 0 ? winBonus : nil
+        self.courtBonusFromRound = courtBonusFromRound
     }
 
     public var winBonusPoints: Int { max(0, winBonus ?? 0) }

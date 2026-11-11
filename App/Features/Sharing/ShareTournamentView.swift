@@ -34,7 +34,7 @@ struct ShareTournamentView: View {
                 }
                 .padding(16)
             }
-            .background(Theme.background)
+            .eagleBackground()
             .navigationTitle("Partager le tournoi")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

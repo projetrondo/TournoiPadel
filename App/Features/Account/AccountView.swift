@@ -22,7 +22,7 @@ struct AccountView: View {
                 }
                 .padding(16)
             }
-            .background(Theme.background)
+            .eagleBackground()
             .navigationTitle("Mon compte")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

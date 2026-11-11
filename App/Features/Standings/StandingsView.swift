@@ -386,7 +386,7 @@ struct PlayerDetailView: View {
                     statRow("Matchs joués", value: "\(stats.played)")
                     if stats.bonus > 0 {
                         statRow("Points marqués", value: "\(stats.pointsFor)")
-                        statRow("Bonus de victoire", value: "+\(stats.bonus)")
+                        statRow("Bonus", value: "+\(stats.bonus)")
                     }
                     statRow("Points encaissés", value: "\(stats.pointsAgainst)")
                     statRow("Différence", value: stats.pointDifference.signedText)
@@ -669,7 +669,7 @@ struct RankingRulesView: View {
                     Text("L'Aigle")
                 }
                 Section {
-                    Text("1. Points : marqués, plus le bonus de victoire s'il est activé")
+                    Text("1. Points : marqués, plus les bonus (victoire, terrain) s'ils sont activés")
                     Text("2. Victoires")
                     Text("3. Différence de points (marqués − encaissés)")
                     Text("4. Sinon ex aequo : même position, signalée par « = »")

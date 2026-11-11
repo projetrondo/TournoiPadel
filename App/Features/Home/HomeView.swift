@@ -13,10 +13,10 @@ struct HomeView: View {
     @State private var path: [HomeRoute] = []
     @State private var isCreatingSession = false
     @State private var newSessionName = ""
-    @State private var isCreating = false
+    @State private var isCreating = LaunchOptions.opensCreateMexicano
     @State private var isJoining = false
     @State private var pendingJoinCode = ""
-    @State private var isShowingHelp = false
+    @State private var isShowingSettings = LaunchOptions.opensSettings
     @State private var isShowingAccount = LaunchOptions.opensAccount
     @Environment(AccountCenter.self) private var accounts
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -42,13 +42,13 @@ struct HomeView: View {
                                     .accessibilityLabel(accounts.account == nil ? Text("Se connecter") : Text("Mon compte"))
                                 }
                                 Button {
-                                    isShowingHelp = true
+                                    isShowingSettings = true
                                 } label: {
-                                    Image(systemName: "questionmark.circle")
+                                    Image(systemName: "gearshape")
                                         .font(.title2)
                                         .frame(minWidth: 44, minHeight: 44)
                                 }
-                                .accessibilityLabel("Comment ça marche ?")
+                                .accessibilityLabel("Réglages")
                             }
                         }
                         .overlay(alignment: .topTrailing) {
@@ -64,7 +64,7 @@ struct HomeView: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 24)
             }
-            .background(Theme.background)
+            .eagleBackground()
             .toolbar(.hidden, for: .navigationBar)
             .safeAreaInset(edge: .bottom) {
                 // Très grand texte : les boutons défilent avec la liste au lieu d'occuper le bas de l'écran.
@@ -98,8 +98,8 @@ struct HomeView: View {
                     path.append(.tournament(tournament.id))
                 }
             }
-            .sheet(isPresented: $isShowingHelp) {
-                HelpView()
+            .sheet(isPresented: $isShowingSettings) {
+                SettingsView()
             }
             .sheet(isPresented: $isShowingAccount) {
                 AccountView()
@@ -274,7 +274,7 @@ struct HomeView: View {
             .padding(.horizontal, 16)
             .padding(.top, 12)
             .padding(.bottom, 8)
-            .background(Theme.background.opacity(0.94))
+            .background(.ultraThinMaterial)
             .overlay(alignment: .top) { Divider().overlay(Theme.stroke) }
     }
 
@@ -505,7 +505,7 @@ struct TournamentListView: View {
             }
             .padding(16)
         }
-        .background(Theme.background)
+        .eagleBackground()
         .navigationTitle(title)
     }
 }

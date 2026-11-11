@@ -72,6 +72,6 @@ extension View {
     /// Formulaires et listes système sur le fond carbone de la marque.
     func eagleScreenBackground() -> some View {
         scrollContentBackground(.hidden)
-            .background(Theme.background)
+            .eagleBackground()
     }
 }

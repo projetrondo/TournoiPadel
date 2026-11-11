@@ -30,6 +30,8 @@ public struct TournamentDraft: Hashable, Sendable {
     public var sessionID: UUID?
     /// Points de bonus par victoire (0 à 3).
     public var winBonus: Int
+    /// Mexicano : bonus de terrain à partir de ce tour (nil = désactivé).
+    public var courtBonusFromRound: Int?
 
     public init(
         name: String = "",
@@ -41,7 +43,8 @@ public struct TournamentDraft: Hashable, Sendable {
         mexicanoFirstRound: FirstRoundMode = .random,
         isOpenEnded: Bool = false,
         sessionID: UUID? = nil,
-        winBonus: Int = 0
+        winBonus: Int = 0,
+        courtBonusFromRound: Int? = nil
     ) {
         self.name = name
         self.format = format
@@ -53,6 +56,7 @@ public struct TournamentDraft: Hashable, Sendable {
         self.isOpenEnded = isOpenEnded
         self.sessionID = sessionID
         self.winBonus = winBonus
+        self.courtBonusFromRound = courtBonusFromRound
     }
 
     public var planner: RoundPlanner {
@@ -157,7 +161,11 @@ public struct TournamentDraft: Hashable, Sendable {
             plannedRounds: isOpenEnded ? RoundPlanner.roundsRange.upperBound : rounds,
             mexicanoFirstRound: mexicanoFirstRound,
             isOpenEnded: isOpenEnded,
-            winBonus: min(max(winBonus, TournamentSettings.winBonusRange.lowerBound), TournamentSettings.winBonusRange.upperBound)
+            winBonus: min(max(winBonus, TournamentSettings.winBonusRange.lowerBound), TournamentSettings.winBonusRange.upperBound),
+            // Le bonus de terrain n'a de sens qu'en Mexicano (terrain 1 = meilleur groupe).
+            courtBonusFromRound: format == .mexicano
+                ? courtBonusFromRound.map { min(max($0, TournamentSettings.courtBonusStartRange.lowerBound), TournamentSettings.courtBonusStartRange.upperBound) }
+                : nil
         )
         return Tournament(
             name: trimmedName,

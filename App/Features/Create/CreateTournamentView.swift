@@ -25,6 +25,9 @@ struct CreateTournamentView: View {
                 formatSection
                 ScoringSection(selection: $model.scoringSelection)
                 WinBonusSection(bonus: $model.winBonus)
+                if model.format == .mexicano {
+                    CourtBonusSection(startRound: $model.courtBonusFromRound, courts: model.draft.planner.activeCourts)
+                }
                 if let session = model.session {
                     membersSection(session)
                 }
