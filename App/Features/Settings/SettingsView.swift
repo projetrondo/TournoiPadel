@@ -25,17 +25,18 @@ struct SettingsView: View {
                                 Button {
                                     background = option.rawValue
                                 } label: {
-                                    tile(option)
+                                    BackgroundTile(option: option, isSelected: background == option.rawValue)
                                 }
                                 .buttonStyle(.plain)
                                 .accessibilityLabel(option.title)
                                 .accessibilityAddTraits(background == option.rawValue ? [.isSelected] : [])
                             }
                             PhotosPicker(selection: $photoItem, matching: .images) {
-                                tile(.photo)
-                                    .overlay {
-                                        if isLoadingPhoto { ProgressView().tint(Theme.accent) }
-                                    }
+                                BackgroundTile(
+                                    option: .photo,
+                                    isSelected: background == AppBackground.photo.rawValue,
+                                    isLoading: isLoadingPhoto
+                                )
                             }
                             .buttonStyle(.plain)
                             .accessibilityLabel(AppBackground.photo.title)
@@ -94,11 +95,34 @@ struct SettingsView: View {
         }
     }
 
-    /// Vignette d'un fond : aperçu réduit, nom, bordure dorée si choisi.
-    private func tile(_ option: AppBackground) -> some View {
-        let isSelected = background == option.rawValue
+    private func loadPhoto(_ item: PhotosPickerItem) {
+        isLoadingPhoto = true
+        Task {
+            defer {
+                isLoadingPhoto = false
+                photoItem = nil
+            }
+            do {
+                guard let data = try await item.loadTransferable(type: Data.self) else { throw CocoaError(.fileReadNoSuchFile) }
+                try AppBackground.savePhoto(data)
+                photoVersion += 1
+                background = AppBackground.photo.rawValue
+            } catch {
+                errorMessage = String(localized: "Cette photo n'a pas pu être utilisée. Essayez-en une autre.", bundle: .appLanguage)
+            }
+        }
+    }
+}
+
+/// Vignette d'un fond : aperçu réduit, nom, bordure dorée si choisi.
+private struct BackgroundTile: View {
+    let option: AppBackground
+    let isSelected: Bool
+    var isLoading = false
+
+    var body: some View {
         let hasPhoto = FileManager.default.fileExists(atPath: AppBackground.photoURL.path)
-        return VStack(spacing: 6) {
+        VStack(spacing: 6) {
             ZStack {
                 if option == .photo, !hasPhoto {
                     Theme.card
@@ -108,6 +132,7 @@ struct SettingsView: View {
                 } else {
                     EagleBackgroundView(preview: option)
                 }
+                if isLoading { ProgressView().tint(Theme.accent) }
             }
             .frame(height: 110)
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
@@ -127,24 +152,6 @@ struct SettingsView: View {
                 .foregroundStyle(isSelected ? Theme.gold : Theme.ink)
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
-        }
-    }
-
-    private func loadPhoto(_ item: PhotosPickerItem) {
-        isLoadingPhoto = true
-        Task {
-            defer {
-                isLoadingPhoto = false
-                photoItem = nil
-            }
-            do {
-                guard let data = try await item.loadTransferable(type: Data.self) else { throw CocoaError(.fileReadNoSuchFile) }
-                try AppBackground.savePhoto(data)
-                photoVersion += 1
-                background = AppBackground.photo.rawValue
-            } catch {
-                errorMessage = String(localized: "Cette photo n'a pas pu être utilisée. Essayez-en une autre.", bundle: .appLanguage)
-            }
         }
     }
 }
