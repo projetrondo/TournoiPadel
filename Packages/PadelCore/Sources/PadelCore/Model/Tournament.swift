@@ -106,7 +106,7 @@ public struct TournamentSettings: Codable, Hashable, Sendable {
     public static let winBonusRange = 0...3
 
     /// Mexicano : bonus de terrain à partir de ce tour (absent = désactivé). Sur N terrains,
-    /// chaque joueur du terrain 1 reçoit N points, du terrain 2 N − 1 points… du dernier 1 point.
+    /// les gagnants du terrain 1 reçoivent N points, du terrain 2 N − 1 points… du dernier 1 point.
     public var courtBonusFromRound: Int?
 
     public static let courtBonusStartRange = 1...4

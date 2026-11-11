@@ -127,8 +127,8 @@ struct WinBonusSection: View {
     }
 }
 
-/// Mexicano : bonus de terrain. À partir du tour choisi, chaque joueur reçoit des points selon
-/// son terrain : sur N terrains, le terrain 1 rapporte N points, le dernier 1 point.
+/// Mexicano : bonus de terrain. À partir du tour choisi, les gagnants reçoivent des points selon
+/// leur terrain : sur N terrains, le terrain 1 rapporte N points, le dernier 1 point.
 struct CourtBonusSection: View {
     @Binding var startRound: Int?
     /// Terrains réellement utilisés (selon le nombre de joueurs).
@@ -158,7 +158,7 @@ struct CourtBonusSection: View {
             if startRound != nil {
                 Text(scale)
             } else {
-                Text("Chaque joueur gagne des points selon le terrain où il joue : plus le terrain est haut, plus il rapporte.")
+                Text("Les gagnants de chaque match reçoivent des points selon le terrain : plus le terrain est haut, plus il rapporte.")
             }
         }
     }
@@ -170,6 +170,6 @@ struct CourtBonusSection: View {
             String(localized: "terrain \(court) : +\(count - court + 1)", bundle: .appLanguage)
         }.formatted(.list(type: .and).locale(.appLanguage))
         let start = startRound ?? 1
-        return String(localized: "À partir du tour \(start), chaque joueur reçoit, qu'il gagne ou perde : \(points) points. Le bonus compte au classement et pour composer les tours suivants.", bundle: .appLanguage)
+        return String(localized: "À partir du tour \(start), les gagnants reçoivent : \(points) points. Rien en cas de défaite ou de match nul. Le bonus compte au classement et pour composer les tours suivants.", bundle: .appLanguage)
     }
 }

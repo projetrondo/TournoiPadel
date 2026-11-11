@@ -18,14 +18,18 @@ struct CourtBonusTests {
         return t
     }
 
-    @Test("4 terrains : terrain 1 = 4 pts, 2 = 3 pts, 3 = 2 pts, 4 = 1 pt, pour chaque joueur du terrain")
+    @Test("4 terrains : terrain 1 = 4 pts, 2 = 3 pts, 3 = 2 pts, 4 = 1 pt, pour les gagnants seulement")
     func fourCourts() throws {
         let t = try Self.played(players: 16, courts: 4, from: 1, rounds: 1)
         let stats = Standings.stats(for: t)
         for match in t.rounds[0].matches {
-            for player in match.players {
+            // Tous les matchs sont gagnés 13–11 par l'équipe de gauche.
+            for player in match.teamA.players {
                 #expect(stats[player]?.courtBonus == 5 - match.court)
                 #expect(stats[player]?.points == stats[player]!.pointsFor + 5 - match.court)
+            }
+            for player in match.teamB.players {
+                #expect(stats[player]?.courtBonus == 0, "les perdants ne reçoivent rien")
             }
         }
     }
@@ -44,8 +48,9 @@ struct CourtBonusTests {
         let stats = Standings.stats(for: t)
         let roundThree = t.rounds[2]
         for player in t.players.map(\.id) {
-            let court = roundThree.matches.first { $0.players.contains(player) }!.court
-            #expect(stats[player]?.courtBonus == 3 - court, "tours 1 et 2 : pas de bonus")
+            let match = roundThree.matches.first { $0.players.contains(player) }!
+            let expected = match.teamA.contains(player) ? 3 - match.court : 0
+            #expect(stats[player]?.courtBonus == expected, "tours 1 et 2 : pas de bonus")
         }
         #expect(!t.courtBonusApplies(toRound: 2))
         #expect(t.courtBonusApplies(toRound: 3))
@@ -64,24 +69,26 @@ struct CourtBonusTests {
         #expect(Standings.stats(for: off).values.allSatisfy { $0.courtBonus == 0 })
     }
 
-    @Test("Se cumule avec le bonus de victoire et compte pour composer le tour suivant")
+    @Test("Se cumule avec le bonus de victoire ; rien sur un match nul ; compte pour le tour suivant")
     func combinesAndDrivesPairing() throws {
         var t = TestSupport.tournament(format: .mexicano, players: 8, courts: 2, rounds: 4)
         t.settings.courtBonusFromRound = 1
         t.settings.winBonus = 3
         try t.start(now: Date())
-        for match in t.rounds[0].matches {
-            try t.validateScore(match.id, score: Score(12, 12), now: Date())
-        }
-        // Égalité parfaite des scores : seuls les terrains départagent (terrain 1 : +2, terrain 2 : +1).
+        let courtOne = t.rounds[0].matches.first { $0.court == 1 }!
+        let courtTwo = t.rounds[0].matches.first { $0.court == 2 }!
+        try t.validateScore(courtOne.id, score: Score(13, 11), now: Date())
+        try t.validateScore(courtTwo.id, score: Score(12, 12), now: Date())
         let stats = Standings.stats(for: t)
-        let courtOne = Set(t.rounds[0].matches.first { $0.court == 1 }!.players)
-        for (id, s) in stats {
-            #expect(s.bonus == (courtOne.contains(id) ? 2 : 1))
+        for player in courtOne.teamA.players {
+            #expect(stats[player]?.bonus == 3 + 2, "victoire +3, terrain 1 +2")
+        }
+        for player in courtOne.teamB.players + courtTwo.players {
+            #expect(stats[player]?.bonus == 0, "défaite ou nul : aucun bonus")
         }
         try t.generateNextRound(now: Date())
         let nextCourtOne = Set(t.rounds[1].matches.first { $0.court == 1 }!.players)
-        #expect(nextCourtOne == courtOne, "le bonus garde le groupe du terrain 1 en haut")
+        #expect(Set(courtOne.teamA.players).isSubset(of: nextCourtOne), "les gagnants bonifiés restent sur le terrain 1")
     }
 
     @Test("Réglage modifiable seulement avant le lancement")

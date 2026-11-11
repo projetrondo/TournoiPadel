@@ -77,9 +77,11 @@ public enum Standings {
                 guard match.state == .completed, let score = match.score else { continue }
                 record(team: match.teamA, scored: score.teamA, conceded: score.teamB, into: &stats)
                 record(team: match.teamB, scored: score.teamB, conceded: score.teamA, into: &stats)
-                if courtBonusApplies {
+                // Bonus de terrain : seulement pour l'équipe gagnante (rien sur un match nul).
+                if courtBonusApplies, score.teamA != score.teamB {
+                    let winners = score.teamA > score.teamB ? match.teamA : match.teamB
                     let points = tournament.courtBonus(forCourt: match.court)
-                    for player in match.players { stats[player]?.courtBonus += points }
+                    for player in winners.players { stats[player]?.courtBonus += points }
                 }
             }
             // Les pauses d'un tour comptent dès qu'il est généré.

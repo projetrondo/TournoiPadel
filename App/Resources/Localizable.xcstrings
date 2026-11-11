@@ -861,16 +861,6 @@
         }
       }
     },
-    "Chaque joueur gagne des points selon le terrain où il joue : plus le terrain est haut, plus il rapporte." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Each player earns points according to the court they play on: the higher the court, the more it pays."
-          }
-        }
-      }
-    },
     "Chaque joueur reçoit les points marqués par son équipe." : {
       "localizations" : {
         "en" : {
@@ -2227,6 +2217,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The formats"
+          }
+        }
+      }
+    },
+    "Les gagnants de chaque match reçoivent des points selon le terrain : plus le terrain est haut, plus il rapporte." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The winners of each match get points according to the court: the higher the court, the more it pays."
           }
         }
       }
@@ -4791,12 +4791,12 @@
         }
       }
     },
-    "À partir du tour %lld, chaque joueur reçoit, qu'il gagne ou perde : %@ points. Le bonus compte au classement et pour composer les tours suivants." : {
+    "À partir du tour %lld, les gagnants reçoivent : %@ points. Rien en cas de défaite ou de match nul. Le bonus compte au classement et pour composer les tours suivants." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "From round %1$lld, each player gets, win or lose: %2$@ points. The bonus counts in the standings and when building the next rounds."
+            "value" : "From round %1$lld, the winners get: %2$@ points. Nothing for a loss or a draw. The bonus counts in the standings and when building the next rounds."
           }
         }
       }
