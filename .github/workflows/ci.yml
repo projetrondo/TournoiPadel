@@ -146,6 +146,11 @@ jobs:
           shot 19-accueil-fond-vert -demo-background green
           shot 20-classement-fond-rouge -demo-background red -demo-open inProgress -demo-tab standings
           shot 21-creation-mexicano -demo-create-mexicano
+          shot 22-blanc-accueil -demo-background white
+          shot 23-blanc-classement -demo-background white -demo-open inProgress -demo-tab standings
+          shot 24-blanc-saisie -demo-background white -demo-open inProgress -demo-score
+          shot 25-blanc-reglages -demo-background white -demo-open-settings
+          shot 26-blanc-resultats -demo-background white -demo-open finished -demo-tab results
           xcrun simctl ui "$UDID" content_size accessibility-extra-large
           shot 8-classement-grand-texte -demo-open inProgress -demo-tab standings
           shot 9-accueil-grand-texte

@@ -751,6 +751,16 @@
         }
       }
     },
+    "Blanc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "White"
+          }
+        }
+      }
+    },
     "Bleu" : {
       "localizations" : {
         "en" : {

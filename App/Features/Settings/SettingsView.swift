@@ -77,7 +77,7 @@ private struct BackgroundTile: View {
                 .frame(height: 76)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .strokeBorder(isSelected ? AnyShapeStyle(Theme.goldGradient) : AnyShapeStyle(Color.white.opacity(0.18)), lineWidth: isSelected ? 2.5 : 1)
+                        .strokeBorder(isSelected ? AnyShapeStyle(Theme.goldGradient) : AnyShapeStyle(Color.primary.opacity(0.25)), lineWidth: isSelected ? 2.5 : 1)
                 )
                 .overlay(alignment: .topTrailing) {
                     if isSelected {

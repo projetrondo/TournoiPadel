@@ -2,9 +2,11 @@ import SwiftUI
 
 /// Fond d'écran de l'app, choisi dans les réglages : une couleur unie.
 ///
-/// Les teintes sont foncées pour que le texte clair de l'app reste lisible sur chacune.
+/// Les teintes de couleur sont foncées pour que le texte clair reste lisible ; avec le blanc,
+/// l'app passe en apparence claire (texte foncé, couleurs adaptées).
 enum AppBackground: String, CaseIterable, Identifiable, Sendable {
     case carbon
+    case white
     case gray
     case blue
     case green
@@ -16,11 +18,20 @@ enum AppBackground: String, CaseIterable, Identifiable, Sendable {
 
     static let storageKey = "eagle.background"
 
+    /// Fond clair : l'app s'affiche en apparence claire.
+    var isLight: Bool { self == .white }
+
+    /// Fond enregistré (noir si aucun choix).
+    static var current: AppBackground {
+        UserDefaults.standard.string(forKey: storageKey).flatMap(AppBackground.init(rawValue:)) ?? .carbon
+    }
+
     var id: String { rawValue }
 
     var title: String {
         switch self {
         case .carbon: String(localized: "Noir", bundle: .appLanguage)
+        case .white: String(localized: "Blanc", bundle: .appLanguage)
         case .gray: String(localized: "Gris", bundle: .appLanguage)
         case .blue: String(localized: "Bleu", bundle: .appLanguage)
         case .green: String(localized: "Vert", bundle: .appLanguage)
@@ -35,6 +46,7 @@ enum AppBackground: String, CaseIterable, Identifiable, Sendable {
     var color: Color {
         switch self {
         case .carbon: Theme.carbon
+        case .white: Color(hex: 0xF2F3F5)
         case .gray: Color(hex: 0x2A2E35)
         case .blue: Color(hex: 0x0F2A5C)
         case .green: Color(hex: 0x0E3B26)
