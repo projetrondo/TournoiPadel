@@ -95,7 +95,7 @@ struct PlayerAvatar: View {
     private var ringStyle: AnyShapeStyle {
         switch tier {
         case .eagle: AnyShapeStyle(Theme.goldGradient)
-        case .standard: AnyShapeStyle(Color.white.opacity(0.18))
+        case .standard: AnyShapeStyle(Color.primary.opacity(0.18))
         default: AnyShapeStyle(tier.color)
         }
     }
@@ -216,7 +216,7 @@ extension View {
         background(
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .fill(LinearGradient(
-                    colors: [Theme.gold.opacity(0.18), Theme.graphite, Theme.carbon],
+                    colors: [Theme.gold.opacity(0.18), Theme.graphite, Theme.surface],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 ))

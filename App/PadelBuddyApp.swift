@@ -10,6 +10,8 @@ struct PadelBuddyApp: App {
     @State private var accounts: AccountCenter
     /// Langue choisie avec les drapeaux de l'accueil ; changer de langue reconstruit l'interface.
     @AppStorage(AppLanguage.storageKey) private var languageCode = AppLanguage.current.rawValue
+    /// Fond choisi dans les réglages : le blanc fait passer l'app en apparence claire.
+    @AppStorage(AppBackground.storageKey) private var backgroundCode = AppBackground.carbon.rawValue
 
     init() {
         let arguments = ProcessInfo.processInfo.arguments
@@ -73,7 +75,7 @@ struct PadelBuddyApp: App {
                 .environment(accounts)
                 .environment(sync)
                 .tint(Theme.accent)
-                .preferredColorScheme(.dark)
+                .preferredColorScheme((AppBackground(rawValue: backgroundCode) ?? .carbon).isLight ? .light : .dark)
                 .task {
                     library.loadIfNeeded()
                     sessions.loadIfNeeded()

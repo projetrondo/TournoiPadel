@@ -14,7 +14,7 @@ struct PrimaryButtonStyle: ButtonStyle {
             .foregroundStyle(isEnabled ? Theme.onAccent : Theme.secondaryText)
             .background(
                 RoundedRectangle(cornerRadius: Theme.cornerRadius, style: .continuous)
-                    .fill(isEnabled ? Theme.accent : Color.white.opacity(0.08))
+                    .fill(isEnabled ? Theme.accent : Color.primary.opacity(0.08))
             )
             .shadow(color: isEnabled ? Theme.accent.opacity(configuration.isPressed ? 0.15 : 0.35) : .clear, radius: 12, y: 0)
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
@@ -157,7 +157,7 @@ struct RankMedal: View {
                 Circle().fill(tier.color)
                 Text(rankText)
                     .font(.system(size: size * 0.42, weight: .black).width(.condensed))
-                    .foregroundStyle(Theme.carbon)
+                    .foregroundStyle(Theme.onMedal)
             case .standard:
                 Text(rankText)
                     .font(.system(size: size * 0.42, weight: .heavy).width(.condensed).monospacedDigit())

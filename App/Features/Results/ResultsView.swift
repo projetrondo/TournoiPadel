@@ -194,7 +194,7 @@ struct PodiumView: View {
     private func pedestal(rank: Int, tier: RankTier, height: CGFloat) -> some View {
         let shape = UnevenRoundedRectangle(topLeadingRadius: 12, topTrailingRadius: 12, style: .continuous)
         return shape
-            .fill(LinearGradient(colors: [tier.color.opacity(0.30), Theme.graphite, Theme.carbon], startPoint: .top, endPoint: .bottom))
+            .fill(LinearGradient(colors: [tier.color.opacity(0.30), Theme.graphite, Theme.surface], startPoint: .top, endPoint: .bottom))
             .frame(height: height)
             .overlay(alignment: .top) {
                 Capsule()
