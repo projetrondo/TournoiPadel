@@ -56,13 +56,17 @@ jobs:
           # Barre d'état propre, comme sur les fiches Apple.
           xcrun simctl status_bar "$UDID" override --time 9:41 --dataNetwork wifi --wifiBars 3 --cellularMode active --cellularBars 4 --batteryState charged --batteryLevel 100
           xcrun simctl install "$UDID" build/Build/Products/Debug-iphonesimulator/PadelBuddy.app
+          # Laisser passer les notifications système du premier démarrage (ex. Apple Intelligence),
+          # qui s'afficheraient en haut des captures.
+          xcrun simctl launch "$UDID" "$BUNDLE" -ui-testing -demo-data -store
+          sleep 60
           for lang in fr en; do
             mkdir -p store/$lang
             shot() {
               local name=$1; shift
               xcrun simctl terminate "$UDID" "$BUNDLE" 2>/dev/null || true
               xcrun simctl launch "$UDID" "$BUNDLE" -ui-testing -demo-data -store -demo-language "$lang" "$@"
-              sleep 7
+              sleep 8
               xcrun simctl io "$UDID" screenshot "store/$lang/$name.png"
             }
             shot 1-classement -demo-open inProgress -demo-tab standings
