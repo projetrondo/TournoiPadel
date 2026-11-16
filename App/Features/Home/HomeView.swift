@@ -19,6 +19,7 @@ struct HomeView: View {
     @State private var isShowingSettings = LaunchOptions.opensSettings
     @State private var isShowingAccount = LaunchOptions.opensAccount
     @Environment(AccountCenter.self) private var accounts
+    @Environment(SyncCoordinator.self) private var sync
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     /// Nombre de tournois terminés affichés directement sur l'accueil.
@@ -137,7 +138,7 @@ struct HomeView: View {
             }
             .onOpenURL { url in
                 // Lien d'invitation padelbuddy://join/CODE reçu par message.
-                guard let code = InviteCode(url: url) else { return }
+                guard sync.isSharingAvailable, let code = InviteCode(url: url) else { return }
                 pendingJoinCode = code.value
                 isCreating = false
                 isJoining = true
@@ -287,12 +288,14 @@ struct HomeView: View {
             }
             .buttonStyle(PrimaryButtonStyle())
 
-            Button {
-                isJoining = true
-            } label: {
-                Label("Rejoindre un tournoi", systemImage: "person.2.fill")
+            if sync.isSharingAvailable {
+                Button {
+                    isJoining = true
+                } label: {
+                    Label("Rejoindre un tournoi", systemImage: "person.2.fill")
+                }
+                .buttonStyle(SecondaryButtonStyle())
             }
-            .buttonStyle(SecondaryButtonStyle())
         }
     }
 }

@@ -3,6 +3,7 @@ import SwiftUI
 /// Explications pour ceux qui ne connaissent pas les formats, et informations sur l'app.
 struct HelpView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(SyncCoordinator.self) private var sync
 
     var body: some View {
         NavigationStack {
@@ -87,6 +88,7 @@ struct HelpView: View {
                     )
                 }
 
+                if sync.isSharingAvailable {
                 Section("Partage entre amis") {
                     topic(
                         "Suivre un tournoi",
@@ -94,16 +96,22 @@ struct HelpView: View {
                         text: "L'organisateur partage un code à 6 caractères. Les amis le saisissent dans « Rejoindre un tournoi » et suivent les scores et le classement. Seul l'organisateur saisit les scores."
                     )
                 }
+                }
 
                 Section("Confidentialité") {
                     topic(
                         "Vos données",
                         symbol: "lock",
-                        text: "Pas de compte, pas de publicité, aucun suivi. Les tournois sont enregistrés sur votre iPhone. Un tournoi n'est envoyé en ligne que si vous le partagez, et vous pouvez le retirer à tout moment."
+                        text: "Pas de compte obligatoire, pas de publicité, aucun suivi. Les tournois sont enregistrés sur votre iPhone."
                     )
                     if let url = AppLinks.privacyPolicy {
                         Link(destination: url) {
                             Label("Politique de confidentialité", systemImage: "doc.text")
+                        }
+                    }
+                    if let url = AppLinks.support {
+                        Link(destination: url) {
+                            Label("Assistance", systemImage: "questionmark.bubble")
                         }
                     }
                 }

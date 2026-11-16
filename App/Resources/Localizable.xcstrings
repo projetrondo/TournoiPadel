@@ -661,6 +661,16 @@
         }
       }
     },
+    "Assistance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support"
+          }
+        }
+      }
+    },
     "Aucun" : {
       "localizations" : {
         "en" : {
@@ -2851,12 +2861,12 @@
         }
       }
     },
-    "Pas de compte, pas de publicité, aucun suivi. Les tournois sont enregistrés sur votre iPhone. Un tournoi n'est envoyé en ligne que si vous le partagez, et vous pouvez le retirer à tout moment." : {
+    "Pas de compte obligatoire, pas de publicité, aucun suivi. Les tournois sont enregistrés sur votre iPhone." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No account, no ads, no tracking. Tournaments are saved on your iPhone. A tournament is only sent online if you share it, and you can remove it at any time."
+            "value" : "No account required, no ads, no tracking. Tournaments are saved on your iPhone."
           }
         }
       }
