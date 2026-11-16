@@ -26,7 +26,8 @@ struct PadelBuddyApp: App {
             // et le serveur de partage est simulé en mémoire.
             store = InMemoryTournamentStore(arguments.contains("-demo-data") ? DemoData.tournaments() : [])
             sessionStore = InMemorySessionStore(arguments.contains("-demo-data") ? DemoData.sessions() : [])
-            service = InMemorySyncService()
+            // `-store` : captures App Store, comme la version publiée (sans partage ni compte).
+            service = arguments.contains("-store") ? UnavailableSyncService() : InMemorySyncService()
         } else {
             let directory = URL.applicationSupportDirectory
                 .appending(path: "Tournaments", directoryHint: .isDirectory)
@@ -43,7 +44,7 @@ struct PadelBuddyApp: App {
             // Compte simulé : `-demo-account` affiche un compte connecté, sans réseau.
             let signedIn = arguments.contains("-demo-account")
             _accounts = State(initialValue: AccountCenter(
-                backend: InMemoryBackend(signedIn: signedIn),
+                backend: arguments.contains("-store") ? nil : InMemoryBackend(signedIn: signedIn),
                 library: library,
                 sessions: sessions,
                 defaults: UserDefaults(suiteName: "ui-testing") ?? .standard,

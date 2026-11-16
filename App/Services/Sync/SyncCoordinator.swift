@@ -30,6 +30,10 @@ final class SyncCoordinator {
 
     @ObservationIgnored private let library: TournamentLibrary
     @ObservationIgnored private let service: any TournamentSyncService
+
+    /// Partage entre iPhone activé dans cette version (CloudKit configuré). Sinon, les boutons
+    /// « Partager » et « Rejoindre » ne sont pas affichés.
+    var isSharingAvailable: Bool { service.isConfigured }
     @ObservationIgnored let deviceID: String
     @ObservationIgnored private let now: () -> Date
     @ObservationIgnored private var publishTasks: [Tournament.ID: Task<Void, Never>] = [:]
@@ -278,7 +282,9 @@ final class SyncCoordinator {
 enum AppLinks {
     static let download: URL? = nil
     /// Politique de confidentialité publiée (obligatoire pour l'App Store), voir docs/PUBLICATION.md.
-    static let privacyPolicy: URL? = nil
+    static let privacyPolicy = URL(string: "https://projetrondo.github.io/TournoiPadel/confidentialite.html")
+    /// Page d'assistance (questions, contact).
+    static let support = URL(string: "https://projetrondo.github.io/TournoiPadel/")
 }
 
 /// Identifiant aléatoire de cet appareil (aucune donnée personnelle), conservé localement.

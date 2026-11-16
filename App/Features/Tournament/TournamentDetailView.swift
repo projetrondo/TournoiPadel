@@ -112,8 +112,10 @@ struct TournamentDetailView: View {
                             isConfirmingUnfollow = true
                         }
                     } else {
-                        Button("Partager le tournoi", systemImage: "person.2.wave.2") {
-                            isSharing = true
+                        if sync.isSharingAvailable {
+                            Button("Partager le tournoi", systemImage: "person.2.wave.2") {
+                                isSharing = true
+                            }
                         }
                         Button("Supprimer le tournoi", systemImage: "trash", role: .destructive) {
                             isConfirmingDelete = true
