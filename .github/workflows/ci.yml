@@ -13,12 +13,18 @@ concurrency:
 jobs:
   core:
     name: Moteur PadelCore (Linux)
-    runs-on: ubuntu-latest
-    container: swift:6.0-noble
+    runs-on: ${{ vars.RUNNER || 'projetrondo' }}
+    timeout-minutes: 90
+    # Runners de la préprod : ils tournent eux-mêmes dans Docker, un « container: » de job n'y trouve pas les outils du
+    # runner. Le compilateur Swift tourne donc dans un conteneur lancé à la main, sur le même dossier (même chemin sur
+    # le serveur et dans le runner).
     steps:
       - uses: actions/checkout@v4
       - name: Tests du moteur
-        run: swift test --package-path Packages/PadelCore 2>&1 | tee core-tests.log
+        run: |
+          docker run --rm -v "$GITHUB_WORKSPACE:$GITHUB_WORKSPACE" -w "$GITHUB_WORKSPACE" swift:6.0-noble \
+            swift test --package-path Packages/PadelCore 2>&1 | tee core-tests.log
+          test ${PIPESTATUS[0]} -eq 0
         shell: bash
       - uses: actions/upload-artifact@v4
         if: always()
@@ -28,7 +34,8 @@ jobs:
 
   api:
     name: API EAGLE (PHP 8.4, PostgreSQL)
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER || 'projetrondo' }}
+    timeout-minutes: 90
     services:
       postgres:
         image: postgres:16-alpine
@@ -36,7 +43,8 @@ jobs:
           POSTGRES_USER: eagle
           POSTGRES_PASSWORD: eagle
           POSTGRES_DB: eagle
-        ports: ['5432:5432']
+        # Port attribué par GitHub : les runners de la préprod partagent le réseau du serveur (pas de 5432 fixe).
+        ports: ['5432']
         options: >-
           --health-cmd "pg_isready -U eagle" --health-interval 5s --health-timeout 3s --health-retries 20
     defaults:
@@ -44,6 +52,9 @@ jobs:
         working-directory: server
     steps:
       - uses: actions/checkout@v4
+      # server/.env vise 127.0.0.1:5432 : ici, le port du service de ce job (le contexte « job » n'existe pas dans l'env).
+      - name: Port de la base de test
+        run: echo "DATABASE_URL=postgresql://eagle:eagle@127.0.0.1:${{ job.services.postgres.ports['5432'] }}/eagle?serverVersion=16&charset=utf8" >> "$GITHUB_ENV"
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
@@ -58,11 +69,17 @@ jobs:
       - name: Tests de l'API
         run: vendor/bin/phpunit 2>&1 | tee ../api-tests.log
         shell: bash
+      # Docker du serveur de préprod : une étiquette propre à l'exécution, retirée ensuite.
       - name: Image Docker de production
-        run: docker build -f infra/Dockerfile --target prod -t eagle-api .
+        run: |
+          docker build -f infra/Dockerfile --target prod -t eagle-api:ci-${{ github.run_id }} .
+          docker image rm eagle-api:ci-${{ github.run_id }}
 
   ios:
     name: Application iOS (simulateur)
+    # Machine macOS de GitHub = payante (décision du fondateur du 23/11/2026 : rien ne tourne chez GitHub). Sauté tant que
+    # la variable MACOS_GITHUB du dépôt ne vaut pas « true » ; à lancer depuis un Mac en attendant.
+    if: ${{ vars.MACOS_GITHUB == 'true' }}
     runs-on: macos-26
     needs: core
     permissions:
