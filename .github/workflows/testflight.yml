@@ -18,6 +18,9 @@ on:
 
 jobs:
   testflight:
+    # Machine macOS de GitHub = payante (décision du fondateur du 23/11/2026 : rien ne tourne chez GitHub). Sauté tant que
+    # la variable MACOS_GITHUB du dépôt ne vaut pas « true » ; à lancer depuis un Mac en attendant.
+    if: ${{ vars.MACOS_GITHUB == 'true' }}
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
