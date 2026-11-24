@@ -45,8 +45,10 @@ jobs:
           POSTGRES_DB: eagle
         # Port attribué par GitHub : les runners de la préprod partagent le réseau du serveur (pas de 5432 fixe).
         ports: ['5432']
+        # Base en mémoire (tmpfs) : sans cela, chaque job laisse sur le serveur des runners un
+        # volume Docker orphelin de 200 Mo à 1 Go (une trentaine par jour, disque plein le 23/11/2026).
         options: >-
-          --health-cmd "pg_isready -U eagle" --health-interval 5s --health-timeout 3s --health-retries 20
+          --health-cmd "pg_isready -U eagle" --health-interval 5s --health-timeout 3s --health-retries 20 --tmpfs /var/lib/postgresql/data:rw,size=1g
     defaults:
       run:
         working-directory: server
